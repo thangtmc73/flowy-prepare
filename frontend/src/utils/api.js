@@ -25,6 +25,10 @@ export function fileToBase64(file) {
   })
 }
 
+export async function analyzeDocument(payload) {
+  return request('/api/analyze', { method: 'POST', body: JSON.stringify(payload) })
+}
+
 export async function uploadDocument(payload) {
   return request('/api/upload', { method: 'POST', body: JSON.stringify(payload) })
 }

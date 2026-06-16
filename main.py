@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field
 from services.document_parser import extract_text_from_upload
 from services.faq_generator import assign_faq_ids, generate_faqs_from_text
 from services.knowledge_store import KnowledgeStore
+from services.metadata_suggester import normalize_slug, suggest_metadata_from_text
 
 load_dotenv()
 
@@ -39,6 +40,11 @@ app.add_middleware(
 )
 
 
+class AnalyzeRequest(BaseModel):
+    filename: str
+    file_base64: str
+
+
 class UploadRequest(BaseModel):
     filename: str
     file_base64: str
@@ -47,6 +53,26 @@ class UploadRequest(BaseModel):
     product_id: str
     product_name: str
     category: str = "health"
+
+
+def _parse_upload_file(filename: str, file_base64: str) -> str:
+    ext = Path(filename).suffix.lower()
+    if ext not in {".pdf", ".docx"}:
+        raise HTTPException(status_code=400, detail="Only .pdf and .docx are supported.")
+    try:
+        return extract_text_from_upload(file_base64, filename)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+def _normalize_upload_metadata(body: UploadRequest) -> dict[str, str]:
+    return {
+        "partner_id": normalize_slug(body.partner_id),
+        "partner_name": body.partner_name.strip(),
+        "product_id": normalize_slug(body.product_id),
+        "product_name": body.product_name.strip(),
+        "category": body.category.strip().lower(),
+    }
 
 
 class FaqsUpdateRequest(BaseModel):
@@ -154,26 +180,45 @@ def get_session(session_id: str) -> dict[str, Any]:
     return session
 
 
-@app.post("/api/upload")
-def upload_document(body: UploadRequest, background_tasks: BackgroundTasks) -> dict[str, Any]:
-    ext = Path(body.filename).suffix.lower()
-    if ext not in {".pdf", ".docx"}:
-        raise HTTPException(status_code=400, detail="Only .pdf and .docx are supported.")
+@app.post("/api/analyze")
+def analyze_document(body: AnalyzeRequest) -> dict[str, Any]:
+    """Parse file and suggest partner/product metadata via LLM."""
+    source_text = _parse_upload_file(body.filename, body.file_base64)
+    existing_products = store.list_products()
 
     try:
-        source_text = extract_text_from_upload(body.file_base64, body.filename)
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+        metadata = suggest_metadata_from_text(
+            source_text,
+            filename=body.filename,
+            existing_products=existing_products,
+        )
+    except Exception as exc:
+        logger.exception("Metadata suggestion failed")
+        raise HTTPException(status_code=502, detail=f"Không thể gợi ý metadata: {exc}") from exc
+
+    existing_product = store.load_product(metadata["partner_id"], metadata["product_id"])
+    return {
+        "source_text_length": len(source_text),
+        "metadata": metadata,
+        "existing_product": existing_product,
+        "categories": store.load_index().get("categories", []),
+    }
+
+
+@app.post("/api/upload")
+def upload_document(body: UploadRequest, background_tasks: BackgroundTasks) -> dict[str, Any]:
+    source_text = _parse_upload_file(body.filename, body.file_base64)
+    meta = _normalize_upload_metadata(body)
 
     session_id = uuid.uuid4().hex[:12]
     session = store.create_session(
         session_id=session_id,
         filename=body.filename,
-        partner_id=body.partner_id.strip().lower().replace(" ", "_"),
-        partner_name=body.partner_name,
-        product_id=body.product_id.strip().lower().replace(" ", "_"),
-        product_name=body.product_name,
-        category=body.category,
+        partner_id=meta["partner_id"],
+        partner_name=meta["partner_name"],
+        product_id=meta["product_id"],
+        product_name=meta["product_name"],
+        category=meta["category"],
         source_text=source_text,
     )
 
