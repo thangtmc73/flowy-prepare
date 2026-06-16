@@ -1,0 +1,71 @@
+{
+  "faqs": [
+    {
+      "id": "compare_001",
+      "canonical_question": "So sánh bảo hiểm sức khỏe các hãng trên Zalopay?",
+      "user_questions": [
+        "So sánh bảo hiểm sức khỏe các hãng trên Zalopay?",
+        "Nên mua bảo hiểm sức khỏe của hãng nào?",
+        "Khác biệt giữa các gói bảo hiểm sức khỏe?",
+        "Bảo hiểm sức khỏe nào tốt nhất trên Zalopay?"
+      ],
+      "answer": "Hiện tại Zalopay đang phân phối sản phẩm bảo hiểm sức khỏe từ MSIG Việt Nam:\n\n🔹 **BẢO HIỂM SỨC KHỎE 24/7 (MSIG)**:\n* Quyền lợi: Nội trú + Ngoại trú + Telemed\n* Đặc biệt: Bảo lãnh thuốc tại Pharmacity, khám từ xa qua WhiteCoat\n* Phù hợp: Người cần bảo vệ toàn diện, sử dụng dịch vụ y tế thường xuyên\n\nZalopay đang mở rộng thêm đối tác để mang đến nhiều lựa chọn hơn cho bạn. Bạn có thể liên hệ để được tư vấn chi tiết về gói phù hợp với nhu cầu của mình.",
+      "category": "So sánh sản phẩm",
+      "tags": [
+        "so sánh",
+        "zalopay",
+        "multi-partner"
+      ],
+      "priority": 6,
+      "source": "cross_product",
+      "scope": "all_partners"
+    },
+    {
+      "id": "compare_002",
+      "canonical_question": "Chi phí các gói bảo hiểm trên Zalopay là bao nhiêu?",
+      "user_questions": [
+        "Chi phí các gói bảo hiểm trên Zalopay là bao nhiêu?",
+        "Giá bảo hiểm trên Zalopay",
+        "Tổng hợp phí bảo hiểm các đối tác",
+        "Bảo hiểm trên Zalopay có những mức giá nào?",
+        "Liệt kê chi phí các gói bảo hiểm"
+      ],
+      "answer": "Dưới đây là tổng hợp chi phí các gói bảo hiểm trên Zalopay:\n\n🔹 **BẢO HIỂM AN NINH MẠNG (VBI)**:\n* Chi phí: 3.000 - 5.000 VNĐ/tháng\n* Gói tháng: 3.000 VNĐ (quyền lợi 25 triệu/năm)\n* Gói năm: 5.000 VNĐ/tháng (quyền lợi 50 triệu/năm)\n* Ưu đãi: Miễn phí tháng đầu tiên\n\n🔹 **BẢO HIỂM SỨC KHỎE 24/7 (MSIG)**:\n* Chi phí: Từ 1.5 triệu VNĐ/năm\n* Quyền lợi: Nội trú + Ngoại trú + Khám từ xa\n* Đặc biệt: Bảo lãnh trực tiếp tại Pharmacity\n\n🔹 **BẢO HIỂM SỐNG TỰ TIN (GIC)**:\n* Gói cơ bản: 4.000 VNĐ/tháng\n* Gói phổ thông: 8.000 VNĐ/tháng\n* Gói nâng cao: 15.000 VNĐ/tháng\n* Quyền lợi: Tai nạn + Trợ cấp thất nghiệp\n\n🔹 **BẢO HIỂM TRỄ VÀ HỦY CHUYẾN BAY (Bảo Việt)**:\n* Chi phí: 50.000 VNĐ/vé một chiều, 100.000 VNĐ/vé khứ hồi\n* Quyền lợi: Trễ chuyến bay + Hủy chuyến bay, mỗi quyền lợi 1.000.000 VNĐ\n* Mua kèm khi đặt vé máy bay trên Zalopay\n\n💡 **Lưu ý:** Tất cả giá đã bao gồm VAT (trừ bảo hiểm chuyến bay Bảo Việt không chịu VAT). Bạn có thể mua trực tiếp trên ứng dụng Zalopay.",
+      "category": "So sánh sản phẩm",
+      "tags": [
+        "chi phí",
+        "giá",
+        "so sánh",
+        "zalopay",
+        "tổng hợp"
+      ],
+      "priority": 6,
+      "source": "cross_product",
+      "scope": "all_partners"
+    },
+    {
+      "id": "compare_003",
+      "canonical_question": "So sánh các loại bảo hiểm trên Zalopay?",
+      "user_questions": [
+        "So sánh các loại bảo hiểm trên Zalopay",
+        "So sánh tất cả gói bảo hiểm",
+        "Các gói bảo hiểm trên Zalopay có gì khác nhau?",
+        "Nên chọn bảo hiểm nào trên Zalopay?",
+        "Sự khác biệt giữa các gói bảo hiểm Zalopay",
+        "Có những gói bảo hiểm nào?",
+        "Zalopay có những gói bảo hiểm gì?"
+      ],
+      "answer": "Zalopay hiện phân phối **4 sản phẩm bảo hiểm** từ các đối tác sau:\n\n🔹 **Bảo hiểm An ninh mạng (Cyber)** — **VBI**\n* Phạm vi bảo vệ: Tài khoản thanh toán và giao dịch online\n\n🔹 **Bảo hiểm Sức khỏe 24/7** — **MSIG Việt Nam**\n* Phạm vi bảo vệ: Chi phí điều trị nội trú, ngoại trú và khám từ xa\n\n🔹 **Bảo hiểm Sống tự tin (Credit Topup)** — **GIC**\n* Phạm vi bảo vệ: Tai nạn cá nhân và trợ cấp thất nghiệp\n\n🔹 **Bảo hiểm trễ và hủy chuyến bay** — **Bảo Việt**\n* Phạm vi bảo vệ: Rủi ro trễ chuyến bay và hủy chuyến bay\n\n💡 Bạn muốn tìm hiểu thêm về gói nào? Hãy hỏi thêm về **chi phí**, **quyền lợi chi tiết**, **cách mua** hoặc **quy trình bồi thường** của sản phẩm bạn quan tâm.",
+      "category": "So sánh sản phẩm",
+      "tags": [
+        "so sánh",
+        "tổng hợp",
+        "zalopay",
+        "all"
+      ],
+      "priority": 6,
+      "source": "cross_product",
+      "scope": "all_partners"
+    }
+  ]
+}

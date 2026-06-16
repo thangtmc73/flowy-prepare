@@ -15,6 +15,20 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+# Mirrors flowy-agent: knowledge/cross_product/{comparisons,general_faqs}.json
+CROSS_PRODUCT_CATALOG: dict[str, dict[str, str]] = {
+    "comparisons": {
+        "name": "So sánh sản phẩm",
+        "description": "So sánh giá, quyền lợi giữa các gói bảo hiểm",
+    },
+    "general_faqs": {
+        "name": "FAQ chung & liệt kê gói",
+        "description": "Danh sách gói, chi phí tổng hợp, thông tin chung",
+    },
+}
+PROTECTED_CROSS_PRODUCT_IDS = frozenset(CROSS_PRODUCT_CATALOG.keys())
+
+
 class KnowledgeStore:
     def __init__(
         self,
@@ -36,6 +50,122 @@ class KnowledgeStore:
 
     def _index_path(self) -> Path:
         return self.knowledge_dir / "_index.json"
+
+    def _cross_product_dir(self) -> Path:
+        return self.knowledge_dir / "cross_product"
+
+    def _cross_product_path(self, file_id: str) -> Path:
+        return self._cross_product_dir() / f"{file_id}.json"
+
+    def is_cross_product_id(self, file_id: str) -> bool:
+        return file_id in PROTECTED_CROSS_PRODUCT_IDS
+
+    def list_cross_products(self) -> list[dict[str, Any]]:
+        items: list[dict[str, Any]] = []
+        for file_id, meta in CROSS_PRODUCT_CATALOG.items():
+            path = self._cross_product_path(file_id)
+            faq_count = 0
+            if path.exists():
+                data = json.loads(path.read_text(encoding="utf-8"))
+                faq_count = len(data.get("faqs", []))
+            items.append(
+                {
+                    "file_id": file_id,
+                    "name": meta["name"],
+                    "description": meta["description"],
+                    "file": f"cross_product/{file_id}.json",
+                    "faq_count": faq_count,
+                    "deletable": False,
+                }
+            )
+        return items
+
+    def load_cross_product(self, file_id: str) -> dict[str, Any] | None:
+        if not self.is_cross_product_id(file_id):
+            return None
+        path = self._cross_product_path(file_id)
+        if not path.exists():
+            return None
+        data = json.loads(path.read_text(encoding="utf-8"))
+        meta = CROSS_PRODUCT_CATALOG[file_id]
+        return {
+            "file_id": file_id,
+            "name": meta["name"],
+            "description": meta["description"],
+            "file": f"cross_product/{file_id}.json",
+            "faqs": data.get("faqs", []),
+            "last_updated": datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d"),
+            "deletable": False,
+        }
+
+    def update_cross_product_faqs(
+        self, file_id: str, faqs: list[dict[str, Any]]
+    ) -> dict[str, Any]:
+        if not self.is_cross_product_id(file_id):
+            raise FileNotFoundError(f"Cross-product file not found: {file_id}")
+
+        path = self._cross_product_path(file_id)
+        if not path.exists():
+            raise FileNotFoundError(f"Cross-product file not found: {file_id}")
+
+        current = json.loads(path.read_text(encoding="utf-8"))
+        self._archive_cross_product_version(file_id, current)
+
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            json.dumps({"faqs": faqs}, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        return {
+            "file_id": file_id,
+            "faq_count": len(faqs),
+            "last_updated": datetime.now().strftime("%Y-%m-%d"),
+        }
+
+    def _archive_cross_product_version(
+        self, file_id: str, data: dict[str, Any]
+    ) -> None:
+        archive_dir = self.history_dir / "cross_product" / file_id
+        archive_dir.mkdir(parents=True, exist_ok=True)
+        stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        dest = archive_dir / f"v_{stamp}.json"
+        dest.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    def list_cross_product_history(self, file_id: str) -> list[dict[str, Any]]:
+        if not self.is_cross_product_id(file_id):
+            return []
+        archive_dir = self.history_dir / "cross_product" / file_id
+        if not archive_dir.exists():
+            return []
+        items: list[dict[str, Any]] = []
+        for path in sorted(archive_dir.glob("v_*.json"), reverse=True):
+            data = json.loads(path.read_text(encoding="utf-8"))
+            items.append(
+                {
+                    "filename": path.name,
+                    "faq_count": len(data.get("faqs", [])),
+                }
+            )
+        return items
+
+    def restore_cross_product_history(
+        self, file_id: str, history_filename: str
+    ) -> dict[str, Any]:
+        if not self.is_cross_product_id(file_id):
+            raise FileNotFoundError(f"Cross-product file not found: {file_id}")
+
+        archive_path = self.history_dir / "cross_product" / file_id / history_filename
+        if not archive_path.exists():
+            raise FileNotFoundError(f"History file not found: {history_filename}")
+
+        path = self._cross_product_path(file_id)
+        if path.exists():
+            current = json.loads(path.read_text(encoding="utf-8"))
+            self._archive_cross_product_version(file_id, current)
+
+        data = json.loads(archive_path.read_text(encoding="utf-8"))
+        path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        return {"restored_from": history_filename, "faq_count": len(data.get("faqs", []))}
 
     def load_index(self) -> dict[str, Any]:
         path = self._index_path()
@@ -447,6 +577,9 @@ class KnowledgeStore:
         self.save_index(index)
 
     def delete_product(self, partner_id: str, product_id: str) -> dict[str, Any]:
+        if partner_id == "cross_product" or self.is_cross_product_id(product_id):
+            raise ValueError("Cross-product knowledge cannot be deleted")
+
         product = self.load_product(partner_id, product_id)
         if not product:
             raise FileNotFoundError(f"Product not found: {partner_id}/{product_id}")

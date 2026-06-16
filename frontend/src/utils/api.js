@@ -90,6 +90,27 @@ export async function listProducts() {
   return request('/api/products')
 }
 
+export async function getCrossProduct(fileId) {
+  return request(`/api/cross-products/${fileId}`)
+}
+
+export async function updateCrossProductFaqs(fileId, faqs) {
+  return request(`/api/cross-products/${fileId}/faqs`, {
+    method: 'PUT',
+    body: JSON.stringify({ faqs }),
+  })
+}
+
+export async function listCrossProductHistory(fileId) {
+  return request(`/api/cross-products/${fileId}/history`)
+}
+
+export async function restoreCrossProductHistory(fileId, filename) {
+  return request(`/api/cross-products/${fileId}/history/${filename}/restore`, {
+    method: 'POST',
+  })
+}
+
 export async function getProduct(partnerId, productId) {
   return request(`/api/products/${partnerId}/${productId}`)
 }

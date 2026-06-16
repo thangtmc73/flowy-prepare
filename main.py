@@ -240,7 +240,47 @@ def health() -> dict[str, str]:
 
 @app.get("/api/products")
 def list_products() -> dict[str, Any]:
-    return {"products": store.list_products()}
+    return {
+        "products": store.list_products(),
+        "cross_products": store.list_cross_products(),
+    }
+
+
+@app.get("/api/cross-products/{file_id}")
+def get_cross_product(file_id: str) -> dict[str, Any]:
+    item = store.load_cross_product(file_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Cross-product file not found")
+    return item
+
+
+@app.put("/api/cross-products/{file_id}/faqs")
+def update_cross_product_faqs(
+    file_id: str, body: ProductFaqsUpdateRequest
+) -> dict[str, Any]:
+    try:
+        result = store.update_cross_product_faqs(file_id, body.faqs)
+        return {"status": "ok", **result}
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/cross-products/{file_id}/history")
+def list_cross_product_history(file_id: str) -> dict[str, Any]:
+    if not store.is_cross_product_id(file_id):
+        raise HTTPException(status_code=404, detail="Cross-product file not found")
+    return {"history": store.list_cross_product_history(file_id)}
+
+
+@app.post("/api/cross-products/{file_id}/history/{filename}/restore")
+def restore_cross_product_history(
+    file_id: str, filename: str
+) -> dict[str, Any]:
+    try:
+        result = store.restore_cross_product_history(file_id, filename)
+        return {"status": "ok", **result}
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/products/{partner_id}/{product_id}")
@@ -267,6 +307,8 @@ def delete_product(partner_id: str, product_id: str) -> dict[str, Any]:
     try:
         result = store.delete_product(partner_id, product_id)
         return {"status": "deleted", **result}
+    except ValueError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
@@ -436,6 +478,31 @@ def search_knowledge(body: SearchRequest) -> dict[str, Any]:
                         "score": round(score, 3),
                         "partner_id": item["partner_id"],
                         "product_id": item["product_id"],
+                        "faq_id": faq.get("id"),
+                        "canonical_question": canonical,
+                        "answer": faq.get("answer"),
+                        "category": faq.get("category"),
+                    }
+                )
+
+    for cross in store.list_cross_products():
+        file_id = cross["file_id"]
+        if body.partner_id or body.product_id:
+            continue
+        data = store.load_cross_product(file_id)
+        if not data:
+            continue
+        for faq in data.get("faqs", []):
+            canonical = faq.get("canonical_question", "")
+            score = SequenceMatcher(None, query, canonical.lower()).ratio()
+            for uq in faq.get("user_questions", []):
+                score = max(score, SequenceMatcher(None, query, uq.lower()).ratio())
+            if score >= 0.35:
+                results.append(
+                    {
+                        "score": round(score, 3),
+                        "partner_id": "cross_product",
+                        "product_id": file_id,
                         "faq_id": faq.get("id"),
                         "canonical_question": canonical,
                         "answer": faq.get("answer"),

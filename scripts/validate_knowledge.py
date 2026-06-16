@@ -160,6 +160,18 @@ def main() -> int:
         except Exception as exc:
             all_errors.append(f"Error processing index: {exc}")
 
+    cross_dir = knowledge_dir / "cross_product"
+    if cross_dir.exists():
+        for cross_path in sorted(cross_dir.glob("*.json")):
+            print(f"Validating {cross_path}...")
+            cross_errors = validate_product_file(cross_path, require_metadata=False)
+            all_errors.extend(cross_errors)
+            if cross_errors:
+                print("  ❌ Cross-product validation failed")
+            else:
+                data = json.loads(cross_path.read_text(encoding="utf-8"))
+                print(f"  ✅ Cross-product validation passed ({len(data.get('faqs', []))} FAQs)")
+
     print("\n" + "=" * 60)
     if all_errors:
         print("❌ VALIDATION FAILED")

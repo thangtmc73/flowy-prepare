@@ -3,6 +3,7 @@ import UploadPage from './pages/UploadPage'
 import ReviewPage from './pages/ReviewPage'
 import KnowledgeListPage from './pages/KnowledgeListPage'
 import ProductPage from './pages/ProductPage'
+import CrossProductPage from './pages/CrossProductPage'
 import UpdatePage from './pages/UpdatePage'
 
 function NavLink({ href, children }) {
@@ -54,7 +55,9 @@ export default function App() {
     page = <UpdatePage partnerId={parts[0]} productId={parts[1]} />
   } else if (location.startsWith('/knowledge/')) {
     const parts = location.replace('/knowledge/', '').split('/')
-    if (parts.length >= 2) {
+    if (parts[0] === 'cross-product' && parts[1]) {
+      page = <CrossProductPage fileId={parts[1]} />
+    } else if (parts.length >= 2) {
       page = <ProductPage partnerId={parts[0]} productId={parts[1]} />
     } else {
       page = <KnowledgeListPage />

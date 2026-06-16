@@ -1,0 +1,444 @@
+{
+  "faqs": [
+    {
+      "id": "general_products_001",
+      "canonical_question": "Có những gói bảo hiểm nào trên Zalopay?",
+      "user_questions": [
+        "Có những gói bảo hiểm nào?",
+        "Có những gói bảo hiểm nào trên Zalopay?",
+        "Zalopay có những gói bảo hiểm gì?",
+        "Liệt kê các gói bảo hiểm trên Zalopay",
+        "Danh sách gói bảo hiểm trên Zalopay",
+        "Zalopay đang có những sản phẩm bảo hiểm nào?",
+        "Có những loại bảo hiểm nào trên Zalopay?",
+        "Co nhung goi bao hiem nao?",
+        "Zalopay phân phối những gói bảo hiểm gì?"
+      ],
+      "answer": "Zalopay hiện phân phối **4 sản phẩm bảo hiểm** từ các đối tác sau:\n\n🔹 **Bảo hiểm An ninh mạng (Cyber)** — **VBI**\n* Phạm vi bảo vệ: Tài khoản thanh toán và giao dịch online\n\n🔹 **Bảo hiểm Sức khỏe 24/7** — **MSIG Việt Nam**\n* Phạm vi bảo vệ: Chi phí điều trị nội trú, ngoại trú và khám từ xa\n\n🔹 **Bảo hiểm Sống tự tin (Credit Topup)** — **GIC**\n* Phạm vi bảo vệ: Tai nạn cá nhân và trợ cấp thất nghiệp\n\n🔹 **Bảo hiểm trễ và hủy chuyến bay** — **Bảo Việt**\n* Phạm vi bảo vệ: Rủi ro trễ chuyến bay và hủy chuyến bay\n\n💡 Bạn muốn tìm hiểu thêm về gói nào? Hãy hỏi thêm về **chi phí**, **quyền lợi chi tiết**, **cách mua** hoặc **quy trình bồi thường** của sản phẩm bạn quan tâm.",
+      "category": "Thông tin chung",
+      "tags": [
+        "liệt kê",
+        "danh sách",
+        "gói bảo hiểm",
+        "all",
+        "zalopay"
+      ],
+      "priority": 10,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_cost_001",
+      "canonical_question": "Chi phí bảo hiểm trên Zalopay là bao nhiêu?",
+      "user_questions": [
+        "Chi phí bảo hiểm trên Zalopay là bao nhiêu?",
+        "Phí bảo hiểm trên Zalopay giá bao nhiêu?",
+        "Mua bảo hiểm trên Zalopay tốn bao nhiêu tiền?",
+        "Giá bảo hiểm trên Zalopay như thế nào?",
+        "Bảo hiểm Zalopay có đắt không?",
+        "Chi phí mua bảo hiểm sức khỏe trên Zalopay?",
+        "Phí bảo hiểm xe trên Zalopay là bao nhiêu?",
+        "Gia bao hiem tren Zalopay bao nhieu?",
+        "Chi phí bảo hiểm các gói có khác nhau không?"
+      ],
+      "answer": "Chi phí bảo hiểm trên Zalopay **khác nhau theo từng sản phẩm**. Hãy hỏi tên sản phẩm cụ thể (MSIG Sức khỏe 24/7, VBI Cyber, GIC Sống tự tin, Bảo Việt trễ/hủy chuyến bay...) để biết mức phí chính xác.",
+      "category": "Chi phí & Giá cả",
+      "tags": [
+        "chi phí",
+        "giá",
+        "phí bảo hiểm",
+        "pricing"
+      ],
+      "priority": 5,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_cost_002",
+      "canonical_question": "Có thể trả phí bảo hiểm theo tháng không?",
+      "user_questions": [
+        "Có thể trả phí bảo hiểm theo tháng không?",
+        "Bảo hiểm có thanh toán góp theo tháng không?",
+        "Có gói bảo hiểm trả phí hàng tháng không?",
+        "Mua bảo hiểm có thể trả dần được không?",
+        "Thanh toán bảo hiểm theo tháng hay theo năm?",
+        "Co the tra phi hang thang khong?",
+        "Zalopay có hỗ trợ thanh toán góp bảo hiểm không?"
+      ],
+      "answer": "Tùy theo sản phẩm:\n\n**Có thanh toán theo tháng**:\n- **Bảo hiểm Cyber (VBI)**: Có gói tháng 3.000 VND/tháng\n- Thanh toán tự động qua ví Zalopay hàng tháng\n\n**Thanh toán 1 lần/năm**:\n- **Bảo hiểm Sức khỏe 24/7 (MSIG)**: Thanh toán phí 1 lần cho cả năm\n- Không hỗ trợ trả góp theo tháng\n\n**Credit Topup Insurance (GIC)**:\n- Chi tiết liên hệ: +84 28 7300 8803\n\n*Tips*: \n- Gói năm thường có giá ưu đãi hơn gói tháng\n- Ví dụ: VBI Cyber gói năm chỉ 5.000đ/tháng thay vì 3.000đ/tháng",
+      "category": "Chi phí & Giá cả",
+      "tags": [
+        "chi phí",
+        "thanh toán",
+        "trả góp",
+        "theo tháng"
+      ],
+      "priority": 8,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_age_001",
+      "canonical_question": "Độ tuổi nào được mua bảo hiểm trên Zalopay?",
+      "user_questions": [
+        "Độ tuổi nào được mua bảo hiểm trên Zalopay?",
+        "Bao nhiêu tuổi thì mua được bảo hiểm?",
+        "Người cao tuổi có mua được bảo hiểm không?",
+        "Trẻ em có thể tham gia bảo hiểm không?",
+        "Giới hạn độ tuổi bảo hiểm là bao nhiêu?",
+        "Từ mấy tuổi được mua bảo hiểm?",
+        "Do tuoi ap dung bao hiem la bao nhieu?",
+        "60 tuổi có mua được bảo hiểm không?",
+        "Mua bảo hiểm cho bé 5 tuổi được không?"
+      ],
+      "answer": "Độ tuổi tham gia bảo hiểm khác nhau tùy sản phẩm:\n\n**Bảo hiểm Sức khỏe 24/7 (MSIG)**:\n- Độ tuổi: **1 - 60 tuổi**\n- Tái tục: Đến 65 tuổi\n- Trẻ em: Từ 1 tuổi trở lên\n- Người lớn tuổi: Tối đa 60 tuổi khi tham gia mới\n\n**Bảo hiểm Cyber (VBI)**:\n- Độ tuổi: **18 - 65 tuổi**\n- Chỉ dành cho người trưởng thành\n- Phải là chủ tài khoản Zalopay\n\n**Credit Topup Insurance (GIC)**:\n- Liên hệ để biết chi tiết: +84 28 7300 8803\n\n**Bảo hiểm trễ và hủy chuyến bay (Bảo Việt)**:\n- Độ tuổi: **6 tháng - 80 tuổi** (tính theo sinh nhật liền trước tại thời điểm khởi hành)\n- Mua kèm vé máy bay trên Zalopay, ít nhất 3 giờ trước giờ bay\n\n*Lưu ý*:\n- Mỗi sản phẩm có quy định độ tuổi riêng\n- Có thể mua bảo hiểm cho người thân (nếu đủ điều kiện)\n- Kiểm tra điều kiện cụ thể trong mô tả sản phẩm",
+      "category": "Điều kiện tham gia",
+      "tags": [
+        "độ tuổi",
+        "age",
+        "trẻ em",
+        "người cao tuổi"
+      ],
+      "priority": 5,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_age_002",
+      "canonical_question": "Có thể mua bảo hiểm cho người thân không?",
+      "user_questions": [
+        "Có thể mua bảo hiểm cho người thân không?",
+        "Mua bảo hiểm cho bố mẹ được không?",
+        "Có thể mua bảo hiểm cho con được không?",
+        "Mua bảo hiểm hộ người khác được không?",
+        "Tôi có thể mua cho vợ/chồng không?",
+        "Co mua bao hiem cho ba me duoc khong?",
+        "Mua bảo hiểm cho người thân như thế nào?",
+        "Điều kiện mua bảo hiểm cho người khác?"
+      ],
+      "answer": "**Có thể mua bảo hiểm cho người thân**, miễn họ đáp ứng điều kiện:\n\n**Bảo hiểm Sức khỏe 24/7 (MSIG)**:\n✅ Hoàn toàn được mua cho:\n- Bố mẹ (1-60 tuổi)\n- Vợ/chồng\n- Con cái (từ 1 tuổi)\n- Người thân khác\n\n*Điều kiện*:\n- Đủ độ tuổi (1-60 tuổi)\n- Không mắc bệnh nặng\n- Tình trạng sức khỏe hợp lệ\n\n**Bảo hiểm Cyber (VBI)**:\n❌ Chỉ dành cho chủ tài khoản Zalopay\n- Không thể mua hộ người khác\n- Người được bảo hiểm phải là người đăng ký\n\n**Lưu ý khi mua cho người thân**:\n1. Cung cấp thông tin chính xác của người được bảo hiểm\n2. Người đó phải đồng ý tham gia\n3. Giấy chứng nhận sẽ gửi về tài khoản người mua\n4. Quyền lợi thuộc về người được bảo hiểm",
+      "category": "Điều kiện tham gia",
+      "tags": [
+        "mua hộ",
+        "người thân",
+        "gia đình"
+      ],
+      "priority": 8,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_exclusion_001",
+      "canonical_question": "Trường hợp nào không được bồi thường bảo hiểm?",
+      "user_questions": [
+        "Trường hợp nào không được bồi thường bảo hiểm?",
+        "Bảo hiểm không bồi thường trong trường hợp nào?",
+        "Điều kiện loại trừ bảo hiểm là gì?",
+        "Những trường hợp nào bị từ chối bồi thường?",
+        "Bệnh gì thì không được bảo hiểm?",
+        "Truong hop khong duoc boi thuong?",
+        "Miễn trừ trách nhiệm bảo hiểm là gì?",
+        "Bảo hiểm không chi trả khi nào?"
+      ],
+      "answer": "Điều khoản loại trừ **khác nhau theo từng sản phẩm**. Hãy hỏi theo tên sản phẩm bạn quan tâm (ví dụ: loại trừ bảo hiểm Cyber, loại trừ Sức khỏe 24/7...) để xem chi tiết chính xác.",
+      "category": "Loại trừ & Miễn trừ",
+      "tags": [
+        "loại trừ",
+        "exclusion",
+        "không bồi thường",
+        "miễn trừ"
+      ],
+      "priority": 4,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_exclusion_002",
+      "canonical_question": "Bệnh có sẵn có được bảo hiểm không?",
+      "user_questions": [
+        "Bệnh có sẵn có được bảo hiểm không?",
+        "Đã mắc bệnh trước có mua được bảo hiểm không?",
+        "Pre-existing condition có được bồi thường không?",
+        "Bệnh mãn tính có được bảo hiểm không?",
+        "Tiểu đường có mua được bảo hiểm không?",
+        "Benh co san co duoc bao hiem khong?",
+        "Đang điều trị ung thư có tham gia được không?",
+        "Bệnh tim mạch có được bảo hiểm không?"
+      ],
+      "answer": "**Bệnh có sẵn (Pre-existing condition)** - Quy định theo sản phẩm:\n\n**Bảo hiểm Sức khỏe 24/7 (MSIG)**:\n\n❌ **Không bảo hiểm**:\n- Bệnh đã có trước khi mua bảo hiểm\n- Bệnh bẩm sinh\n- Bệnh mãn tính đang điều trị\n- Ví dụ: Tiểu đường, tim mạch, ung thư đang điều trị\n\n⏰ **Thời gian chờ cho bệnh đặc biệt**: 365 ngày\n- Nghĩa là: Mua hôm nay, bệnh đặc biệt mới phát sinh sau 1 năm mới được bồi thường\n\n✅ **Được bảo hiểm**:\n- Bệnh mới phát sinh sau khi mua BH (và qua thời gian chờ)\n- Tai nạn: Không có thời gian chờ\n\n**Bảo hiểm Cyber (VBI)**:\n✅ Không liên quan đến tình trạng sức khỏe\n- Bảo vệ tài khoản Zalopay\n- Không phụ thuộc vào bệnh tật\n\n**Khuyến nghị**:\n1. **Khai báo trung thực** tình trạng sức khỏe khi mua\n2. Nếu khai báo sai → Từ chối bồi thường\n3. Mua bảo hiểm sớm khi còn khỏe mạnh\n4. Đọc kỹ \"Điều kiện sản phẩm\" trước khi mua\n5. Liên hệ tư vấn: 1900 9129 (MSIG)",
+      "category": "Loại trừ & Miễn trừ",
+      "tags": [
+        "bệnh có sẵn",
+        "pre-existing",
+        "bệnh mãn tính"
+      ],
+      "priority": 4,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_exclusion_003",
+      "canonical_question": "Thời gian chờ bảo hiểm là gì?",
+      "user_questions": [
+        "Thời gian chờ bảo hiểm là gì?",
+        "Waiting period bảo hiểm là gì?",
+        "Mua xong bao lâu thì được bồi thường?",
+        "Tại sao mua rồi mà không được bảo hiểm ngay?",
+        "Thoi gian cho bao hiem la gi?",
+        "Bệnh bình thường thời gian chờ bao lâu?",
+        "Tai nạn có thời gian chờ không?",
+        "15 ngày thời gian chờ nghĩa là gì?"
+      ],
+      "answer": "**Thời gian chờ** là khoảng thời gian sau khi mua bảo hiểm mà **chưa được bồi thường** (trừ tai nạn).\n\n**Mục đích**: Tránh tình trạng mua bảo hiểm khi đã biết mình sắp mắc bệnh.\n\n**Bảo hiểm Sức khỏe 24/7 (MSIG)**:\n\n| Loại bệnh | Thời gian chờ | Ví dụ |\n|-----------|---------------|--------|\n| **Tai nạn** | ⚡ **0 ngày** | Ngã xe, bỏng, chấn thương → Bồi thường ngay |\n| **Bệnh thông thường** | ⏰ **15 ngày** | Cảm cúm, viêm họng, đau bụng |\n| **Trẻ < 5 tuổi** | ⏰ **30 ngày** | Tất cả các bệnh |\n| **Bệnh đặc biệt** | ⏰ **365 ngày** | Ung thư, sỏi thận, bệnh tim... |\n| **Telemed (khám từ xa)** | ⚡ **0 ngày** | Khám ngay, nhưng thuốc có thời gian chờ |\n\n**Bảo hiểm Cyber (VBI)**:\n✅ **Không có thời gian chờ**\n- Hiệu lực ngay sau khi thanh toán\n- Bảo vệ tài khoản Zalopay từ ngày đầu tiên\n\n**Ví dụ thực tế**:\n\n*Mua ngày 1/1/2026*:\n- Tai nạn ngày 2/1 → ✅ Được bồi thường\n- Viêm họng ngày 10/1 → ❌ Chưa qua 15 ngày\n- Viêm họng ngày 20/1 → ✅ Được bồi thường\n- Phát hiện ung thư 3/2026 → ❌ Chưa qua 365 ngày\n- Phát hiện ung thư 2/2027 → ✅ Được bồi thường\n\n**Lưu ý**:\n- Thời gian chờ **chỉ áp dụng 1 lần** khi mua mới\n- Tái tục hàng năm: Không cần chờ lại\n- Đọc kỹ \"Điều kiện sản phẩm\" để biết chi tiết",
+      "category": "Loại trừ & Miễn trừ",
+      "tags": [
+        "thời gian chờ",
+        "waiting period",
+        "hiệu lực"
+      ],
+      "priority": 4,
+      "source": "cross_product_generated",
+      "scope": "all_partners"
+    },
+    {
+      "id": "zalopay_platform_001",
+      "canonical_question": "Zalopay có vai trò gì trong bảo hiểm?",
+      "user_questions": [
+        "Zalopay có vai trò gì trong bảo hiểm?",
+        "Zalopay là công ty bảo hiểm à?",
+        "Tại sao mua bảo hiểm trên Zalopay?",
+        "Zalopay bán bảo hiểm của ai?",
+        "Bảo hiểm trên Zalopay khác gì mua trực tiếp?",
+        "Zalopay la cong ty bao hiem khong?",
+        "Mua bảo hiểm trên Zalopay có uy tín không?",
+        "Zalopay là trung gian hay công ty bảo hiểm?",
+        "Ai là người phát hành bảo hiểm trên Zalopay?"
+      ],
+      "answer": "Zalopay là **nền tảng trung gian phân phối bảo hiểm**, không phải công ty bảo hiểm. Hợp đồng do đối tác (MSIG, VBI, GIC, Bảo Việt...) phát hành; Zalopay hỗ trợ hiển thị, mua và thanh toán trên app.",
+      "category": "Về nền tảng Zalopay",
+      "tags": [
+        "zalopay",
+        "nền tảng",
+        "trung gian",
+        "vai trò"
+      ],
+      "priority": 5,
+      "source": "zalopay_platform_intro",
+      "scope": "all_partners"
+    },
+    {
+      "id": "zalopay_platform_002",
+      "canonical_question": "Mua bảo hiểm trên Zalopay có ưu điểm gì?",
+      "user_questions": [
+        "Mua bảo hiểm trên Zalopay có ưu điểm gì?",
+        "Lợi ích khi mua bảo hiểm qua Zalopay?",
+        "Tại sao nên mua bảo hiểm trên Zalopay?",
+        "Zalopay có gì hay hơn mua trực tiếp?",
+        "Mua bảo hiểm trên app Zalopay tiện thế nào?",
+        "Uu diem mua bao hiem tren Zalopay?",
+        "Mua bảo hiểm Zalopay có gì tốt?",
+        "Bảo hiểm trên Zalopay dễ dùng không?",
+        "Mua bảo hiểm online trên Zalopay như thế nào?"
+      ],
+      "answer": "Mua trên Zalopay: thao tác nhanh trên app, thanh toán qua ví, nhận giấy chứng nhận điện tử và quản lý hợp đồng tập trung.",
+      "category": "Về nền tảng Zalopay",
+      "tags": [
+        "zalopay",
+        "ưu điểm",
+        "lợi ích",
+        "tiện lợi"
+      ],
+      "priority": 5,
+      "source": "zalopay_platform_intro",
+      "scope": "all_partners"
+    },
+    {
+      "id": "zalopay_platform_003",
+      "canonical_question": "Bảo hiểm trên Zalopay có an toàn không?",
+      "user_questions": [
+        "Bảo hiểm trên Zalopay có an toàn không?",
+        "Mua bảo hiểm qua Zalopay có đảm bảo không?",
+        "Zalopay có uy tín trong bảo hiểm không?",
+        "Có nên mua bảo hiểm trên Zalopay không?",
+        "Bao hiem tren Zalopay co an toan khong?",
+        "Mua bảo hiểm online có rủi ro không?",
+        "Zalopay có lừa đảo không?",
+        "Bảo hiểm Zalopay có hợp pháp không?",
+        "Công ty bảo hiểm trên Zalopay có uy tín không?"
+      ],
+      "answer": "Bảo hiểm trên Zalopay do các công ty bảo hiểm được cấp phép tại Việt Nam phát hành. Giấy chứng nhận có giá trị pháp lý; quyền lợi và bồi thường theo hợp đồng của công ty bảo hiểm.",
+      "category": "Về nền tảng Zalopay",
+      "tags": [
+        "zalopay",
+        "an toàn",
+        "uy tín",
+        "hợp pháp"
+      ],
+      "priority": 5,
+      "source": "zalopay_platform_intro",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_claim_process_001",
+      "canonical_question": "Làm sao để yêu cầu bồi thường trên app Zalopay?",
+      "user_questions": [
+        "Làm sao để yêu cầu bồi thường trên app Zalopay?",
+        "Quy trình bồi thường trên Zalopay như thế nào?",
+        "Cách nộp hồ sơ bồi thường qua app Zalopay?",
+        "Yêu cầu bồi thường bảo hiểm trên Zalopay thế nào?",
+        "Làm thế nào để claim bảo hiểm trên Zalopay?",
+        "Lam sao de boi thuong tren Zalopay?",
+        "Nộp yêu cầu bồi thường ở đâu trên app?",
+        "Muốn claim bảo hiểm thì vào đâu trên Zalopay?",
+        "Hướng dẫn bồi thường qua ứng dụng Zalopay?",
+        "Tôi cần bồi thường thì làm gì trên app?"
+      ],
+      "answer": "**Quy trình bồi thường chung qua app Zalopay:**\n\n**Bước 1:** Mở ứng dụng **Zalopay**\n\n**Bước 2:** Vào mục **Bảo hiểm**\n\n**Bước 3:** Chọn **Quản lý hợp đồng** ở góc trái trên cùng\n\n**Bước 4:** Tìm và chọn **Chứng nhận bảo hiểm** muốn yêu cầu bồi thường\n\n**Bước 5:** Chọn mục **Bồi thường** và làm theo hướng dẫn trên màn hình\n\n---\n\n**Lưu ý quan trọng:**\n• Quy trình này áp dụng cho **TẤT CẢ** các sản phẩm bảo hiểm trên Zalopay\n• Chuẩn bị sẵn các giấy tờ cần thiết:\n  - Hóa đơn, chứng từ y tế (với bảo hiểm sức khỏe)\n  - Biên bản, giấy tờ liên quan (với bảo hiểm khác)\n• Hợp đồng phải còn hiệu lực\n• Đã qua thời gian chờ (nếu có)\n\n**Ngoài ra, bạn cũng có thể:**\n- Liên hệ hotline của công ty bảo hiểm đối tác\n- Gửi hồ sơ qua email (tùy sản phẩm)\n- Sử dụng app của đối tác (VD: Papaya Care cho MSIG)\n- Bảo hiểm chuyến bay (Bảo Việt): liên hệ Saladin qua cổng bồi thường, hotline **1900 638 454** hoặc **cs@saladin.vn**\n\n*Mẹo:* Chụp ảnh rõ nét các giấy tờ trước khi nộp để tăng tốc độ xử lý!",
+      "category": "Quy trình bồi thường",
+      "tags": [
+        "bồi thường",
+        "claim",
+        "app zalopay",
+        "quy trình",
+        "hướng dẫn"
+      ],
+      "priority": 5,
+      "source": "zalopay_claim_process",
+      "scope": "all_partners"
+    },
+    {
+      "id": "general_claim_process_002",
+      "canonical_question": "Tìm hợp đồng bảo hiểm ở đâu trên Zalopay?",
+      "user_questions": [
+        "Tìm hợp đồng bảo hiểm ở đâu trên Zalopay?",
+        "Xem hợp đồng bảo hiểm đã mua ở đâu?",
+        "Quản lý hợp đồng bảo hiểm trên Zalopay thế nào?",
+        "Làm sao để xem giấy chứng nhận bảo hiểm?",
+        "Tim hop dong bao hiem o dau?",
+        "Hợp đồng bảo hiểm lưu ở đâu trên app?",
+        "Xem danh sách bảo hiểm đã mua ở mục nào?",
+        "Kiểm tra hợp đồng bảo hiểm trên Zalopay?"
+      ],
+      "answer": "Trên app **Zalopay** → mục **Bảo hiểm** → **Quản lý hợp đồng** để xem danh sách hợp đồng, giấy chứng nhận và trạng thái hiệu lực.",
+      "category": "Quy trình bồi thường",
+      "tags": [
+        "quản lý hợp đồng",
+        "xem hợp đồng",
+        "app zalopay",
+        "giấy chứng nhận"
+      ],
+      "priority": 5,
+      "source": "zalopay_claim_process",
+      "scope": "all_partners"
+    },
+    {
+      "id": "motorcycle_insurance_001",
+      "canonical_question": "Mua bảo hiểm xe máy trên Zalopay có lợi ích gì?",
+      "user_questions": [
+        "Mua bảo hiểm xe máy trên Zalopay có lợi ích gì?",
+        "Lợi ích khi mua bảo hiểm TNDS xe máy trên Zalopay?",
+        "Mua bảo hiểm xe máy qua Zalopay có ưu đãi gì?",
+        "Bảo hiểm xe máy Zalopay có gì hấp dẫn?",
+        "Tại sao nên mua bảo hiểm xe máy trên Zalopay?",
+        "Bao hiem xe may tren Zalopay co gi tot?",
+        "Giá bảo hiểm xe máy trên Zalopay bao nhiêu?",
+        "Mua TNDS xe máy trên Zalopay có rẻ không?",
+        "Ưu điểm bảo hiểm xe máy Zalopay?"
+      ],
+      "answer": "**Lợi ích của việc mua bảo hiểm TNDS xe máy trên Zalopay:**\n\n**1. 🎁 Ưu đãi cực hấp dẫn**\n• **Tặng ngay 5 tháng bảo hiểm**\n• **Chỉ còn 39.600 VNĐ/năm** (thay vì giá thông thường)\n• Chi phí tiết kiệm, dễ tiếp cận cho mọi chủ xe máy\n\n**2. ⚡ Thủ tục đơn giản - Nhanh chóng**\n• Điền thông tin ngắn gọn trên app\n• Chủ động chọn ngày hiệu lực theo nhu cầu\n• Thao tác nhanh, linh hoạt thời gian sử dụng\n• Không cần đến văn phòng, không cần giấy tờ phức tạp\n\n**3. 📱 Giấy chứng nhận điện tử tiện lợi**\n• Nhận ngay sau khi mua (qua SMS, ZaloOA, app Zalopay)\n• Hiệu lực **tương đương bản cứng**\n• Tiện lưu trữ và xuất trình khi cần\n• Không lo mất, rách, hỏng\n\n**4. ✅ Đảm bảo hợp pháp**\n• Tuân thủ quy định pháp luật về TNDS bắt buộc\n• Tránh phạt khi tham gia giao thông\n• Bảo vệ tài chính khi xảy ra tai nạn\n\n**Tóm lại:** Mua bảo hiểm xe máy trên Zalopay = RẺ + NHANH + TIỆN + AN TÂM! 🏍️✨",
+      "category": "Bảo hiểm xe máy",
+      "tags": [
+        "xe máy",
+        "TNDS",
+        "motorcycle",
+        "ưu đãi",
+        "lợi ích"
+      ],
+      "priority": 6,
+      "source": "motorcycle_promotion",
+      "scope": "motorcycle"
+    },
+    {
+      "id": "motorcycle_insurance_002",
+      "canonical_question": "Bảo hiểm TNDS xe máy là gì?",
+      "user_questions": [
+        "Bảo hiểm TNDS xe máy là gì?",
+        "TNDS xe máy nghĩa là gì?",
+        "Bảo hiểm trách nhiệm dân sự xe máy là gì?",
+        "Có bắt buộc phải mua bảo hiểm xe máy không?",
+        "Không mua bảo hiểm xe máy có bị phạt không?",
+        "TNDS xe may la gi?",
+        "Bảo hiểm xe máy bảo vệ những gì?",
+        "Tại sao phải mua bảo hiểm xe máy?"
+      ],
+      "answer": "**Bảo hiểm TNDS xe máy** là bảo hiểm Trách nhiệm Dân sự bắt buộc cho chủ xe mô tô, xe máy.\n\n**Mục đích:**\n• Bảo vệ quyền lợi của **người bị thiệt hại** khi xảy ra tai nạn do xe của bạn gây ra\n• Đảm bảo trách nhiệm của chủ xe trước pháp luật\n\n**Quyền lợi bảo hiểm:**\n✅ Bồi thường cho người thứ ba khi xảy ra tai nạn giao thông\n✅ Chi phí y tế cho người bị thương\n✅ Bồi thường thiệt hại về tài sản\n✅ Tử vong hoặc thương tật (theo mức quy định)\n\n**Quy định pháp luật:**\n⚠️ **BẮT BUỘC** mua theo Luật Giao thông đường bộ\n⚠️ Không mua bị phạt: **400.000 - 600.000 VNĐ**\n⚠️ Kiểm tra khi đăng kiểm xe\n\n**Thời hạn bảo hiểm:**\n• Thường: **1 năm**\n• Có thể chọn ngày hiệu lực theo nhu cầu\n\n**Lưu ý:**\n- Bảo hiểm TNDS ≠ Bảo hiểm vật chất xe (bảo hiểm thân vỏ)\n- Chỉ bồi thường cho bên thứ ba, không bồi thường cho chính chủ xe\n\n*Trên Zalopay:* Chỉ 39.600 VNĐ/năm + Tặng 5 tháng! 🏍️",
+      "category": "Bảo hiểm xe máy",
+      "tags": [
+        "xe máy",
+        "TNDS",
+        "bắt buộc",
+        "trách nhiệm dân sự"
+      ],
+      "priority": 6,
+      "source": "motorcycle_general",
+      "scope": "motorcycle"
+    },
+    {
+      "id": "motorcycle_insurance_003",
+      "canonical_question": "Mua bảo hiểm xe máy trên Zalopay như thế nào?",
+      "user_questions": [
+        "Mua bảo hiểm xe máy trên Zalopay như thế nào?",
+        "Cách mua bảo hiểm TNDS xe máy qua app?",
+        "Quy trình mua bảo hiểm xe máy Zalopay?",
+        "Làm sao để mua bảo hiểm xe máy trên Zalopay?",
+        "Mua TNDS xe máy cần giấy tờ gì?",
+        "Mua bao hiem xe may tren Zalopay nhu the nao?",
+        "Hướng dẫn mua bảo hiểm xe máy online?",
+        "Thủ tục mua bảo hiểm xe máy có đơn giản không?"
+      ],
+      "answer": "**Quy trình mua bảo hiểm xe máy trên Zalopay cực kỳ đơn giản:**\n\n**Bước 1: Mở app Zalopay**\n• Vào mục **Bảo hiểm** (biểu tượng khiên/shield)\n\n**Bước 2: Chọn sản phẩm**\n• Tìm và chọn **Bảo hiểm TNDS xe máy**\n• Xem thông tin quyền lợi và giá\n\n**Bước 3: Điền thông tin**\n• Thông tin chủ xe (Họ tên, SĐT, CMND/CCCD)\n• Thông tin xe máy (Biển số xe, loại xe, số khung, số máy)\n• Chọn ngày hiệu lực (linh hoạt theo nhu cầu)\n\n**Bước 4: Thanh toán**\n• Thanh toán qua ví Zalopay: **39.600 VNĐ/năm**\n• Nhận ưu đãi tặng thêm 5 tháng\n\n**Bước 5: Nhận giấy chứng nhận**\n• Giấy chứng nhận điện tử gửi qua:\n  - SMS\n  - ZaloOA\n  - Mục \"Quản lý hợp đồng\" trên app Zalopay\n• Hiệu lực ngay, có thể xuất trình khi cần\n\n---\n\n**Giấy tờ cần chuẩn bị:**\n📝 CMND/CCCD của chủ xe\n🏍️ Giấy đăng ký xe (để lấy thông tin biển số, số khung, số máy)\n\n**Thời gian thực hiện:** Chỉ **3-5 phút**! ⚡\n\n*Lưu ý:* Nên mua trước khi hết hạn bảo hiểm cũ để không bị gián đoạn.",
+      "category": "Bảo hiểm xe máy",
+      "tags": [
+        "xe máy",
+        "TNDS",
+        "mua bảo hiểm",
+        "quy trình",
+        "hướng dẫn"
+      ],
+      "priority": 6,
+      "source": "motorcycle_purchase_guide",
+      "scope": "motorcycle"
+    },
+    {
+      "id": "zalopay_support_001",
+      "canonical_question": "Liên hệ hỗ trợ Zalopay qua đâu?",
+      "user_questions": [
+        "Liên hệ hỗ trợ Zalopay qua đâu?",
+        "Hotline Zalopay là số nào?",
+        "Tổng đài Zalopay bao nhiêu?",
+        "Số điện thoại hỗ trợ Zalopay?",
+        "Email hỗ trợ Zalopay là gì?",
+        "Lien he ho tro Zalopay o dau?",
+        "Gọi Zalopay số mấy?",
+        "Zalopay hỗ trợ khách hàng qua kênh nào?",
+        "Fanpage Zalopay ở đâu?",
+        "Liên hệ Zalopay như thế nào?",
+        "Gọi tổng đài Zalopay",
+        "CSKH Zalopay",
+        "Hỗ trợ khách hàng Zalopay"
+      ],
+      "answer": "Tổng đài chính thức **Zalopay**: **1900 54 54 36**\n\n* **Cước phí:** 1.000 VNĐ/phút\n* **Thời gian hoạt động:** 24/7 (kể cả ngày lễ, Tết)\n* **Tổng đài gọi ra (khi Zalopay liên hệ lại):** 028 7307 7068 / 028 7307 5068\n\n**Các kênh hỗ trợ khác:**\n* **Email:** hotro@zalopay.vn\n* **Trên app Zalopay:** Cá nhân → Trung tâm hỗ trợ → Gửi yêu cầu hỗ trợ\n* **Facebook:** [Fanpage Zalopay](https://www.facebook.com/Zalopay)\n* **Trung tâm trợ giúp:** [zalopay.vn/hoi-dap](https://zalopay.vn/hoi-dap)\n\n*Lưu ý:* Với yêu cầu **bồi thường bảo hiểm**, hãy liên hệ hotline của công ty bảo hiểm đối tác (MSIG, VBI, GIC, Bảo Việt...). Tổng đài Zalopay hỗ trợ các vấn đề về app, thanh toán và sử dụng dịch vụ trên nền tảng.",
+      "category": "Liên hệ & Hỗ trợ",
+      "tags": [
+        "zalopay",
+        "liên hệ",
+        "hotline",
+        "hỗ trợ",
+        "tổng đài"
+      ],
+      "priority": 10,
+      "source": "zalopay_official_support",
+      "scope": "all_partners"
+    }
+  ]
+}
