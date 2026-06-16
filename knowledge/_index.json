@@ -1,0 +1,12 @@
+{
+  "version": "2.0",
+  "last_updated": "2026-06-16",
+  "partners": [],
+  "categories": [
+    {"id": "health", "name": "Bảo hiểm sức khỏe"},
+    {"id": "car", "name": "Bảo hiểm xe cơ giới"},
+    {"id": "travel", "name": "Bảo hiểm du lịch"},
+    {"id": "financial", "name": "Bảo hiểm tài chính"},
+    {"id": "cyber", "name": "Bảo hiểm an ninh mạng"}
+  ]
+}

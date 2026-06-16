@@ -1,0 +1,125 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    paths:
+      - "knowledge/**"
+      - "main.py"
+      - "services/**"
+      - "frontend/**"
+      - "Dockerfile"
+      - "requirements.txt"
+      - "nginx.conf"
+      - "start.sh"
+      - "scripts/**"
+      - "agentbase.config.example.json"
+      - ".github/workflows/deploy.yml"
+  push:
+    branches:
+      - master
+    paths:
+      - "knowledge/**"
+      - "main.py"
+      - "services/**"
+      - "frontend/**"
+      - "Dockerfile"
+      - "requirements.txt"
+      - "nginx.conf"
+      - "start.sh"
+      - "scripts/**"
+      - "agentbase.config.example.json"
+      - ".github/workflows/deploy.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Validate Knowledge Base
+        run: python3 scripts/validate_knowledge.py
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Python syntax check
+        run: python3 -m compileall main.py services
+
+      - name: Build frontend
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+
+  deploy:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Create runtime env file
+        env:
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          EXTRACTION_MAX_CHARS: ${{ secrets.EXTRACTION_MAX_CHARS }}
+          KNOWLEDGE_DIR: knowledge
+          DRAFTS_DIR: data/sessions
+          HISTORY_DIR: data/history
+        run: |
+          test -n "$LLM_BASE_URL" || (echo "Missing secret: LLM_BASE_URL" && exit 1)
+          test -n "$LLM_MODEL" || (echo "Missing secret: LLM_MODEL" && exit 1)
+          test -n "$LLM_API_KEY" || (echo "Missing secret: LLM_API_KEY" && exit 1)
+
+          {
+            echo "LLM_BASE_URL=${LLM_BASE_URL}"
+            echo "LLM_MODEL=${LLM_MODEL}"
+            echo "LLM_API_KEY=${LLM_API_KEY}"
+            echo "KNOWLEDGE_DIR=${KNOWLEDGE_DIR:-knowledge}"
+            echo "DRAFTS_DIR=${DRAFTS_DIR:-data/sessions}"
+            echo "HISTORY_DIR=${HISTORY_DIR:-data/history}"
+          } > .env.deploy
+
+          if [ -n "${EXTRACTION_MAX_CHARS:-}" ]; then
+            echo "EXTRACTION_MAX_CHARS=${EXTRACTION_MAX_CHARS}" >> .env.deploy
+          fi
+
+      - name: Deploy to AgentBase
+        env:
+          GREENNODE_CLIENT_ID: ${{ secrets.GREENNODE_CLIENT_ID }}
+          GREENNODE_CLIENT_SECRET: ${{ secrets.GREENNODE_CLIENT_SECRET }}
+          AGENTBASE_RUNTIME_ID: ${{ secrets.AGENTBASE_RUNTIME_ID }}
+          AGENTBASE_IMAGE_NAME: flowy-pre-agent
+          AGENTBASE_FLAVOR: runtime-s2-general-2x4
+          AGENTBASE_ENV_FILE: .env.deploy
+          VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
+        run: |
+          test -n "$GREENNODE_CLIENT_ID" || (echo "Missing secret: GREENNODE_CLIENT_ID" && exit 1)
+          test -n "$GREENNODE_CLIENT_SECRET" || (echo "Missing secret: GREENNODE_CLIENT_SECRET" && exit 1)
+          test -n "$AGENTBASE_RUNTIME_ID" || (echo "Missing secret: AGENTBASE_RUNTIME_ID" && exit 1)
+          bash scripts/deploy_agentbase.sh

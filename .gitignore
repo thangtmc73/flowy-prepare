@@ -1,0 +1,15 @@
+data/sessions/
+data/history/
+.env
+.env.*
+.env.deploy
+.greennode.json
+.agentbase/
+.agentbase-state.json
+agentbase.config.json
+*.credentials.json
+__pycache__/
+*.pyc
+frontend/node_modules/
+frontend/dist/
+.DS_Store

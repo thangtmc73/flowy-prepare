@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #0144db;
+  --color-brand-hover: #0138b8;
+  --color-brand-light: #e8effc;
+}
+
+@layer base {
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #f8fafc;
+  }
+}
+
+.markdown-preview p { margin: 0.5em 0; }
+.markdown-preview ul { list-style: disc; padding-left: 1.25rem; margin: 0.5em 0; }
+.markdown-preview ol { list-style: decimal; padding-left: 1.25rem; margin: 0.5em 0; }

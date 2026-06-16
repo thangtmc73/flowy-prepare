@@ -1,0 +1,6 @@
+{
+  "runtime_id": "runtime-your-flowy-pre-runtime-id",
+  "image_name": "flowy-pre-agent",
+  "flavor": "runtime-s2-general-2x4",
+  "description": "Flowy Pre — PDF/DOCX knowledge builder agent"
+}
