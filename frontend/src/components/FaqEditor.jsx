@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 export default function FaqEditor({ faq, index, onChange, onDelete, onDuplicate }) {
   const [expanded, setExpanded] = useState(true)
+  const [answerTab, setAnswerTab] = useState('preview')
   const variantsText = (faq.user_questions || []).join('\n')
 
   const update = (field, value) => {
@@ -93,23 +94,51 @@ export default function FaqEditor({ faq, index, onChange, onDelete, onDuplicate 
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-500">Answer (markdown)</label>
-            <textarea
-              rows={8}
-              value={faq.answer || ''}
-              onChange={(e) => update('answer', e.target.value)}
-              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono"
-            />
-          </div>
-
-          {faq.answer && (
-            <div>
-              <label className="text-xs font-medium text-slate-500">Preview</label>
-              <div className="mt-1 p-3 rounded-lg bg-slate-50 border border-slate-100 text-sm markdown-preview prose prose-sm max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{faq.answer}</ReactMarkdown>
+            <div className="flex items-center justify-between gap-2">
+              <label className="text-xs font-medium text-slate-500">Answer (markdown)</label>
+              <div className="inline-flex rounded-lg border border-slate-200 bg-slate-50 p-0.5">
+                <button
+                  type="button"
+                  onClick={() => setAnswerTab('preview')}
+                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                    answerTab === 'preview'
+                      ? 'bg-white text-slate-800 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  Preview
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAnswerTab('edit')}
+                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                    answerTab === 'edit'
+                      ? 'bg-white text-slate-800 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-700'
+                  }`}
+                >
+                  Edit
+                </button>
               </div>
             </div>
-          )}
+
+            {answerTab === 'preview' ? (
+              <div className="mt-1 overflow-hidden rounded-lg border border-slate-100 bg-slate-50 p-3 text-sm markdown-preview prose prose-sm max-w-none">
+                {faq.answer ? (
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{faq.answer}</ReactMarkdown>
+                ) : (
+                  <p className="text-slate-400 italic">(Chưa có nội dung)</p>
+                )}
+              </div>
+            ) : (
+              <textarea
+                rows={8}
+                value={faq.answer || ''}
+                onChange={(e) => update('answer', e.target.value)}
+                className="mt-1 max-h-64 w-full overflow-y-auto rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono resize-y"
+              />
+            )}
+          </div>
         </div>
       )}
     </div>
