@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
@@ -435,3 +434,37 @@ class KnowledgeStore:
             product_entry["category"] = category
 
         self.save_index(index)
+
+    def delete_product(self, partner_id: str, product_id: str) -> dict[str, Any]:
+        product = self.load_product(partner_id, product_id)
+        if not product:
+            raise FileNotFoundError(f"Product not found: {partner_id}/{product_id}")
+
+        self._archive_version(partner_id, product_id, product)
+
+        product_path = self._product_path(partner_id, product_id)
+        if product_path.exists():
+            product_path.unlink()
+
+        partner_dir = product_path.parent
+        if partner_dir.exists() and not any(partner_dir.iterdir()):
+            partner_dir.rmdir()
+
+        index = self.load_index()
+        partner = next((p for p in index["partners"] if p["partner_id"] == partner_id), None)
+        if partner:
+            partner["products"] = [
+                p for p in partner["products"] if p["product_id"] != product_id
+            ]
+            if not partner["products"]:
+                index["partners"] = [
+                    p for p in index["partners"] if p["partner_id"] != partner_id
+                ]
+        self.save_index(index)
+
+        return {
+            "deleted": True,
+            "partner_id": partner_id,
+            "product_id": product_id,
+            "product_name": product.get("product_name"),
+        }

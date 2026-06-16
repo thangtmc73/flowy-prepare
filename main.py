@@ -262,6 +262,15 @@ def update_product_faqs(
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
+@app.delete("/api/products/{partner_id}/{product_id}")
+def delete_product(partner_id: str, product_id: str) -> dict[str, Any]:
+    try:
+        result = store.delete_product(partner_id, product_id)
+        return {"status": "deleted", **result}
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
 @app.get("/api/products/{partner_id}/{product_id}/history")
 def list_product_history(partner_id: str, product_id: str) -> dict[str, Any]:
     return {"history": store.list_history(partner_id, product_id)}

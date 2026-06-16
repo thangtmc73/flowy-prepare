@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'wouter'
+import { Link, useLocation } from 'wouter'
 import FaqEditor from '../components/FaqEditor'
-import { getProduct, listHistory, restoreHistory, updateProductFaqs } from '../utils/api'
+import { deleteProduct, getProduct, listHistory, restoreHistory, updateProductFaqs } from '../utils/api'
 
 export default function ProductPage({ partnerId, productId }) {
+  const [, setLocation] = useLocation()
   const [product, setProduct] = useState(null)
   const [faqs, setFaqs] = useState([])
   const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState('')
 
   const load = async () => {
@@ -55,6 +57,26 @@ export default function ProductPage({ partnerId, productId }) {
     }
   }
 
+  const handleDelete = async () => {
+    if (
+      !confirm(
+        `Xóa toàn bộ knowledge "${product?.product_name}"?\n\nHành động này không thể hoàn tác. Bản cuối sẽ được archive trước khi xóa.`
+      )
+    ) {
+      return
+    }
+    setDeleting(true)
+    setError('')
+    try {
+      await deleteProduct(partnerId, productId)
+      setLocation('/knowledge')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setDeleting(false)
+    }
+  }
+
   const updateFaq = (index, faq) => {
     setFaqs((prev) => prev.map((f, i) => (i === index ? faq : f)))
   }
@@ -93,6 +115,14 @@ export default function ProductPage({ partnerId, productId }) {
             className="px-3 py-2 text-sm bg-brand text-white rounded-lg hover:bg-brand-hover disabled:opacity-50"
           >
             {saving ? 'Đang lưu...' : 'Lưu chỉnh sửa'}
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={deleting}
+            className="px-3 py-2 text-sm border border-red-200 text-red-600 rounded-lg hover:bg-red-50 disabled:opacity-50"
+          >
+            {deleting ? 'Đang xóa...' : 'Xóa knowledge'}
           </button>
         </div>
       </div>

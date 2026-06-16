@@ -101,6 +101,10 @@ export async function updateProductFaqs(partnerId, productId, faqs) {
   })
 }
 
+export async function deleteProduct(partnerId, productId) {
+  return request(`/api/products/${partnerId}/${productId}`, { method: 'DELETE' })
+}
+
 export async function listHistory(partnerId, productId) {
   return request(`/api/products/${partnerId}/${productId}/history`)
 }
