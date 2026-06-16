@@ -121,6 +121,13 @@ def validate_product_file(file_path: Path, require_metadata: bool = True) -> lis
         elif not user_qs:
             errors.append(f"{prefix}: 'user_questions' array is empty")
 
+        tags = faq.get("tags")
+        if tags is not None:
+            if not isinstance(tags, list):
+                errors.append(f"{prefix}: 'tags' must be an array")
+            elif not all(isinstance(t, str) for t in tags):
+                errors.append(f"{prefix}: all items in 'tags' must be strings")
+
     return errors
 
 

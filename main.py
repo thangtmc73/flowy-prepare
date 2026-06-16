@@ -450,14 +450,39 @@ class SearchRequest(BaseModel):
 
 @app.post("/api/knowledge/search")
 def search_knowledge(body: SearchRequest) -> dict[str, Any]:
-    from difflib import SequenceMatcher
+    from services.faq_search import FAQ_SEARCH_THRESHOLD, faq_match_score
 
-    query = body.query.strip().lower()
+    query = body.query.strip()
     if not query:
         raise HTTPException(status_code=400, detail="Query is required.")
 
+    q_lower = query.lower()
     products = store.list_products()
     results: list[dict[str, Any]] = []
+
+    def append_result(
+        *,
+        score: float,
+        matched_tags: list[str],
+        partner_id: str,
+        product_id: str,
+        faq: dict[str, Any],
+    ) -> None:
+        if score < FAQ_SEARCH_THRESHOLD:
+            return
+        results.append(
+            {
+                "score": round(score, 3),
+                "partner_id": partner_id,
+                "product_id": product_id,
+                "faq_id": faq.get("id"),
+                "canonical_question": faq.get("canonical_question", ""),
+                "answer": faq.get("answer"),
+                "category": faq.get("category"),
+                "tags": faq.get("tags") or [],
+                "matched_tags": matched_tags,
+            }
+        )
 
     for item in products:
         if body.partner_id and item["partner_id"] != body.partner_id:
@@ -468,22 +493,14 @@ def search_knowledge(body: SearchRequest) -> dict[str, Any]:
         if not product:
             continue
         for faq in product.get("faqs", []):
-            canonical = faq.get("canonical_question", "")
-            score = SequenceMatcher(None, query, canonical.lower()).ratio()
-            for uq in faq.get("user_questions", []):
-                score = max(score, SequenceMatcher(None, query, uq.lower()).ratio())
-            if score >= 0.35:
-                results.append(
-                    {
-                        "score": round(score, 3),
-                        "partner_id": item["partner_id"],
-                        "product_id": item["product_id"],
-                        "faq_id": faq.get("id"),
-                        "canonical_question": canonical,
-                        "answer": faq.get("answer"),
-                        "category": faq.get("category"),
-                    }
-                )
+            score, matched_tags = faq_match_score(q_lower, faq)
+            append_result(
+                score=score,
+                matched_tags=matched_tags,
+                partner_id=item["partner_id"],
+                product_id=item["product_id"],
+                faq=faq,
+            )
 
     for cross in store.list_cross_products():
         file_id = cross["file_id"]
@@ -493,22 +510,14 @@ def search_knowledge(body: SearchRequest) -> dict[str, Any]:
         if not data:
             continue
         for faq in data.get("faqs", []):
-            canonical = faq.get("canonical_question", "")
-            score = SequenceMatcher(None, query, canonical.lower()).ratio()
-            for uq in faq.get("user_questions", []):
-                score = max(score, SequenceMatcher(None, query, uq.lower()).ratio())
-            if score >= 0.35:
-                results.append(
-                    {
-                        "score": round(score, 3),
-                        "partner_id": "cross_product",
-                        "product_id": file_id,
-                        "faq_id": faq.get("id"),
-                        "canonical_question": canonical,
-                        "answer": faq.get("answer"),
-                        "category": faq.get("category"),
-                    }
-                )
+            score, matched_tags = faq_match_score(q_lower, faq)
+            append_result(
+                score=score,
+                matched_tags=matched_tags,
+                partner_id="cross_product",
+                product_id=file_id,
+                faq=faq,
+            )
 
     results.sort(key=lambda x: x["score"], reverse=True)
     return {"query": body.query, "results": results[: body.top_k]}

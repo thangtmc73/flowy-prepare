@@ -22,6 +22,10 @@ KNOWLEDGE_RULES = """
 - user_questions: 5-10 biến thể (trang trọng, thân mật, lỗi chính tả, cách hỏi ngắn/dài)
 - answer: đầy đủ, markdown hợp lệ (* bullet, 1. 2. numbered list, **bold**)
 - category: một trong Giới thiệu chung | Quyền lợi | Điều kiện | Quy trình mua | Bồi thường | Chi phí | Loại trừ | So sánh | Khác
+- tags: 3–8 từ khóa tiếng Việt hoặc tiếng Anh, chữ thường, không dấu nếu là slug (vd: travel, zalopay)
+  * Bắt buộc gồm: {partner_id}, zalopay
+  * Thêm theo ngữ cảnh: loại BH (du lịch, sức khỏe, cyber...), chủ đề FAQ (bồi thường, chi phí, chuyến bay...)
+  * Ví dụ bảo hiểm chuyến bay: ["baoviet", "du lịch", "chuyến bay", "travel", "zalopay", "bồi thường"]
 
 ### Nguyên tắc tách câu hỏi (QUAN TRỌNG):
 - Rã NHỎ tối đa: mỗi FAQ chỉ trả lời MỘT ý cụ thể
@@ -92,6 +96,41 @@ def _dedupe_faqs(faqs: list[dict[str, Any]]) -> list[dict[str, Any]]:
         seen.add(key)
         unique.append(faq)
     return unique
+
+
+def normalize_tags(tags: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for tag in tags:
+        value = str(tag).strip().lower()
+        if value and value not in seen:
+            seen.add(value)
+            result.append(value)
+    return result
+
+
+def merge_faq_tags(
+    faq: dict[str, Any],
+    *,
+    partner_id: str,
+    product_id: str,
+) -> list[str]:
+    raw = list(faq.get("tags") or [])
+    raw.extend([partner_id, product_id, "zalopay"])
+    category = str(faq.get("category", "")).lower()
+    if any(k in category for k in ("du lịch", "travel", "chuyến bay")):
+        raw.extend(["du lịch", "travel", "chuyến bay"])
+    if any(k in category for k in ("sức khỏe", "health")):
+        raw.extend(["sức khỏe", "health"])
+    if any(k in category for k in ("cyber", "an ninh")):
+        raw.extend(["cyber", "an ninh mạng"])
+    if "chi phí" in category or "cost" in category:
+        raw.append("chi phí")
+    if "bồi thường" in category:
+        raw.append("bồi thường")
+    if "quyền lợi" in category:
+        raw.append("quyền lợi")
+    return normalize_tags(raw)
 
 
 def generate_faqs_from_text(
@@ -183,7 +222,7 @@ def assign_faq_ids(
                 "user_questions": faq.get("user_questions") or [],
                 "answer": faq.get("answer", ""),
                 "category": faq.get("category", "Khác"),
-                "tags": faq.get("tags") or [partner_id],
+                "tags": merge_faq_tags(faq, partner_id=partner_id, product_id=product_id),
                 "related_faq_ids": faq.get("related_faq_ids") or [],
                 "source": faq.get("source") or source,
                 "priority": faq.get("priority", 5),

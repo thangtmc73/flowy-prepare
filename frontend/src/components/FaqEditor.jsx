@@ -6,6 +6,7 @@ export default function FaqEditor({ faq, index, onChange, onDelete, onDuplicate 
   const [expanded, setExpanded] = useState(true)
   const [answerTab, setAnswerTab] = useState('preview')
   const variantsText = (faq.user_questions || []).join('\n')
+  const tagsText = (faq.tags || []).join(', ')
 
   const update = (field, value) => {
     onChange(index, { ...faq, [field]: value })
@@ -17,6 +18,14 @@ export default function FaqEditor({ faq, index, onChange, onDelete, onDuplicate 
       .map((s) => s.trim())
       .filter(Boolean)
     onChange(index, { ...faq, user_questions })
+  }
+
+  const updateTags = (text) => {
+    const tags = text
+      .split(',')
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean)
+    onChange(index, { ...faq, tags })
   }
 
   return (
@@ -32,6 +41,14 @@ export default function FaqEditor({ faq, index, onChange, onDelete, onDuplicate 
         <span className="text-xs px-2 py-0.5 rounded-full bg-slate-200 text-slate-600">
           {faq.category || 'Khác'}
         </span>
+        {(faq.tags || []).slice(0, 2).map((tag) => (
+          <span
+            key={tag}
+            className="text-[10px] px-1.5 py-0.5 rounded-full bg-brand-light text-brand"
+          >
+            {tag}
+          </span>
+        ))}
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); onDuplicate(index) }}
@@ -79,6 +96,18 @@ export default function FaqEditor({ faq, index, onChange, onDelete, onDuplicate 
                 className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-medium text-slate-500">
+              Tags (phân cách bằng dấu phẩy — dùng để search)
+            </label>
+            <input
+              value={tagsText}
+              onChange={(e) => updateTags(e.target.value)}
+              placeholder="baoviet, du lịch, chuyến bay, zalopay"
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono"
+            />
           </div>
 
           <div>
