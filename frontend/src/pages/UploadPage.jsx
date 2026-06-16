@@ -1,7 +1,7 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
 import ProgressBar from '../components/ProgressBar'
-import { analyzeDocument, fileToBase64, pollJob, uploadDocument } from '../utils/api'
+import { analyzeDocument, fileToBase64, getProduct, pollJob, uploadDocument } from '../utils/api'
 
 const CATEGORIES = [
   { id: 'health', label: 'Bảo hiểm sức khỏe' },
@@ -89,6 +89,23 @@ export default function UploadPage() {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (!suggested || !form.partner_id || !form.product_id) {
+      return
+    }
+    let cancelled = false
+    getProduct(form.partner_id, form.product_id)
+      .then((product) => {
+        if (!cancelled) setExistingProduct(product)
+      })
+      .catch(() => {
+        if (!cancelled) setExistingProduct(null)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [suggested, form.partner_id, form.product_id])
 
   const handleFileChange = (e) => {
     const selected = e.target.files?.[0] || null

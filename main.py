@@ -297,7 +297,7 @@ def get_session(session_id: str) -> dict[str, Any]:
     session = store.get_session(session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    return session
+    return store.enrich_session(session)
 
 
 @app.get("/api/jobs/{job_id}")

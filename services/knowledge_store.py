@@ -211,6 +211,16 @@ class KnowledgeStore:
             return None
         return json.loads(path.read_text(encoding="utf-8"))
 
+    def enrich_session(self, session: dict[str, Any]) -> dict[str, Any]:
+        """Attach live knowledge state — stored existing_product can be stale after delete."""
+        partner_id = session.get("partner_id", "")
+        product_id = session.get("product_id", "")
+        if partner_id and product_id:
+            session["existing_product"] = self.load_product(partner_id, product_id)
+        else:
+            session["existing_product"] = None
+        return session
+
     def list_sessions(self, status: str | None = None) -> list[dict[str, Any]]:
         sessions: list[dict[str, Any]] = []
         for path in sorted(self.drafts_dir.glob("*.json"), reverse=True):
@@ -248,6 +258,7 @@ class KnowledgeStore:
         session = self.get_session(session_id)
         if not session:
             raise FileNotFoundError(f"Session not found: {session_id}")
+        session = self.enrich_session(session)
         existing = (session.get("existing_product") or {}).get("faqs") or []
         incoming = session.get("faqs") or []
         diffs = compare_faq_lists(existing, incoming)
@@ -462,9 +473,27 @@ class KnowledgeStore:
                 ]
         self.save_index(index)
 
+        self._cleanup_product_sessions(partner_id, product_id)
+
         return {
             "deleted": True,
             "partner_id": partner_id,
             "product_id": product_id,
             "product_name": product.get("product_name"),
         }
+
+    def _cleanup_product_sessions(self, partner_id: str, product_id: str) -> None:
+        """Clear stale existing_product snapshots after knowledge delete."""
+        for path in self.drafts_dir.glob("*.json"):
+            if path.name.endswith("_upload.json"):
+                continue
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            if data.get("partner_id") != partner_id or data.get("product_id") != product_id:
+                continue
+            if not data.get("existing_product"):
+                continue
+            data["existing_product"] = None
+            path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")

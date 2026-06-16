@@ -31,13 +31,22 @@ export default function ReviewPage({ sessionId }) {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [showDiff, setShowDiff] = useState(false)
+  const [pollKey, setPollKey] = useState(0)
 
   const poll = useCallback(async () => {
     try {
       const data = await getSession(sessionId)
       setSession(data)
-      if (data.faqs?.length) setFaqs(data.faqs)
-      if (data.status === 'processing' || data.status === 'generating' || data.status === 'uploaded') {
+      const generating =
+        data.status === 'processing' ||
+        data.status === 'generating' ||
+        data.status === 'uploaded'
+      if (generating) {
+        setFaqs(data.faqs?.length ? data.faqs : [])
+      } else {
+        setFaqs(data.faqs || [])
+      }
+      if (generating) {
         return false
       }
       return true
@@ -64,7 +73,7 @@ export default function ReviewPage({ sessionId }) {
       cancelled = true
       clearTimeout(timer)
     }
-  }, [poll])
+  }, [poll, pollKey])
 
   const loadDiff = async () => {
     try {
@@ -108,10 +117,12 @@ export default function ReviewPage({ sessionId }) {
   const handleRegenerate = async () => {
     if (!confirm('Generate lại sẽ ghi đè các FAQ hiện tại. Tiếp tục?')) return
     setLoading(true)
+    setError('')
     try {
       await regenerateSession(sessionId)
       setFaqs([])
-      setSession((s) => ({ ...s, status: 'generating' }))
+      setSession((s) => ({ ...s, status: 'generating', faqs: [] }))
+      setPollKey((k) => k + 1)
     } catch (err) {
       setError(err.message)
       setLoading(false)
@@ -181,6 +192,16 @@ export default function ReviewPage({ sessionId }) {
       {session?.status === 'error' && (
         <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
           Lỗi generate: {session.error}
+        </div>
+      )}
+
+      {!isGenerating && session?.status === 'review' && faqs.length === 0 && (
+        <div className="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-700">
+          Chưa có FAQ nào được generate. Bấm{' '}
+          <button type="button" onClick={handleRegenerate} className="underline font-medium text-brand">
+            Generate lại
+          </button>
+          {' '}để thử lại.
         </div>
       )}
 
