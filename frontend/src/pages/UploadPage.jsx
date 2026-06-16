@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
-import { analyzeDocument, fileToBase64, uploadDocument } from '../utils/api'
+import ProgressBar from '../components/ProgressBar'
+import { analyzeDocument, fileToBase64, pollJob, uploadDocument } from '../utils/api'
 
 const CATEGORIES = [
   { id: 'health', label: 'Bảo hiểm sức khỏe' },
@@ -35,6 +36,7 @@ export default function UploadPage() {
   const [confidence, setConfidence] = useState('')
   const [existingProduct, setExistingProduct] = useState(null)
   const [analyzing, setAnalyzing] = useState(false)
+  const [analyzeProgress, setAnalyzeProgress] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const analyzeSeq = useRef(0)
@@ -42,6 +44,7 @@ export default function UploadPage() {
   const runAnalyze = useCallback(async (selectedFile) => {
     const seq = ++analyzeSeq.current
     setAnalyzing(true)
+    setAnalyzeProgress(null)
     setError('')
     setSuggested(false)
     setReasoning('')
@@ -51,9 +54,15 @@ export default function UploadPage() {
 
     try {
       const file_base64 = await fileToBase64(selectedFile)
-      const result = await analyzeDocument({
+      const { job_id } = await analyzeDocument({
         filename: selectedFile.name,
         file_base64,
+      })
+      const result = await pollJob(job_id, {
+        intervalMs: 1200,
+        onProgress: (progress) => {
+          if (seq === analyzeSeq.current) setAnalyzeProgress(progress)
+        },
       })
       if (seq !== analyzeSeq.current) return
 
@@ -76,6 +85,7 @@ export default function UploadPage() {
     } finally {
       if (seq === analyzeSeq.current) {
         setAnalyzing(false)
+        setAnalyzeProgress(null)
       }
     }
   }, [])
@@ -90,6 +100,7 @@ export default function UploadPage() {
       setForm(EMPTY_FORM)
       setSuggested(false)
       setAnalyzing(false)
+      setAnalyzeProgress(null)
     }
   }
 
@@ -140,9 +151,7 @@ export default function UploadPage() {
             className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-light file:text-brand file:font-medium"
           />
           {analyzing && (
-            <p className="mt-2 text-sm text-brand animate-pulse">
-              Đang đọc file và gợi ý metadata với MiniMax...
-            </p>
+            <ProgressBar progress={analyzeProgress} className="mt-3" />
           )}
         </div>
 

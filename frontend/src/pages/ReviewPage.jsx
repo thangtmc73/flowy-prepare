@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link, useLocation } from 'wouter'
 import FaqEditor from '../components/FaqEditor'
 import DiffView from '../components/DiffView'
+import ProgressBar from '../components/ProgressBar'
 import {
   compareSession,
   getSession,
@@ -36,7 +37,7 @@ export default function ReviewPage({ sessionId }) {
       const data = await getSession(sessionId)
       setSession(data)
       if (data.faqs?.length) setFaqs(data.faqs)
-      if (data.status === 'generating' || data.status === 'uploaded') {
+      if (data.status === 'processing' || data.status === 'generating' || data.status === 'uploaded') {
         return false
       }
       return true
@@ -55,7 +56,7 @@ export default function ReviewPage({ sessionId }) {
       if (cancelled) return
       setLoading(false)
       if (!done) {
-        timer = setTimeout(run, 2500)
+        timer = setTimeout(run, 1200)
       }
     }
     run()
@@ -138,7 +139,10 @@ export default function ReviewPage({ sessionId }) {
     return <p className="text-slate-500">Đang tải...</p>
   }
 
-  const isGenerating = session?.status === 'generating' || session?.status === 'uploaded'
+  const isGenerating =
+    session?.status === 'processing' ||
+    session?.status === 'generating' ||
+    session?.status === 'uploaded'
 
   return (
     <div>
@@ -171,9 +175,7 @@ export default function ReviewPage({ sessionId }) {
       </div>
 
       {isGenerating && (
-        <div className="mb-6 p-4 rounded-xl bg-brand-light border border-brand/20 text-brand text-sm">
-          MiniMax đang generate FAQ chi tiết... (có thể mất 1-3 phút với file dài)
-        </div>
+        <ProgressBar progress={session?.progress} className="mb-6" />
       )}
 
       {session?.status === 'error' && (

@@ -141,6 +141,71 @@ class KnowledgeStore:
         path = self._session_path(session["session_id"])
         path.write_text(json.dumps(session, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    def update_session_progress(self, session_id: str, progress: dict[str, Any]) -> None:
+        session = self.get_session(session_id)
+        if not session:
+            return
+        session["progress"] = progress
+        self.save_session(session)
+
+    def _upload_payload_path(self, session_id: str) -> Path:
+        return self.drafts_dir / f"{session_id}_upload.json"
+
+    def save_upload_payload(self, session_id: str, filename: str, file_base64: str) -> None:
+        payload = {"filename": filename, "file_base64": file_base64}
+        self._upload_payload_path(session_id).write_text(
+            json.dumps(payload), encoding="utf-8"
+        )
+
+    def load_upload_payload(self, session_id: str) -> dict[str, str] | None:
+        path = self._upload_payload_path(session_id)
+        if not path.exists():
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def delete_upload_payload(self, session_id: str) -> None:
+        path = self._upload_payload_path(session_id)
+        if path.exists():
+            path.unlink()
+
+    def create_pending_session(
+        self,
+        *,
+        session_id: str,
+        filename: str,
+        partner_id: str,
+        partner_name: str,
+        product_id: str,
+        product_name: str,
+        category: str,
+    ) -> dict[str, Any]:
+        session = {
+            "session_id": session_id,
+            "status": "processing",
+            "created_at": _utc_now(),
+            "updated_at": _utc_now(),
+            "filename": filename,
+            "partner_id": partner_id,
+            "partner_name": partner_name,
+            "product_id": product_id,
+            "product_name": product_name,
+            "category": category,
+            "source_text_length": 0,
+            "faqs": [],
+            "submit_mode": "merge",
+            "existing_product": self.load_product(partner_id, product_id),
+            "progress": {
+                "phase": "queued",
+                "percent": 0,
+                "message": "Đang xếp hàng xử lý...",
+                "current_chunk": None,
+                "total_chunks": None,
+                "faqs_so_far": None,
+            },
+        }
+        self.save_session(session)
+        return session
+
     def get_session(self, session_id: str) -> dict[str, Any] | None:
         path = self._session_path(session_id)
         if not path.exists():
@@ -150,7 +215,11 @@ class KnowledgeStore:
     def list_sessions(self, status: str | None = None) -> list[dict[str, Any]]:
         sessions: list[dict[str, Any]] = []
         for path in sorted(self.drafts_dir.glob("*.json"), reverse=True):
+            if path.name.endswith("_upload.json"):
+                continue
             data = json.loads(path.read_text(encoding="utf-8"))
+            if not data.get("session_id"):
+                continue
             if status and data.get("status") != status:
                 continue
             sessions.append(

@@ -29,6 +29,33 @@ export async function analyzeDocument(payload) {
   return request('/api/analyze', { method: 'POST', body: JSON.stringify(payload) })
 }
 
+export async function getJob(jobId) {
+  return request(`/api/jobs/${jobId}`)
+}
+
+export async function pollJob(jobId, { intervalMs = 1500, onProgress } = {}) {
+  return new Promise((resolve, reject) => {
+    const poll = async () => {
+      try {
+        const job = await getJob(jobId)
+        if (onProgress) onProgress(job.progress, job)
+        if (job.status === 'done') {
+          resolve(job.result)
+          return
+        }
+        if (job.status === 'error') {
+          reject(new Error(job.error || 'Job failed'))
+          return
+        }
+        setTimeout(poll, intervalMs)
+      } catch (err) {
+        reject(err)
+      }
+    }
+    poll()
+  })
+}
+
 export async function uploadDocument(payload) {
   return request('/api/upload', { method: 'POST', body: JSON.stringify(payload) })
 }

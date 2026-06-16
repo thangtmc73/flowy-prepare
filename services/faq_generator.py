@@ -6,9 +6,11 @@ import json
 import logging
 import os
 import re
-from typing import Any
+from typing import Any, Callable
 
 from langchain_openai import ChatOpenAI
+
+from services.document_parser import chunk_text
 
 logger = logging.getLogger("flowy_pre.faq_generator")
 
@@ -100,15 +102,40 @@ def generate_faqs_from_text(
     product_id: str,
     product_name: str,
     chunk_size: int | None = None,
+    on_progress: Callable[[dict[str, Any]], None] | None = None,
 ) -> list[dict[str, Any]]:
-    from services.document_parser import chunk_text
+    from services.progress import chunk_percent, make_progress
 
     max_chars = chunk_size or int(os.environ.get("EXTRACTION_MAX_CHARS", "12000"))
     chunks = chunk_text(text, max_chars=max_chars)
     llm = _get_llm()
     all_faqs: list[dict[str, Any]] = []
+    total = len(chunks)
+
+    if on_progress:
+        on_progress(
+            make_progress(
+                phase="generating_faqs",
+                percent=10,
+                message=f"Chuẩn bị generate FAQ ({total} đoạn tài liệu)...",
+                current_chunk=0,
+                total_chunks=total,
+                faqs_so_far=0,
+            )
+        )
 
     for idx, chunk in enumerate(chunks, start=1):
+        if on_progress:
+            on_progress(
+                make_progress(
+                    phase="generating_faqs",
+                    percent=chunk_percent(idx - 1, total, start=10, end=90),
+                    message=f"Đang generate FAQ đoạn {idx}/{total}...",
+                    current_chunk=idx,
+                    total_chunks=total,
+                    faqs_so_far=len(all_faqs),
+                )
+            )
         prompt = EXTRACTION_PROMPT.format(
             rules=KNOWLEDGE_RULES,
             partner_id=partner_id,
@@ -123,6 +150,17 @@ def generate_faqs_from_text(
         response = llm.invoke(prompt)
         chunk_faqs = _parse_json_array(response.content)
         all_faqs.extend(chunk_faqs)
+        if on_progress:
+            on_progress(
+                make_progress(
+                    phase="generating_faqs",
+                    percent=chunk_percent(idx, total, start=10, end=90),
+                    message=f"Hoàn tất đoạn {idx}/{total} ({len(all_faqs)} FAQ tạm thời)",
+                    current_chunk=idx,
+                    total_chunks=total,
+                    faqs_so_far=len(all_faqs),
+                )
+            )
 
     return _dedupe_faqs(all_faqs)
 
