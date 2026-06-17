@@ -32,9 +32,9 @@ export default function SharedKnowledgePanel({
   return (
     <div className="mt-8 border border-emerald-200 rounded-xl bg-emerald-50/50 overflow-hidden">
       <div className="px-5 py-4 border-b border-emerald-200 bg-emerald-50">
-        <h3 className="text-lg font-semibold text-emerald-900">Shared Knowledge Files</h3>
+        <h3 className="text-lg font-semibold text-emerald-900">File catalog dùng chung</h3>
         <p className="text-sm text-emerald-700 mt-1">
-          3 file được generate từ baseline GitHub + FAQ sản phẩm bạn đã chỉnh sửa.
+          3 file cập nhật từ catalog GitHub + FAQ sản phẩm bạn đã chỉnh sửa.
           Copy hoặc download để import vào flowy-agent.
         </p>
         <button

@@ -142,6 +142,48 @@ class SessionStore:
         self.save_session(session)
         return session
 
+    def create_json_session(
+        self,
+        *,
+        session_id: str,
+        filename: str,
+        partner_id: str,
+        partner_name: str,
+        product_id: str,
+        product_name: str,
+        category: str,
+        faqs: list[dict[str, Any]],
+        index_check: dict[str, Any],
+        import_mode: str,
+    ) -> dict[str, Any]:
+        session = {
+            "session_id": session_id,
+            "status": "review",
+            "source_type": "json_import",
+            "import_mode": import_mode,
+            "index_check": index_check,
+            "created_at": _utc_now(),
+            "updated_at": _utc_now(),
+            "filename": filename,
+            "partner_id": partner_id,
+            "partner_name": partner_name,
+            "product_id": product_id,
+            "product_name": product_name,
+            "category": category,
+            "source_text_length": 0,
+            "faqs": faqs,
+            "progress": {
+                "phase": "done",
+                "percent": 100,
+                "message": f"Import {len(faqs)} FAQ từ JSON",
+                "current_chunk": None,
+                "total_chunks": None,
+                "faqs_so_far": len(faqs),
+            },
+        }
+        self.save_session(session)
+        return session
+
     def build_product_json(self, session: dict[str, Any]) -> dict[str, Any]:
         return {
             "product_id": session["product_id"],

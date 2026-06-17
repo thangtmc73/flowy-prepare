@@ -56,6 +56,18 @@ export async function pollJob(jobId, { intervalMs = 1500, onProgress } = {}) {
   })
 }
 
+export async function checkJsonIndex(payload) {
+  return request('/api/json/check-index', { method: 'POST', body: JSON.stringify(payload) })
+}
+
+export async function previewJsonUpload(payload) {
+  return request('/api/json/preview', { method: 'POST', body: JSON.stringify(payload) })
+}
+
+export async function importJsonUpload(payload) {
+  return request('/api/json/import', { method: 'POST', body: JSON.stringify(payload) })
+}
+
 export async function uploadDocument(payload) {
   return request('/api/upload', { method: 'POST', body: JSON.stringify(payload) })
 }

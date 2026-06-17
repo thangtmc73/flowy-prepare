@@ -1,15 +1,9 @@
 import { useCallback, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
-import ProgressBar from '../components/ProgressBar'
+import ProgressBar from './ProgressBar'
+import { useToast } from './Toast'
 import { analyzeDocument, fileToBase64, pollJob, uploadDocument } from '../utils/api'
-
-const CATEGORIES = [
-  { id: 'health', label: 'Bảo hiểm sức khỏe' },
-  { id: 'travel', label: 'Bảo hiểm du lịch' },
-  { id: 'financial', label: 'Bảo hiểm tài chính' },
-  { id: 'cyber', label: 'An ninh mạng' },
-  { id: 'car', label: 'Bảo hiểm xe' },
-]
+import { CATEGORIES } from '../constants/categories'
 
 const EMPTY_FORM = {
   partner_id: '',
@@ -27,8 +21,23 @@ function SuggestBadge() {
   )
 }
 
-export default function UploadPage() {
+function MetadataSkeleton() {
+  return (
+    <div className="animate-pulse space-y-4">
+      <div className="h-4 bg-slate-200 rounded w-2/3" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} className="h-10 bg-slate-100 rounded-lg" />
+        ))}
+      </div>
+      <div className="h-10 bg-slate-100 rounded-lg" />
+    </div>
+  )
+}
+
+export default function DocUploadForm() {
   const [, setLocation] = useLocation()
+  const { showToast } = useToast()
   const [file, setFile] = useState(null)
   const [form, setForm] = useState(EMPTY_FORM)
   const [suggested, setSuggested] = useState(false)
@@ -123,6 +132,7 @@ export default function UploadPage() {
         file_base64,
         ...form,
       })
+      showToast('Đang generate FAQ...', 'info')
       setLocation(`/review/${result.session_id}`)
     } catch (err) {
       setError(err.message)
@@ -134,65 +144,63 @@ export default function UploadPage() {
   const formReady = suggested && !analyzing
 
   return (
-    <div className="max-w-2xl">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-2">Upload tài liệu</h2>
-      <p className="text-slate-600 mb-6 text-sm">
-        Chọn PDF hoặc DOCX — MiniMax sẽ đọc file, gợi ý Partner / Product / Category,
-        rồi generate FAQ để bạn chỉnh sửa và xuất file JSON.
-      </p>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div>
+        <label className="block text-sm font-medium text-slate-700 mb-1">File (PDF / DOCX)</label>
+        <input
+          type="file"
+          accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          onChange={handleFileChange}
+          className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-light file:text-brand file:font-medium"
+        />
+        {analyzing && (
+          <ProgressBar progress={analyzeProgress} className="mt-3" />
+        )}
+      </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-slate-200 p-6 space-y-5 shadow-sm">
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">File (PDF / DOCX)</label>
-          <input
-            type="file"
-            accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            onChange={handleFileChange}
-            className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-light file:text-brand file:font-medium"
-          />
-          {analyzing && (
-            <ProgressBar progress={analyzeProgress} className="mt-3" />
-          )}
+      {file && analyzing && !suggested && (
+        <div className="rounded-lg border border-slate-200 p-4 bg-slate-50">
+          <p className="text-sm text-slate-600 mb-3">Đang đọc tài liệu và gợi ý metadata...</p>
+          <MetadataSkeleton />
         </div>
+      )}
 
-        {suggested && reasoning && (
-          <div className="rounded-lg bg-slate-50 border border-slate-200 px-3 py-2 text-sm text-slate-600">
-            <span className="font-medium text-slate-800">
-              Gợi ý {confidence ? `(${confidence})` : ''}:
-            </span>{' '}
-            {reasoning}
-          </div>
-        )}
+      {suggested && reasoning && (
+        <div className="rounded-lg bg-slate-50 border border-slate-200 px-3 py-2 text-sm text-slate-600">
+          <span className="font-medium text-slate-800">
+            Gợi ý {confidence ? `(${confidence})` : ''}:
+          </span>{' '}
+          {reasoning}
+        </div>
+      )}
 
-        {isExistingProduct && (
-          <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-sm text-amber-900">
-            Product này đã có trong catalog GitHub. Bạn vẫn có thể generate FAQ mới
-            và cập nhật shared knowledge khi bấm Done.
-          </div>
-        )}
+      {isExistingProduct && (
+        <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-sm text-amber-900">
+          Sản phẩm này đã có trong catalog GitHub. Bạn có thể generate FAQ mới
+          và cập nhật file catalog dùng chung ở bước cuối.
+        </div>
+      )}
 
-        <fieldset
-          disabled={!file || analyzing}
-          className={`space-y-4 ${!file || analyzing ? 'opacity-60' : ''}`}
-        >
+      {formReady && (
+        <fieldset className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Partner ID
-                {suggested && <SuggestBadge />}
+                Mã đối tác
+                <SuggestBadge />
               </label>
               <input
                 required
                 placeholder="msig"
                 value={form.partner_id}
                 onChange={(e) => setForm({ ...form, partner_id: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Partner name
-                {suggested && <SuggestBadge />}
+                Tên đối tác
+                <SuggestBadge />
               </label>
               <input
                 required
@@ -204,21 +212,21 @@ export default function UploadPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Product ID
-                {suggested && <SuggestBadge />}
+                Mã sản phẩm
+                <SuggestBadge />
               </label>
               <input
                 required
                 placeholder="health_247"
                 value={form.product_id}
                 onChange={(e) => setForm({ ...form, product_id: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Product name
-                {suggested && <SuggestBadge />}
+                Tên sản phẩm
+                <SuggestBadge />
               </label>
               <input
                 required
@@ -232,8 +240,8 @@ export default function UploadPage() {
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">
-              Category
-              {suggested && <SuggestBadge />}
+              Loại bảo hiểm
+              <SuggestBadge />
             </label>
             <select
               value={form.category}
@@ -246,19 +254,19 @@ export default function UploadPage() {
             </select>
           </div>
         </fieldset>
+      )}
 
-        {error && (
-          <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{error}</p>
-        )}
+      {error && (
+        <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{error}</p>
+      )}
 
-        <button
-          type="submit"
-          disabled={loading || analyzing || !file || !formReady}
-          className="w-full bg-brand hover:bg-brand-hover text-white font-medium py-2.5 rounded-lg disabled:opacity-50 transition-colors"
-        >
-          {loading ? 'Đang upload...' : analyzing ? 'Đang phân tích...' : 'Generate FAQ'}
-        </button>
-      </form>
-    </div>
+      <button
+        type="submit"
+        disabled={loading || analyzing || !file || !formReady}
+        className="w-full bg-brand hover:bg-brand-hover text-white font-medium py-2.5 rounded-lg disabled:opacity-50 transition-colors"
+      >
+        {loading ? 'Đang upload...' : analyzing ? 'Đang phân tích...' : 'Generate FAQ'}
+      </button>
+    </form>
   )
 }

@@ -2,8 +2,25 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-export default function FaqEditor({ faq, index, onChange, onDelete, onDuplicate }) {
-  const [expanded, setExpanded] = useState(true)
+export default function FaqEditor({
+  faq,
+  index,
+  onChange,
+  onDelete,
+  onDuplicate,
+  expanded: controlledExpanded,
+  onExpandedChange,
+}) {
+  const [internalExpanded, setInternalExpanded] = useState(false)
+  const expanded = controlledExpanded !== undefined ? controlledExpanded : internalExpanded
+
+  const setExpanded = (value) => {
+    if (onExpandedChange) {
+      onExpandedChange(value)
+    } else {
+      setInternalExpanded(value)
+    }
+  }
   const [answerTab, setAnswerTab] = useState('preview')
   const variantsText = (faq.user_questions || []).join('\n')
   const tagsText = (faq.tags || []).join(', ')

@@ -9,7 +9,7 @@ import uuid
 import zipfile
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from dotenv import load_dotenv
 from fastapi import BackgroundTasks, FastAPI, HTTPException
@@ -20,8 +20,9 @@ from pydantic import BaseModel
 from services.document_parser import extract_text_from_upload
 from services.faq_generator import assign_faq_ids, generate_faqs_from_text
 from services.job_store import JobStore
-from services.knowledge_remote import fetch_raw, list_products_from_index, product_exists
+from services.knowledge_remote import check_against_index, fetch_raw, list_products_from_index, product_exists
 from services.metadata_suggester import normalize_slug, suggest_metadata_from_text
+from services.product_json import decode_json_upload, resolve_metadata_from_upload, validate_product_json
 from services.progress import make_progress
 from services.session_store import SessionStore
 from services.shared_knowledge_generator import generate_shared_knowledge
@@ -66,6 +67,51 @@ class UploadRequest(BaseModel):
 
 class FaqsUpdateRequest(BaseModel):
     faqs: list[dict[str, Any]]
+
+
+class JsonUploadRequest(BaseModel):
+    filename: str
+    file_base64: str
+
+
+class JsonImportRequest(BaseModel):
+    filename: str
+    file_base64: str
+    mode: Literal["update", "add_new"] = "update"
+    partner_id: str | None = None
+    partner_name: str | None = None
+    product_id: str | None = None
+    product_name: str | None = None
+    category: str | None = None
+
+
+class JsonIndexCheckRequest(BaseModel):
+    filename: str
+    partner_id: str
+    product_id: str
+
+
+def _preview_json_upload(filename: str, file_base64: str) -> dict[str, Any]:
+    data = decode_json_upload(filename, file_base64)
+    errors = validate_product_json(data)
+    if errors:
+        raise ValueError("; ".join(errors))
+
+    meta = resolve_metadata_from_upload(data, filename)
+    index = fetch_raw("_index.json")
+    index_check = check_against_index(
+        index,
+        filename=filename,
+        partner_id=meta["partner_id"],
+        product_id=meta["product_id"],
+    )
+
+    return {
+        "metadata": meta,
+        "faq_count": len(data.get("faqs") or []),
+        "index_check": index_check,
+        "categories": index.get("categories", []),
+    }
 
 
 def _normalize_upload_metadata(body: UploadRequest) -> dict[str, str]:
@@ -305,6 +351,108 @@ def analyze_document(body: AnalyzeRequest, background_tasks: BackgroundTasks) ->
     job = jobs.create("analyze")
     background_tasks.add_task(_run_analyze_job, job["job_id"], body.filename, body.file_base64)
     return {"job_id": job["job_id"], "status": "running"}
+
+
+@app.post("/api/json/check-index")
+def check_json_index(body: JsonIndexCheckRequest) -> dict[str, Any]:
+    try:
+        index = fetch_raw("_index.json")
+        partner_id = normalize_slug(body.partner_id)
+        product_id = normalize_slug(body.product_id)
+        index_check = check_against_index(
+            index,
+            filename=body.filename,
+            partner_id=partner_id,
+            product_id=product_id,
+        )
+        return {"index_check": index_check}
+    except RuntimeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.post("/api/json/preview")
+def preview_json_upload(body: JsonUploadRequest) -> dict[str, Any]:
+    try:
+        preview = _preview_json_upload(body.filename, body.file_base64)
+        return {"status": "ok", "preview": preview}
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.post("/api/json/import")
+def import_json_upload(body: JsonImportRequest) -> dict[str, Any]:
+    try:
+        data = decode_json_upload(body.filename, body.file_base64)
+        errors = validate_product_json(data)
+        if errors:
+            raise ValueError("; ".join(errors))
+
+        meta = resolve_metadata_from_upload(data, body.filename)
+        if body.partner_id:
+            meta["partner_id"] = normalize_slug(body.partner_id)
+        if body.partner_name:
+            meta["partner_name"] = body.partner_name.strip()
+        if body.product_id:
+            meta["product_id"] = normalize_slug(body.product_id)
+        if body.product_name:
+            meta["product_name"] = body.product_name.strip()
+        if body.category:
+            meta["category"] = body.category.strip().lower()
+
+        index = fetch_raw("_index.json")
+        index_check = check_against_index(
+            index,
+            filename=body.filename,
+            partner_id=meta["partner_id"],
+            product_id=meta["product_id"],
+        )
+
+        exists = index_check["exists_in_index"]
+        if body.mode == "update" and not exists:
+            raise ValueError(
+                "Product chưa có trong /knowledge/_index.json. "
+                "Chọn 'Thêm mới' để import."
+            )
+        if body.mode == "add_new" and exists:
+            raise ValueError(
+                f"Product {meta['partner_id']}/{meta['product_id']} đã có trong "
+                "/knowledge/_index.json. Đổi Partner ID / Product ID hoặc chọn 'Cập nhật'."
+            )
+
+        faqs = assign_faq_ids(
+            data.get("faqs") or [],
+            partner_id=meta["partner_id"],
+            product_id=meta["product_id"],
+            source=body.filename,
+        )
+
+        session_id = uuid.uuid4().hex[:12]
+        store.create_json_session(
+            session_id=session_id,
+            filename=body.filename,
+            partner_id=meta["partner_id"],
+            partner_name=meta["partner_name"],
+            product_id=meta["product_id"],
+            product_name=meta["product_name"],
+            category=meta["category"],
+            faqs=faqs,
+            index_check=index_check,
+            import_mode=body.mode,
+        )
+
+        return {
+            "session_id": session_id,
+            "status": "review",
+            "import_mode": body.mode,
+            "index_check": index_check,
+            "faq_count": len(faqs),
+        }
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
 @app.post("/api/upload")

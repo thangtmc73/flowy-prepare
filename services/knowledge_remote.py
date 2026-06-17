@@ -6,7 +6,8 @@ import json
 import os
 import urllib.error
 import urllib.request
-from typing import Any
+from pathlib import Path
+from typing import Any, Literal
 
 DEFAULT_BASE = (
     "https://raw.githubusercontent.com/thangtmc73/flowy/refs/heads/master/knowledge"
@@ -63,7 +64,82 @@ def list_products_from_index(index: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def product_exists(index: dict[str, Any], partner_id: str, product_id: str) -> bool:
-    for item in list_products_from_index(index):
-        if item["partner_id"] == partner_id and item["product_id"] == product_id:
-            return True
-    return False
+    return find_product_in_index(index, partner_id, product_id) is not None
+
+
+def find_product_in_index(
+    index: dict[str, Any], partner_id: str, product_id: str
+) -> dict[str, Any] | None:
+    for partner in index.get("partners") or []:
+        if partner.get("partner_id") != partner_id:
+            continue
+        for product in partner.get("products") or []:
+            if product.get("product_id") == product_id:
+                return {
+                    "partner_id": partner_id,
+                    "partner_name": partner.get("partner_name", ""),
+                    "product_id": product_id,
+                    "product_name": product.get("product_name", ""),
+                    "category": product.get("category", ""),
+                    "file": product.get("file", ""),
+                    "priority": product.get("priority"),
+                    "keywords": product.get("keywords") or [],
+                }
+    return None
+
+
+def check_against_index(
+    index: dict[str, Any],
+    *,
+    filename: str,
+    partner_id: str,
+    product_id: str,
+) -> dict[str, Any]:
+    from services.product_json import expected_export_filename, parse_ids_from_filename
+
+    expected_filename = expected_export_filename(partner_id, product_id)
+    uploaded_name = Path(filename).name
+    filename_matches = uploaded_name == expected_filename
+
+    filename_ids = parse_ids_from_filename(filename)
+    filename_ids_match = (
+        filename_ids is not None
+        and filename_ids[0] == partner_id
+        and filename_ids[1] == product_id
+    )
+
+    index_entry = find_product_in_index(index, partner_id, product_id)
+    exists_in_index = index_entry is not None
+
+    index_file_path = f"partners/{partner_id}/{product_id}.json"
+    index_file_matches = (
+        index_entry is not None and index_entry.get("file") == index_file_path
+    )
+
+    warnings: list[str] = []
+    if not filename_matches:
+        warnings.append(
+            f"Tên file nên là '{expected_filename}' (hiện tại: '{uploaded_name}')."
+        )
+    if filename_ids and not filename_ids_match:
+        warnings.append(
+            f"Tên file gợi ý {filename_ids[0]}/{filename_ids[1]} "
+            f"khác với metadata JSON {partner_id}/{product_id}."
+        )
+
+    recommended_action: Literal["update", "add_new"] = (
+        "update" if exists_in_index else "add_new"
+    )
+
+    return {
+        "exists_in_index": exists_in_index,
+        "filename_matches": filename_matches,
+        "filename_ids_match": filename_ids_match,
+        "expected_filename": expected_filename,
+        "uploaded_filename": uploaded_name,
+        "index_file_path": index_file_path,
+        "index_file_matches": index_file_matches,
+        "index_entry": index_entry,
+        "recommended_action": recommended_action,
+        "warnings": warnings,
+    }
