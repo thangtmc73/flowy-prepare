@@ -12,6 +12,7 @@ from typing import Any, Callable
 from langchain_openai import ChatOpenAI
 
 from services.knowledge_remote import REMOTE_FILES, fetch_all_remote
+from services.product_json import dumps_formatted_json
 
 logger = logging.getLogger("flowy_pre.shared_knowledge")
 
@@ -265,7 +266,7 @@ def generate_shared_knowledge(
                 "display_path": spec["display_path"],
                 "zip_path": spec["zip_path"],
                 "content": content,
-                "json_text": json.dumps(content, ensure_ascii=False, indent=2),
+                "json_text": dumps_formatted_json(content),
             }
         )
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import io
+import json
 import logging
 import os
 import uuid
@@ -22,7 +23,13 @@ from services.faq_generator import assign_faq_ids, generate_faqs_from_text
 from services.job_store import JobStore
 from services.knowledge_remote import check_against_index, fetch_raw, list_products_from_index, product_exists
 from services.metadata_suggester import normalize_slug, suggest_metadata_from_text
-from services.product_json import decode_json_upload, resolve_metadata_from_upload, validate_product_json
+from services.product_json import (
+    decode_json_upload,
+    dumps_formatted_json,
+    format_product_json_text,
+    resolve_metadata_from_upload,
+    validate_product_json,
+)
 from services.progress import make_progress
 from services.session_store import SessionStore
 from services.shared_knowledge_generator import generate_shared_knowledge
@@ -517,7 +524,7 @@ def update_session_faqs(session_id: str, body: FaqsUpdateRequest) -> dict[str, A
 
 
 @app.get("/api/sessions/{session_id}/export")
-def export_product_json(session_id: str) -> JSONResponse:
+def export_product_json(session_id: str) -> Response:
     session = store.get_session(session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -526,8 +533,10 @@ def export_product_json(session_id: str) -> JSONResponse:
 
     product_json = store.build_product_json(session)
     filename = f"{session['partner_id']}_{session['product_id']}.json"
-    return JSONResponse(
-        content=product_json,
+    body = format_product_json_text(product_json)
+    return Response(
+        content=body.encode("utf-8"),
+        media_type="application/json; charset=utf-8",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
@@ -564,9 +573,15 @@ def download_shared_knowledge_zip(session_id: str) -> Response:
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as zf:
         for file_entry in shared["files"]:
+            raw_text = file_entry["json_text"]
+            try:
+                parsed = json.loads(raw_text)
+                formatted = dumps_formatted_json(parsed)
+            except (json.JSONDecodeError, TypeError):
+                formatted = raw_text if raw_text.endswith("\n") else f"{raw_text}\n"
             zf.writestr(
                 file_entry["zip_path"],
-                file_entry["json_text"],
+                formatted,
             )
     buffer.seek(0)
 

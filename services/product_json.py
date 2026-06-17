@@ -12,6 +12,59 @@ from services.metadata_suggester import normalize_slug
 
 REQUIRED_PRODUCT_FIELDS = ("partner_id", "product_id", "partner_name", "product_name")
 
+FAQ_EXPORT_FIELDS = (
+    "id",
+    "canonical_question",
+    "user_questions",
+    "answer",
+    "category",
+    "tags",
+    "related_faq_ids",
+    "source",
+    "priority",
+    "scope",
+)
+
+PRODUCT_EXPORT_FIELDS = (
+    "product_id",
+    "partner_id",
+    "product_name",
+    "partner_name",
+    "version",
+    "last_updated",
+    "faqs",
+)
+
+
+def _pick_fields(data: dict[str, Any], fields: tuple[str, ...]) -> dict[str, Any]:
+    ordered: dict[str, Any] = {}
+    for key in fields:
+        if key in data:
+            ordered[key] = data[key]
+    for key, value in data.items():
+        if key not in ordered:
+            ordered[key] = value
+    return ordered
+
+
+def format_product_payload(data: dict[str, Any]) -> dict[str, Any]:
+    """Normalize field order to match knowledge base template."""
+    faqs = [
+        _pick_fields(faq, FAQ_EXPORT_FIELDS)
+        for faq in data.get("faqs") or []
+        if isinstance(faq, dict)
+    ]
+    return _pick_fields({**data, "faqs": faqs}, PRODUCT_EXPORT_FIELDS)
+
+
+def dumps_formatted_json(data: Any) -> str:
+    """Pretty-print JSON for download (2-space indent, UTF-8, trailing newline)."""
+    return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+
+
+def format_product_json_text(data: dict[str, Any]) -> str:
+    return dumps_formatted_json(format_product_payload(data))
+
 
 def decode_json_upload(filename: str, file_base64: str) -> dict[str, Any]:
     ext = Path(filename).suffix.lower()
