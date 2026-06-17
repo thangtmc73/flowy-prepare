@@ -22,9 +22,11 @@ KNOWLEDGE_RULES = """
 - user_questions: 5-10 biến thể (trang trọng, thân mật, lỗi chính tả, cách hỏi ngắn/dài)
 - answer: đầy đủ, markdown hợp lệ (* bullet, 1. 2. numbered list, **bold**)
 - category: một trong Giới thiệu chung | Quyền lợi | Điều kiện | Quy trình mua | Bồi thường | Chi phí | Loại trừ | So sánh | Khác
-- tags: 3–8 từ khóa tiếng Việt hoặc tiếng Anh, chữ thường, không dấu nếu là slug (vd: travel, zalopay)
+- tags: 3–8 từ khóa, chữ thường, dùng để boost search
   * Bắt buộc gồm: {partner_id}, zalopay
-  * Thêm theo ngữ cảnh: loại BH (du lịch, sức khỏe, cyber...), chủ đề FAQ (bồi thường, chi phí, chuyến bay...)
+  * Từ khóa tiếng Việt: PHẢI có dấu, cách nhau bằng space (vd: "du lịch", "bồi thường", "chuyến bay")
+  * Slug tiếng Anh / ID: không dấu, một từ (vd: travel, cyber, baoviet) — KHÔNG dùng gạch nối
+  * KHÔNG dùng dạng slug tiếng Việt không dấu (SAI: "boi-thuong", "chuyen-bay", "du-lich")
   * Ví dụ bảo hiểm chuyến bay: ["baoviet", "du lịch", "chuyến bay", "travel", "zalopay", "bồi thường"]
 
 ### Nguyên tắc tách câu hỏi (QUAN TRỌNG):
@@ -98,11 +100,54 @@ def _dedupe_faqs(faqs: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return unique
 
 
+_VI_TAG_ALIASES: dict[str, str] = {
+    "boi thuong": "bồi thường",
+    "chuyen bay": "chuyến bay",
+    "du lich": "du lịch",
+    "suc khoe": "sức khỏe",
+    "quyen loi": "quyền lợi",
+    "chi phi": "chi phí",
+    "noi tru": "nội trú",
+    "ngoai tru": "ngoại trú",
+    "an ninh mang": "an ninh mạng",
+    "tai nan": "tai nạn",
+    "loai tru": "loại trừ",
+    "quy trinh mua": "quy trình mua",
+    "dieu kien": "điều kiện",
+    "gioi thieu": "giới thiệu",
+}
+
+_VI_DIACRITICS = re.compile(
+    r"[\u00c0-\u1ef9]", re.UNICODE
+)
+
+
+def _sanitize_tag(raw: str) -> str | None:
+    """Normalize LLM tags: fix hyphen slugs, map unaccented Vietnamese to accented form."""
+    value = re.sub(r"-+", " ", str(raw).strip().lower())
+    value = re.sub(r"\s+", " ", value).strip()
+    if not value:
+        return None
+
+    if value in _VI_TAG_ALIASES:
+        return _VI_TAG_ALIASES[value]
+
+    if _VI_DIACRITICS.search(value):
+        return value
+
+    # Single-word ASCII slugs (partner id, travel, cyber, ...)
+    if re.fullmatch(r"[a-z0-9_]+", value):
+        return value
+
+    # Multi-word ASCII without diacritics — useless for Vietnamese search, drop it.
+    return None
+
+
 def normalize_tags(tags: list[str]) -> list[str]:
     seen: set[str] = set()
     result: list[str] = []
     for tag in tags:
-        value = str(tag).strip().lower()
+        value = _sanitize_tag(tag)
         if value and value not in seen:
             seen.add(value)
             result.append(value)
