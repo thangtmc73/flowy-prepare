@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
+import FileDropZone from './FileDropZone'
 import { useToast } from './Toast'
 import {
   checkJsonIndex,
@@ -51,8 +52,7 @@ export default function JsonUploadForm() {
     fileBase64Ref.current = ''
   }
 
-  const handleFileChange = async (e) => {
-    const selected = e.target.files?.[0] || null
+  const loadFile = async (selected) => {
     setFile(selected)
     reset()
     if (!selected) return
@@ -76,6 +76,20 @@ export default function JsonUploadForm() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleFileSelect = (selected, invalidMessage) => {
+    if (invalidMessage) {
+      setError(invalidMessage)
+      return
+    }
+    setError('')
+    loadFile(selected)
+  }
+
+  const handleClearFile = () => {
+    setFile(null)
+    reset()
   }
 
   useEffect(() => {
@@ -136,18 +150,18 @@ export default function JsonUploadForm() {
 
   return (
     <form onSubmit={handleImport} className="space-y-5">
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">File JSON</label>
-        <input
-          type="file"
-          accept=".json,application/json"
-          onChange={handleFileChange}
-          className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-light file:text-brand file:font-medium"
-        />
-        {loading && (
-          <p className="mt-2 text-sm text-slate-500">Đang kiểm tra file và catalog GitHub...</p>
-        )}
-      </div>
+      <FileDropZone
+        label="File JSON"
+        hint="JSON — định dạng {partner_id}_{product_id}.json"
+        accept=".json,application/json"
+        file={file}
+        disabled={loading || importing}
+        onFileSelect={handleFileSelect}
+        onClear={handleClearFile}
+      />
+      {loading && (
+        <p className="text-sm text-slate-500">Đang kiểm tra file và catalog GitHub...</p>
+      )}
 
       {preview && check && (
         <div className="rounded-lg border border-slate-200 p-4 space-y-3 bg-slate-50">

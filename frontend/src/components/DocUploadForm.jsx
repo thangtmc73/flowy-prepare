@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
+import FileDropZone from './FileDropZone'
 import ProgressBar from './ProgressBar'
 import { useToast } from './Toast'
 import { analyzeDocument, fileToBase64, pollJob, uploadDocument } from '../utils/api'
@@ -99,18 +100,26 @@ export default function DocUploadForm() {
     }
   }, [])
 
-  const handleFileChange = (e) => {
-    const selected = e.target.files?.[0] || null
+  const handleFileSelect = (selected, invalidMessage) => {
+    if (invalidMessage) {
+      setError(invalidMessage)
+      return
+    }
+    setError('')
     setFile(selected)
     if (selected) {
       runAnalyze(selected)
-    } else {
-      analyzeSeq.current += 1
-      setForm(EMPTY_FORM)
-      setSuggested(false)
-      setAnalyzing(false)
-      setAnalyzeProgress(null)
     }
+  }
+
+  const handleClearFile = () => {
+    analyzeSeq.current += 1
+    setFile(null)
+    setForm(EMPTY_FORM)
+    setSuggested(false)
+    setAnalyzing(false)
+    setAnalyzeProgress(null)
+    setError('')
   }
 
   const handleSubmit = async (e) => {
@@ -145,18 +154,18 @@ export default function DocUploadForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">File (PDF / DOCX)</label>
-        <input
-          type="file"
-          accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          onChange={handleFileChange}
-          className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-light file:text-brand file:font-medium"
-        />
-        {analyzing && (
-          <ProgressBar progress={analyzeProgress} className="mt-3" />
-        )}
-      </div>
+      <FileDropZone
+        label="File (PDF / DOCX)"
+        hint="PDF, DOCX"
+        accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        file={file}
+        disabled={analyzing || loading}
+        onFileSelect={handleFileSelect}
+        onClear={handleClearFile}
+      />
+      {analyzing && (
+        <ProgressBar progress={analyzeProgress} className="mt-3" />
+      )}
 
       {file && analyzing && !suggested && (
         <div className="rounded-lg border border-slate-200 p-4 bg-slate-50">
