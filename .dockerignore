@@ -13,6 +13,7 @@ agentbase.config.json
 .gitignore
 data/sessions/
 data/history/
+data/knowledge/
 frontend/node_modules/
 frontend/dist/
 *.md

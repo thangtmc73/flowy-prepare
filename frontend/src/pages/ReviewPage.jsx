@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link, useLocation } from 'wouter'
 import FaqEditor from '../components/FaqEditor'
-import DiffView from '../components/DiffView'
 import ProgressBar from '../components/ProgressBar'
+import SharedKnowledgePanel from '../components/SharedKnowledgePanel'
 import {
-  compareSession,
+  downloadProductJson,
+  downloadSharedKnowledgeZip,
+  finishSession,
   getSession,
   regenerateSession,
-  submitSession,
   updateSessionFaqs,
 } from '../utils/api'
 
@@ -21,16 +21,14 @@ const EMPTY_FAQ = {
 }
 
 export default function ReviewPage({ sessionId }) {
-  const [, setLocation] = useLocation()
   const [session, setSession] = useState(null)
   const [faqs, setFaqs] = useState([])
-  const [diff, setDiff] = useState(null)
-  const [submitMode, setSubmitMode] = useState('merge')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
+  const [finishing, setFinishing] = useState(false)
+  const [downloadingProduct, setDownloadingProduct] = useState(false)
+  const [downloadingZip, setDownloadingZip] = useState(false)
   const [error, setError] = useState('')
-  const [showDiff, setShowDiff] = useState(false)
   const [pollKey, setPollKey] = useState(0)
 
   const poll = useCallback(async () => {
@@ -40,10 +38,11 @@ export default function ReviewPage({ sessionId }) {
       const generating =
         data.status === 'processing' ||
         data.status === 'generating' ||
+        data.status === 'generating_shared' ||
         data.status === 'uploaded'
-      if (generating) {
+      if (generating && data.status !== 'generating_shared') {
         setFaqs(data.faqs?.length ? data.faqs : [])
-      } else {
+      } else if (data.status !== 'generating_shared') {
         setFaqs(data.faqs || [])
       }
       if (generating) {
@@ -75,22 +74,11 @@ export default function ReviewPage({ sessionId }) {
     }
   }, [poll, pollKey])
 
-  const loadDiff = async () => {
-    try {
-      const data = await compareSession(sessionId)
-      setDiff(data)
-      setShowDiff(true)
-    } catch (err) {
-      setError(err.message)
-    }
-  }
-
   const handleSave = async () => {
     setSaving(true)
     setError('')
     try {
       await updateSessionFaqs(sessionId, faqs)
-      await loadDiff()
     } catch (err) {
       setError(err.message)
     } finally {
@@ -98,19 +86,44 @@ export default function ReviewPage({ sessionId }) {
     }
   }
 
-  const handleSubmit = async () => {
-    if (!confirm(`Submit ${faqs.length} FAQ vào knowledge với mode "${submitMode}"?`)) return
-    setSubmitting(true)
+  const handleDownloadProduct = async () => {
+    setDownloadingProduct(true)
     setError('')
     try {
       await updateSessionFaqs(sessionId, faqs)
-      const result = await submitSession(sessionId, submitMode)
-      alert(`Đã submit! ${result.faq_count} FAQs (v${result.version})`)
-      setLocation(`/knowledge/${session.partner_id}/${session.product_id}`)
+      await downloadProductJson(sessionId, session.partner_id, session.product_id)
     } catch (err) {
       setError(err.message)
     } finally {
-      setSubmitting(false)
+      setDownloadingProduct(false)
+    }
+  }
+
+  const handleDone = async () => {
+    if (!confirm(`Done — generate shared knowledge từ ${faqs.length} FAQ?`)) return
+    setFinishing(true)
+    setError('')
+    try {
+      await updateSessionFaqs(sessionId, faqs)
+      await finishSession(sessionId)
+      setSession((s) => ({ ...s, status: 'generating_shared' }))
+      setPollKey((k) => k + 1)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setFinishing(false)
+    }
+  }
+
+  const handleDownloadZip = async () => {
+    setDownloadingZip(true)
+    setError('')
+    try {
+      await downloadSharedKnowledgeZip(sessionId)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setDownloadingZip(false)
     }
   }
 
@@ -121,7 +134,7 @@ export default function ReviewPage({ sessionId }) {
     try {
       await regenerateSession(sessionId)
       setFaqs([])
-      setSession((s) => ({ ...s, status: 'generating', faqs: [] }))
+      setSession((s) => ({ ...s, status: 'generating', faqs: [], shared_knowledge: null }))
       setPollKey((k) => k + 1)
     } catch (err) {
       setError(err.message)
@@ -139,7 +152,11 @@ export default function ReviewPage({ sessionId }) {
 
   const duplicateFaq = (index) => {
     setFaqs((prev) => {
-      const copy = { ...prev[index], id: undefined, canonical_question: `${prev[index].canonical_question} (copy)` }
+      const copy = {
+        ...prev[index],
+        id: undefined,
+        canonical_question: `${prev[index].canonical_question} (copy)`,
+      }
       return [...prev.slice(0, index + 1), copy, ...prev.slice(index + 1)]
     })
   }
@@ -150,10 +167,14 @@ export default function ReviewPage({ sessionId }) {
     return <p className="text-slate-500">Đang tải...</p>
   }
 
-  const isGenerating =
+  const isGeneratingFaqs =
     session?.status === 'processing' ||
     session?.status === 'generating' ||
     session?.status === 'uploaded'
+
+  const isGeneratingShared = session?.status === 'generating_shared'
+  const isDone = session?.status === 'done'
+  const productFilename = `${session?.partner_id}_${session?.product_id}.json`
 
   return (
     <div>
@@ -163,13 +184,15 @@ export default function ReviewPage({ sessionId }) {
           <p className="text-sm text-slate-600 mt-1">
             {session?.partner_name} — {session?.product_name} · {session?.filename}
           </p>
-          <p className="text-xs text-slate-400 mt-0.5">Session: {sessionId}</p>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Export: <span className="font-mono">{productFilename}</span>
+          </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={handleRegenerate}
-            disabled={isGenerating}
+            disabled={isGeneratingFaqs || isGeneratingShared}
             className="px-3 py-2 text-sm border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50"
           >
             Generate lại
@@ -177,25 +200,41 @@ export default function ReviewPage({ sessionId }) {
           <button
             type="button"
             onClick={handleSave}
-            disabled={saving || isGenerating}
+            disabled={saving || isGeneratingFaqs || isGeneratingShared}
             className="px-3 py-2 text-sm bg-slate-800 text-white rounded-lg hover:bg-slate-700 disabled:opacity-50"
           >
             {saving ? 'Đang lưu...' : 'Lưu draft'}
           </button>
+          {faqs.length > 0 && (
+            <button
+              type="button"
+              onClick={handleDownloadProduct}
+              disabled={downloadingProduct || isGeneratingFaqs || isGeneratingShared}
+              className="px-3 py-2 text-sm border border-brand text-brand rounded-lg hover:bg-brand-light disabled:opacity-50"
+            >
+              {downloadingProduct ? 'Đang tải...' : `Download ${productFilename}`}
+            </button>
+          )}
         </div>
       </div>
 
-      {isGenerating && (
+      {(isGeneratingFaqs || isGeneratingShared) && (
         <ProgressBar progress={session?.progress} className="mb-6" />
       )}
 
       {session?.status === 'error' && (
         <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
-          Lỗi generate: {session.error}
+          Lỗi: {session.error}
         </div>
       )}
 
-      {!isGenerating && session?.status === 'review' && faqs.length === 0 && (
+      {session?.shared_knowledge_error && (
+        <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
+          Lỗi generate shared knowledge: {session.shared_knowledge_error}
+        </div>
+      )}
+
+      {!isGeneratingFaqs && session?.status === 'review' && faqs.length === 0 && (
         <div className="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-700">
           Chưa có FAQ nào được generate. Bấm{' '}
           <button type="button" onClick={handleRegenerate} className="underline font-medium text-brand">
@@ -205,32 +244,18 @@ export default function ReviewPage({ sessionId }) {
         </div>
       )}
 
-      {session?.existing_product && (
-        <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-900">
-          Product đã tồn tại ({session.existing_product.faqs?.length || 0} FAQ).
-          {' '}
-          <button type="button" onClick={loadDiff} className="underline font-medium">
-            Xem diff với knowledge hiện tại
-          </button>
-        </div>
-      )}
-
-      {showDiff && diff && (
-        <div className="mb-6 p-4 rounded-xl bg-white border border-slate-200">
-          <h3 className="font-medium text-slate-800 mb-3">So sánh với knowledge hiện tại</h3>
-          <DiffView diffs={diff.diffs} summary={diff.summary} />
-        </div>
-      )}
-
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-slate-600">{faqs.length} FAQ</p>
-        <button
-          type="button"
-          onClick={addFaq}
-          className="text-sm text-brand hover:underline"
-        >
-          + Thêm FAQ thủ công
-        </button>
+        {!isDone && (
+          <button
+            type="button"
+            onClick={addFaq}
+            disabled={isGeneratingFaqs || isGeneratingShared}
+            className="text-sm text-brand hover:underline disabled:opacity-50"
+          >
+            + Thêm FAQ thủ công
+          </button>
+        )}
       </div>
 
       <div className="space-y-4 mb-8">
@@ -246,40 +271,46 @@ export default function ReviewPage({ sessionId }) {
         ))}
       </div>
 
-      {faqs.length > 0 && session?.status !== 'submitted' && (
+      {faqs.length > 0 && !isDone && !isGeneratingShared && session?.status !== 'error' && (
         <div className="sticky bottom-4 bg-white border border-slate-200 rounded-xl p-4 shadow-lg">
           <div className="flex flex-wrap items-center gap-4">
-            <div>
-              <label className="text-xs font-medium text-slate-500 block mb-1">Submit mode</label>
-              <select
-                value={submitMode}
-                onChange={(e) => setSubmitMode(e.target.value)}
-                className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
-              >
-                <option value="merge">Merge — cập nhật matched, thêm mới, giữ cũ</option>
-                <option value="append">Append — chỉ thêm FAQ mới</option>
-                <option value="replace">Replace — thay toàn bộ</option>
-              </select>
-            </div>
+            <p className="text-sm text-slate-600 flex-1">
+              Bấm <strong>Done</strong> để tải knowledge mới nhất từ GitHub và generate 3 file shared knowledge.
+            </p>
             <button
               type="button"
-              onClick={handleSubmit}
-              disabled={submitting}
-              className="ml-auto bg-brand hover:bg-brand-hover text-white font-medium px-6 py-2.5 rounded-lg disabled:opacity-50"
+              onClick={handleDone}
+              disabled={finishing}
+              className="bg-brand hover:bg-brand-hover text-white font-medium px-6 py-2.5 rounded-lg disabled:opacity-50"
             >
-              {submitting ? 'Đang submit...' : 'Submit vào Knowledge'}
+              {finishing ? 'Đang xử lý...' : 'Done'}
             </button>
           </div>
         </div>
       )}
 
-      {session?.status === 'submitted' && (
-        <div className="p-4 rounded-xl bg-emerald-50 text-emerald-800 text-sm">
-          Đã submit.{' '}
-          <Link href={`/knowledge/${session.partner_id}/${session.product_id}`} className="underline">
-            Xem knowledge
-          </Link>
-        </div>
+      {isDone && session?.shared_knowledge && (
+        <>
+          <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm">
+            Hoàn tất! Product JSON: <span className="font-mono">{productFilename}</span>.
+            Shared knowledge đã được generate bên dưới.
+          </div>
+          <SharedKnowledgePanel
+            sharedKnowledge={session.shared_knowledge}
+            onDownloadZip={handleDownloadZip}
+            downloadingZip={downloadingZip}
+          />
+          <div className="mt-6 flex gap-2">
+            <button
+              type="button"
+              onClick={handleDownloadProduct}
+              disabled={downloadingProduct}
+              className="px-4 py-2 text-sm border border-brand text-brand rounded-lg hover:bg-brand-light disabled:opacity-50"
+            >
+              {downloadingProduct ? 'Đang tải...' : `Download ${productFilename}`}
+            </button>
+          </div>
+        </>
       )}
 
       {error && (

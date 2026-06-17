@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
 import ProgressBar from '../components/ProgressBar'
-import { analyzeDocument, fileToBase64, getProduct, pollJob, uploadDocument } from '../utils/api'
+import { analyzeDocument, fileToBase64, pollJob, uploadDocument } from '../utils/api'
 
 const CATEGORIES = [
   { id: 'health', label: 'Bảo hiểm sức khỏe' },
@@ -34,7 +34,7 @@ export default function UploadPage() {
   const [suggested, setSuggested] = useState(false)
   const [reasoning, setReasoning] = useState('')
   const [confidence, setConfidence] = useState('')
-  const [existingProduct, setExistingProduct] = useState(null)
+  const [isExistingProduct, setIsExistingProduct] = useState(false)
   const [analyzing, setAnalyzing] = useState(false)
   const [analyzeProgress, setAnalyzeProgress] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -49,7 +49,7 @@ export default function UploadPage() {
     setSuggested(false)
     setReasoning('')
     setConfidence('')
-    setExistingProduct(null)
+    setIsExistingProduct(false)
     setForm(EMPTY_FORM)
 
     try {
@@ -77,7 +77,7 @@ export default function UploadPage() {
       setSuggested(true)
       setReasoning(m.reasoning || '')
       setConfidence(m.confidence || '')
-      setExistingProduct(result.existing_product || null)
+      setIsExistingProduct(Boolean(result.is_existing_product))
     } catch (err) {
       if (seq === analyzeSeq.current) {
         setError(err.message)
@@ -89,23 +89,6 @@ export default function UploadPage() {
       }
     }
   }, [])
-
-  useEffect(() => {
-    if (!suggested || !form.partner_id || !form.product_id) {
-      return
-    }
-    let cancelled = false
-    getProduct(form.partner_id, form.product_id)
-      .then((product) => {
-        if (!cancelled) setExistingProduct(product)
-      })
-      .catch(() => {
-        if (!cancelled) setExistingProduct(null)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [suggested, form.partner_id, form.product_id])
 
   const handleFileChange = (e) => {
     const selected = e.target.files?.[0] || null
@@ -154,8 +137,8 @@ export default function UploadPage() {
     <div className="max-w-2xl">
       <h2 className="text-2xl font-semibold text-slate-900 mb-2">Upload tài liệu</h2>
       <p className="text-slate-600 mb-6 text-sm">
-        Chọn PDF hoặc DOCX — MiniMax sẽ đọc file và gợi ý Partner / Product / Category.
-        Bạn chỉnh sửa nếu cần, rồi generate FAQ chi tiết để review.
+        Chọn PDF hoặc DOCX — MiniMax sẽ đọc file, gợi ý Partner / Product / Category,
+        rồi generate FAQ để bạn chỉnh sửa và xuất file JSON.
       </p>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-slate-200 p-6 space-y-5 shadow-sm">
@@ -181,10 +164,10 @@ export default function UploadPage() {
           </div>
         )}
 
-        {existingProduct && (
+        {isExistingProduct && (
           <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-sm text-amber-900">
-            Product đã tồn tại trong knowledge ({existingProduct.faqs?.length || 0} FAQ).
-            Submit sẽ merge/cập nhật knowledge hiện có.
+            Product này đã có trong catalog GitHub. Bạn vẫn có thể generate FAQ mới
+            và cập nhật shared knowledge khi bấm Done.
           </div>
         )}
 

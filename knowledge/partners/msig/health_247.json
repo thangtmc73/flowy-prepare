@@ -1,0 +1,785 @@
+{
+  "product_id": "health_247",
+  "partner_id": "msig",
+  "product_name": "Bảo hiểm Sức khỏe 24/7",
+  "partner_name": "MSIG Việt Nam",
+  "version": "1.0",
+  "last_updated": "2026-06-14",
+  "faqs": [
+    {
+      "id": "msig_health_247_faq_001",
+      "canonical_question": "Ai phát hành bảo hiểm Sức khỏe 24/7?",
+      "user_questions": [
+        "Ai phát hành bảo hiểm Sức khỏe 24/7?",
+        "Bảo hiểm Sức khỏe 24/7 là gì như thế nào?",
+        "Bảo hiểm Sức khỏe 24/7 là gì?",
+        "Bảo hiểm sức khỏe trên Zalopay là gì?",
+        "Cho tôi hỏi bảo hiểm Sức khỏe 24/7 là gì?",
+        "Gói Sức khỏe 24/7 là bảo hiểm gì?",
+        "Mình muốn biết bảo hiểm Sức khỏe 24/7 là gì?",
+        "Sản phẩm Sức khỏe 24/7 bảo vệ những gì?"
+      ],
+      "answer": "Sức khỏe 24/7 là sản phẩm bảo hiểm sức khỏe do MSIG Việt Nam phát hành, phân phối qua đại lý bảo hiểm Ngôi Nhà Xanh, hiển thị trên nền tảng Zalopay. Sản phẩm bảo vệ toàn diện Nội trú & Ngoại trú, kèm dịch vụ tư vấn sức khỏe từ xa qua ứng dụng di động và bảo lãnh thuốc trực tiếp tại hệ thống nhà thuốc Pharmacity. Khách hàng có thể xem thông tin chi tiết về quyền lợi và điều kiện sản phẩm tại đây.",
+      "category": "Câu hỏi chung",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_002",
+      "canonical_question": "Bảo hiểm Sức khỏe 24/7 có những quyền lợi gì?",
+      "user_questions": [
+        "Bảo hiểm có nội trú ngoại trú không?",
+        "Cho tôi hỏi tôi được bảo vệ quyền lợi gì?",
+        "Có quyền lợi khám từ xa không?",
+        "Gói này chi trả những quyền lợi nào?",
+        "Ngoại trú được chi trả gì?",
+        "Quyền lợi nội trú gồm gì?",
+        "Tôi được bảo vệ quyền lợi gì?"
+      ],
+      "answer": "Nội trú: chi trả chi phí khi nằm viện, phẫu thuật, điều trị trong ngày do tại nạn, ốm đau, bệnh tật tại các bệnh viện công, bệnh viện tư và các cơ sở y tế được Nhà Nước cấp phép trên toàn quốc. Xem chi tiết các bệnh viện và phòng khám được bảo lãnh trực tiếp tại đây.\nNgoại trú: chi phí thuốc tại hệ thống nhà thuốc Pharmacity (tối đa 1,5 triệu/lần).\nKhám sức khỏe từ xa: tư vấn từ xa, đa chuyên khoa không giới hạn qua ứng dụng WhiteCoat",
+      "category": "Câu hỏi chung",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_003",
+      "canonical_question": "Sử dụng quyền lợi bảo hiểm Sức khỏe 24/7 như thế nào?",
+      "user_questions": [
+        "Cho tôi hỏi tôi sử dụng các quyền lợi này như thế nào?",
+        "Mình muốn biết tôi sử dụng các quyền lợi này như thế nào?",
+        "Tôi sử dụng các quyền lợi này như thế nào?",
+        "Làm sao để dùng quyền lợi nội trú ngoại trú?"
+      ],
+      "answer": "- Nội trú: có thể bảo lãnh trực tiếp hoặc tạm ứng chi phí khám chữa bệnh trước và yêu cầu bồi thường để hoàn tiền sau.\n- Ngoại trú: đem toa thuốc đã được kê đơn đến Pharmacity để mua thuốc và gửi yêu cầu bồi thường, hoặc thực hiện khám sức khỏe từ xa và được hệ thống Pharmacity giao thuốc tận nơi.\n- Khám sức khỏe từ xa: tải ứng dụng WhiteCoat (App Store hoặc Google Play), đăng nhập tài khoản để khám với bác sĩ. Bạn sẽ được kê đơn thuốc điện tử và được hệ thống Pharmacity giao thuốc tận nơi, không cần tạm ứng tiền.\nChi tiết vui lòng xem ở mục Quy trình mua và sử dụng.",
+      "category": "Câu hỏi chung",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_005",
+      "canonical_question": "Ai có thể tham gia bảo hiểm như thế nào?",
+      "user_questions": [
+        "Ai có thể tham gia bảo hiểm như thế nào?",
+        "Ai có thể tham gia bảo hiểm?",
+        "Bao nhiêu tuổi thì được tham gia Sức khỏe 24/7?",
+        "Cho tôi hỏi ai có thể tham gia bảo hiểm?",
+        "Mình muốn biết ai có thể tham gia bảo hiểm?",
+        "Người nước ngoài có mua được không?",
+        "Điều kiện người tham gia bảo hiểm là gì?",
+        "Độ tuổi nào được mua bảo hiểm?"
+      ],
+      "answer": "Người Việt Nam hoặc người nước ngoài sinh sống, làm việc tại Việt Nam, từ 1 tuổi –60 tuổi (tái tục đến 65 tuổi), không mắc bệnh nặng hoặc đang điều trị nội trú.",
+      "category": "Về sản phẩm Sức khỏe 24/7",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_006",
+      "canonical_question": "Cho tôi hỏi tôi có thể mua bảo hiểm cho người thân không?",
+      "user_questions": [
+        "Cho tôi hỏi tôi có thể mua bảo hiểm cho người thân không?",
+        "Có mua gói này cho người nhà được không?",
+        "Có thể mua cho con/người thân không?",
+        "Mua hộ người thân có được không?",
+        "Mình muốn biết tôi có thể mua bảo hiểm cho người thân không?",
+        "Tôi có thể mua bảo hiểm cho người thân không như thế nào?",
+        "Tôi có thể mua bảo hiểm cho người thân không?",
+        "Tôi mua bảo hiểm cho ba mẹ được không?"
+      ],
+      "answer": "Hoàn toàn được, miễn người đó đáp ứng điều kiện tham gia (độ tuổi & tình trạng sức khỏe hợp lệ).",
+      "category": "Về sản phẩm Sức khỏe 24/7",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_007",
+      "canonical_question": "Cho tôi hỏi một người có thể được bảo hiểm nhiều hợp đồng Sức khỏe 24/7 trên cùng một thời hạn bảo hiểm không?",
+      "user_questions": [
+        "Cho tôi hỏi một người có thể được bảo hiểm nhiều hợp đồng Sức khỏe 24/7 trên cùng một thời hạn bảo hiểm không?",
+        "Có được mua thêm hợp đồng cho cùng một người không?",
+        "Mình muốn biết một người có thể được bảo hiểm nhiều hợp đồng Sức khỏe 24/7 trên cùng một thời hạn bảo hiểm không?",
+        "Một người có thể được bảo hiểm nhiều hợp đồng Sức khỏe 24/7 trên cùng một thời hạn bảo hiểm không như thế nào?",
+        "Một người có thể được bảo hiểm nhiều hợp đồng Sức khỏe 24/7 trên cùng một thời hạn bảo hiểm không?",
+        "Một người mua nhiều gói cùng lúc được không?",
+        "Một người được sở hữu mấy hợp đồng?",
+        "Tôi có thể có 2 hợp đồng Sức khỏe 24/7 không?"
+      ],
+      "answer": "Không, mỗi người chỉ được sở hữu 01 hợp đồng Sức khỏe 24/7 tại một thời điểm. Tuy nhiên, bạn có thể mua thêm cho người thân của mình.",
+      "category": "Về sản phẩm Sức khỏe 24/7",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_008",
+      "canonical_question": "Cho tôi hỏi khi nào hợp đồng bảo hiểm có hiệu lực?",
+      "user_questions": [
+        "Cho tôi hỏi khi nào hợp đồng bảo hiểm có hiệu lực?",
+        "Khi nào bắt đầu được bảo hiểm?",
+        "Khi nào hợp đồng bảo hiểm có hiệu lực như thế nào?",
+        "Khi nào hợp đồng bảo hiểm có hiệu lực?",
+        "Mình muốn biết khi nào hợp đồng bảo hiểm có hiệu lực?",
+        "Ngày hiệu lực hợp đồng tính từ khi nào?",
+        "Sau khi mua thì lúc nào hợp đồng active?",
+        "Thanh toán xong bao lâu thì bảo hiểm có hiệu lực?"
+      ],
+      "answer": "Sau khi thanh toán thành công trên Zalopay và nhận Giấy chứng nhận điện tử, hợp đồng sẽ có hiệu lực trong 24 giờ hoặc theo ngày ghi trên giấy chứng nhận.",
+      "category": "Về sản phẩm Sức khỏe 24/7",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_009",
+      "canonical_question": "Cho tôi hỏi điều kiện sản phẩm bảo hiểm (Điều kiện tham gia) gồm những gì?",
+      "user_questions": [
+        "Cho tôi hỏi điều kiện sản phẩm bảo hiểm (Điều kiện tham gia) gồm những gì?",
+        "Các trường hợp nào không đủ điều kiện tham gia?",
+        "Mình muốn biết điều kiện sản phẩm bảo hiểm (Điều kiện tham gia) gồm những gì?",
+        "Thời gian chờ và điều kiện tham gia ra sao?",
+        "Trẻ em tham gia có đồng chi trả không?",
+        "Điều kiện sản phẩm bảo hiểm (Điều kiện tham gia) gồm những gì như thế nào?",
+        "Điều kiện sản phẩm bảo hiểm (Điều kiện tham gia) gồm những gì?",
+        "Điều kiện để mua bảo hiểm là gì?"
+      ],
+      "answer": "Độ tuổi: 1–60 tuổi, tái tục đến 65 tuổi.\nTình trạng sức khỏe: không mắc bệnh tâm thần, động kinh, ung thư, không đang nằm viện điều trị; không thương tật vĩnh viễn ≥50%.\nPhạm vi: công dân Việt Nam/ người nước ngoài sinh sống & làm việc tại Việt Nam, không rời Việt Nam quá 180 ngày liên tục.\nĐồng chi trả: trẻ 1–6 tuổi tham gia độc lập áp dụng đồng chi trả 20% (khách) / 80% (MSIG).\nThời gian chờ (áp dụng theo quy tắc):\n- Dịch vụ tư vấn sức khỏe từ xa: Khách hàng có thể đặt lịch khám ngay khi kích hoạt thành công trên ứng dụng WhiteCoat, không phải chi trả chi phí khám, không áp dụng thời gian chờ;\n- Điều trị nội trú & ngoại trú và chi phí mua thuốc tại Pharmacity:\n+ Bệnh thông thường: 15 ngày; Trẻ dưới 5 tuổi: 30 ngày\n+ Bệnh đặc biệt, bệnh có sẵn: 365 ngày (không bảo hiểm cho bệnh bẩm sinh)",
+      "category": "Về sản phẩm Sức khỏe 24/7",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_010",
+      "canonical_question": "Cho tôi hỏi thời hạn bảo hiểm là bao lâu?",
+      "user_questions": [
+        "Cho tôi hỏi thời hạn bảo hiểm là bao lâu?",
+        "Gói bảo hiểm dùng được bao lâu?",
+        "Hợp đồng có thời hạn mấy năm?",
+        "Mình muốn biết thời hạn bảo hiểm là bao lâu?",
+        "Sức khỏe 24/7 bảo vệ trong bao lâu?",
+        "Thời hạn bảo hiểm là bao lâu như thế nào?",
+        "Thời hạn bảo hiểm là bao lâu?",
+        "Thời hạn hợp đồng là bao lâu?"
+      ],
+      "answer": "01 năm kể từ ngày hiệu lực ghi trên Giấy chứng nhận bảo hiểm.",
+      "category": "Về sản phẩm Sức khỏe 24/7",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_011",
+      "canonical_question": "Quyền lợi nội trú, ngoại trú và Telemed của Sức khỏe 24/7 là gì?",
+      "user_questions": [
+        "Quyền lợi nội trú ngoại trú Sức khỏe 24/7 gồm gì?",
+        "Nội trú ngoại trú được chi trả như thế nào?",
+        "Telemed có trong gói Sức khỏe 24/7 không?"
+      ],
+      "answer": "Nội trú: chi trả khi nằm viện, phẫu thuật, điều trị trong ngày.\nNgoại trú: chi phí thuốc tại hệ thống nhà thuốc Pharmacity (tối đa 1,5 triệu/lần).\nKhám Telemed: tư vấn từ xa, đa chuyên khoa không giới hạn qua ứng dụng WhiteCoat.",
+      "category": "Về phí & quyền lợi",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_012",
+      "canonical_question": "Thời gian chờ của bảo hiểm Sức khỏe 24/7 là bao lâu?",
+      "user_questions": [
+        "Cho tôi hỏi thời gian chờ của các quyền lợi này ra sao?",
+        "Thời gian chờ của các quyền lợi này ra sao?",
+        "Thời gian chờ bảo hiểm Sức khỏe 24/7 là bao lâu?",
+        "Bao lâu thì được dùng quyền lợi nội trú?"
+      ],
+      "answer": "Thời gian chờ của bảo hiểm là khoảng thời gian mà trong đó nếu có phát sinh chi phí khám, chữa bệnh thì bệnh nhân sẽ không được Công ty bảo hiểm thanh toán cho chi phí khám, chữa bệnh đó.\nTrong chương trình bảo hiểm Sức khỏe 24/7, thời gian chờ quy định như sau:\n- Dịch vụ tư vấn sức khỏe từ xa: Khách hàng có thể đặt lịch khám ngay khi kích hoạt thành công trên ứng dụng WhiteCoat, không phải chi trả chi phí khám; tuy nhiên chưa được chi trả tiền thuốc trong thời gian chờ.\n- Điều trị nội trú & ngoại trú và chi phí mua thuốc tại Pharmacity:\n+ Bệnh thông thường: 15 ngày; Trẻ dưới 5 tuổi: 30 ngày\n+ Bệnh đặc biệt, bệnh có sẵn: 365 ngày (không bảo hiểm cho bệnh bẩm sinh)",
+      "category": "Về phí & quyền lợi",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_013",
+      "canonical_question": "Cho tôi hỏi những loại thuốc nào được bảo hiểm chi trả?",
+      "user_questions": [
+        "Cho tôi hỏi những loại thuốc nào được bảo hiểm chi trả?",
+        "Mình muốn biết những loại thuốc nào được bảo hiểm chi trả?",
+        "Những loại thuốc nào được bảo hiểm chi trả như thế nào?",
+        "Những loại thuốc nào được bảo hiểm chi trả?",
+        "Thuốc mua theo toa có được chi trả không?",
+        "Thuốc nào được bảo hiểm thanh toán?",
+        "Thực phẩm chức năng có được bảo hiểm không?",
+        "Vitamin có được chi trả không?"
+      ],
+      "answer": "Là những thuốc, dược phẩm được bán và sử dụng theo đơn của Bác sỹ và theo quy định của pháp luật, không bao gồm thuốc chủng ngừa, thực phẩm chức năng, dược mỹ phẩm, mỹ phẩm, khoáng chất, chế phẩm, thuốc bổ và các loại vitamin trừ trường hợp các loại vitamin có chỉ định của bác sỹ và nằm trong danh mục thuốc điều trị của Bộ Y Tế và chi phí các loại vitamin này không lớn hơn chi phí thuốc điều trị.",
+      "category": "Về phí & quyền lợi",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_014",
+      "canonical_question": "Cho tôi hỏi tôi có thể nhận thuốc bảo lãnh tại nhà thuốc khác ngoài Pharmacity không?",
+      "user_questions": [
+        "Cho tôi hỏi tôi có thể nhận thuốc bảo lãnh tại nhà thuốc khác ngoài Pharmacity không?",
+        "Có bắt buộc mua thuốc tại Pharmacity không?",
+        "Có nhận thuốc ở nhà thuốc khác Pharmacity được không?",
+        "Mình muốn biết tôi có thể nhận thuốc bảo lãnh tại nhà thuốc khác ngoài Pharmacity không?",
+        "Pharmacity nào cũng dùng được không?",
+        "Thuốc bảo lãnh áp dụng ở đâu?",
+        "Tôi có thể nhận thuốc bảo lãnh tại nhà thuốc khác ngoài Pharmacity không như thế nào?",
+        "Tôi có thể nhận thuốc bảo lãnh tại nhà thuốc khác ngoài Pharmacity không?"
+      ],
+      "answer": "Hiện dịch vụ bảo lãnh thuốc chỉ có hiệu lực tại hệ thống nhà thuốc của Pharmacity trên toàn quốc. Tra cứu hệ thống cửa hàng gần bạn tại đây.",
+      "category": "Về phí & quyền lợi",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_015",
+      "canonical_question": "Quyền lợi Telemed và bảo lãnh thuốc hoạt động thế nào?",
+      "user_questions": [
+        "Quyền lợi Telemed (dịch vụ khám sức khỏe từ xa) và bảo lãnh thuốc hoạt động thế nào?",
+        "Cho tôi hỏi quyền lợi Telemed (dịch vụ khám sức khỏe từ xa) và bảo lãnh thuốc hoạt động thế nào?",
+        "Khám từ xa WhiteCoat và giao thuốc Pharmacity hoạt động ra sao?",
+        "Telemed Sức khỏe 24/7 dùng như thế nào?"
+      ],
+      "answer": "Bạn khám trực tuyến trên ứng dụng WhiteCoat, được bác sĩ kê đơn thuốc điện tử và được hệ thống Pharmacity giao thuốc tận nơi, không cần tạm ứng tiền.",
+      "category": "Về phí & quyền lợi",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_016",
+      "canonical_question": "Cho tôi hỏi sau khi mua, tôi nhận giấy chứng nhận ở đâu?",
+      "user_questions": [
+        "Cho tôi hỏi sau khi mua, tôi nhận giấy chứng nhận ở đâu?",
+        "Có thể gửi lại giấy chứng nhận không?",
+        "Giấy chứng nhận gửi qua kênh nào?",
+        "Không thấy giấy chứng nhận bảo hiểm thì làm sao?",
+        "Mua xong xem giấy chứng nhận ở đâu?",
+        "Mình muốn biết sau khi mua, tôi nhận giấy chứng nhận ở đâu?",
+        "Sau khi mua, tôi nhận giấy chứng nhận ở đâu như thế nào?",
+        "Sau khi mua, tôi nhận giấy chứng nhận ở đâu?"
+      ],
+      "answer": "Giấy chứng nhận bảo hiểm được gửi qua thông báo SMS, ZaloOA của Bảo hiểm Ngôi Nhà Xanh và hiển thị trong mục “Quản lý hợp đồng bảo hiểm” trên Zalopay.",
+      "category": "Về quy trình mua & sử dụng",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_017",
+      "canonical_question": "Cho tôi hỏi nếu tôi không tìm được giấy chứng nhận ở các kênh trên, có thể gửi lại tôi được không?",
+      "user_questions": [
+        "Cho tôi hỏi nếu tôi không tìm được giấy chứng nhận ở các kênh trên, có thể gửi lại tôi được không?",
+        "Mình muốn biết nếu tôi không tìm được giấy chứng nhận ở các kênh trên, có thể gửi lại tôi được không?",
+        "Nếu tôi không tìm được giấy chứng nhận ở các kênh trên, có thể gửi lại tôi được không như thế nào?",
+        "Nếu tôi không tìm được giấy chứng nhận ở các kênh trên, có thể gửi lại tôi được không?"
+      ],
+      "answer": "Có, khách hàng có thể liên hệ Hotline Ngôi Nhà Xanh: 1900 9129 để được hướng dẫn.",
+      "category": "Về quy trình mua & sử dụng",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_018",
+      "canonical_question": "Cho tôi hỏi tôi cần cài thêm ứng dụng gì không?",
+      "user_questions": [
+        "Cho tôi hỏi tôi cần cài thêm ứng dụng gì không?",
+        "Có cần tải WhiteCoat và Papaya Care không?",
+        "Cần tải app nào để dùng bảo hiểm?",
+        "Dùng Telemed cần app gì?",
+        "Mình muốn biết tôi cần cài thêm ứng dụng gì không?",
+        "Nộp hồ sơ bồi thường bằng app nào?",
+        "Tôi cần cài thêm ứng dụng gì không như thế nào?",
+        "Tôi cần cài thêm ứng dụng gì không?"
+      ],
+      "answer": "Có, để sử dụng dịch vụ tư vấn sức khỏe từ xa (Telemed), bạn cần tải ứng dụng WhiteCoat (App Store hoặc Google Play).\nĐể nộp hồ sơ yêu cầu bồi thường, theo dõi quyền lợi bảo hiểm, tiến độ xử lý hồ sơ, bạn cần tải ứng dụng Papaya Care (App Store hoặc Google Play).",
+      "category": "Về quy trình mua & sử dụng",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_019",
+      "canonical_question": "Cho tôi hỏi tôi có thể hủy Hợp đồng không?",
+      "user_questions": [
+        "Cho tôi hỏi tôi có thể hủy Hợp đồng không?",
+        "Có thể cancel bảo hiểm sau khi mua không?",
+        "Hợp đồng đã cấp có hủy được không?",
+        "Không muốn dùng nữa có hủy được không?",
+        "Mua rồi có hủy hợp đồng được không?",
+        "Mình muốn biết tôi có thể hủy Hợp đồng không?",
+        "Tôi có thể hủy Hợp đồng không như thế nào?",
+        "Tôi có thể hủy Hợp đồng không?"
+      ],
+      "answer": "Không, bạn không thể hủy Hợp đồng sau khi được cấp.",
+      "category": "Về quy trình mua & sử dụng",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_020",
+      "canonical_question": "Bệnh bị loại trừ thì có refund không?",
+      "user_questions": [
+        "Bệnh bị loại trừ thì có refund không?",
+        "Cho tôi hỏi nếu phát hiện có bệnh loại trừ sau khi mua thì tôi có được hoàn tiền không?",
+        "Có được trả lại phí bảo hiểm không?",
+        "Mua xong biết mình không đủ điều kiện có được hoàn tiền không?",
+        "Mình muốn biết nếu phát hiện có bệnh loại trừ sau khi mua thì tôi có được hoàn tiền không?",
+        "Nếu phát hiện có bệnh loại trừ sau khi mua thì tôi có được hoàn tiền không như thế nào?",
+        "Nếu phát hiện có bệnh loại trừ sau khi mua thì tôi có được hoàn tiền không?",
+        "Phát hiện bệnh loại trừ sau khi mua có được hoàn phí không?"
+      ],
+      "answer": "Không, bạn sẽ không được hoàn lại phí bảo hiểm đã thanh toán.",
+      "category": "Về quy trình mua & sử dụng",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_021",
+      "canonical_question": "Cho tôi hỏi khi cần yêu cầu bồi thường, tôi làm thế nào?",
+      "user_questions": [
+        "Cho tôi hỏi khi cần yêu cầu bồi thường, tôi làm thế nào?",
+        "Email nhận hồ sơ bồi thường là gì?",
+        "Hotline bồi thường là số nào?",
+        "Khi cần yêu cầu bồi thường, tôi làm thế nào như thế nào?",
+        "Khi cần yêu cầu bồi thường, tôi làm thế nào?",
+        "Muốn claim bảo hiểm thì liên hệ ai?",
+        "Mình muốn biết khi cần yêu cầu bồi thường, tôi làm thế nào?",
+        "Yêu cầu bồi thường qua đâu?"
+      ],
+      "answer": "Liên hệ CÔNG TY TNHH XOÀI VIỆT NAM (PAPAYA), đơn vị tiếp nhận và giải quyết hồ sơ bồi thường qua 📞Hotline: 1900252570 📧Email: healthcare@papaya.asia",
+      "category": "Về quy trình bồi thường",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_022",
+      "canonical_question": "Cho tôi hỏi tôi cần chuẩn bị hồ sơ gì?",
+      "user_questions": [
+        "Cho tôi hỏi tôi cần chuẩn bị hồ sơ gì?",
+        "Claim tiền thuốc cần toa thuốc và hóa đơn gì?",
+        "Hồ sơ bồi thường cần giấy tờ gì?",
+        "Mình muốn biết tôi cần chuẩn bị hồ sơ gì?",
+        "Tôi cần chuẩn bị hồ sơ gì như thế nào?",
+        "Tôi cần chuẩn bị hồ sơ gì?",
+        "Điều trị ngoại trú cần chuẩn bị gì?",
+        "Điều trị nội trú cần giấy tờ nào?"
+      ],
+      "answer": "Hồ sơ chung:\nGiấy đề nghị bồi thường Giấy đề nghị bồi thường cùng các thông tin bắt buộc\nChủ Hợp đồng Bảo hiểm (Policy Holder)\nSố Hợp đồng Bảo hiểm (*) (Policy Number)\nThời hạn Bảo hiểm (Insurance Period)\nNgười được Bảo hiểm (*) (Full Name of the Insured)\nNgày / tháng / năm sinh (Date of Birth)\nSố CMT / CCCD / Hộ chiếu (*) (ID Card/ Passport)\nĐia chỉ email (*) (Email Address)\nSố điện thoại (*) (Mobile Phone)\nThông tin ngân hàng (Bank Transfer)\nNgười thụ hưởng (*): (Beneficiary)\nSố tài khoản (*): (Account Number)\nTên ngân hàng, chi nhánh (*): (Bank Name and Branch)\nChứng từ tài chính:\nHóa đơn tài chính cho tất cả các chi phí phát sinh\nBảng kê chi tiết hoặc Phiếu thu chi tiết\nChứng từ y tế\nHồ sơ yêu cầu bồi thường riêng của các quyền lợi\n3.2.1. Hồ sơ điều trị ngoại trú:\nToa thuốc/ Sổ khám/ Phiếu kết quả khám/ Giấy chứng nhận bệnh lý:\nCó chẩn đoán bệnh và hướng điều trị rõ ràng (kê toa thuốc/chỉ định điều trị phẫu thuật…)\nCó Chữ ký sống và Họ tên bác sĩ điều trị\nToa thuốc cần được mua trong vòng 05 ngày từ ngày kê toa. Trong trường hợp Hóa đơn mua thuốc xuất sau 05 ngày, vui lòng cung cấp Phiếu thu/Hóa đơn mua thể hiện ngày mua thuốc thực tế)\nĐóng dấu vuông/ tròn của CSYT\n3.2.2. Hồ sơ điều trị nội trú\nGiấy ra viện:\nCó chẩn đoán bệnh và thời gian lưu viện\nCó Chữ ký sống và Họ tên bác sĩ điều trị\nĐóng dấu tròn của CSYT\nToa thuốc xuất viện (nếu có phát sinh chi phí):\nCó chẩn đoán bệnh và phương pháp điều trị rõ ràng (kê toa thuốc, ...)\nCó Chữ ký sống và Họ tên bác sĩ điều trị\nĐóng dấu vuông/ tròn của CSYT",
+      "category": "Về quy trình bồi thường",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_023",
+      "canonical_question": "Bảo lãnh trực tiếp khác hoàn tiền sau thế nào?",
+      "user_questions": [
+        "Bảo lãnh trực tiếp khác hoàn tiền sau thế nào?",
+        "Cho tôi hỏi luồng bồi thường chi phí khám chữa bệnh như thế nào?",
+        "Các bước hoàn tiền sau là gì?",
+        "Không được bảo lãnh thì xử lý ra sao?",
+        "Luồng bồi thường chi phí khám chữa bệnh như thế nào như thế nào?",
+        "Luồng bồi thường chi phí khám chữa bệnh như thế nào?",
+        "Mình muốn biết luồng bồi thường chi phí khám chữa bệnh như thế nào?",
+        "Quy trình bồi thường diễn ra thế nào?"
+      ],
+      "answer": "Có 2 luồng bồi thường chi phí khám chữa bệnh\n- Bảo lãnh trực tiếp: Bạn không cần trả tiền trước, chi phí khám chữa bệnh sẽ được bảo lãnh trực tiếp theo quyền lợi bảo hiểm.\n- Hoàn tiền sau: Bạn thanh toán trước chi phí khám chữa bệnh, sau đó gửi yêu cầu bồi thường để được hoàn lại theo quyền lợi bảo hiểm.\n1. Luồng Bảo lãnh trực tiếp: bao gồm bảo lãnh viện phí tại các cơ sở y tế– các quyền lợi nội trú; bảo lãnh chi phí thuốc tại hệ thống nhà thuốc Pharmacity– quyền lợi ngoại trú.\nQuyền lợi nội trú:\nBước 1: Người được bảo hiểm xuất trình tại quầy Bảo hiểm tư nhân\n- Thẻ bảo hiểm tư nhân (BHTN) (Thẻ vật lý/ Thẻ điện tử) hoặc Giấy chứng nhận bảo hiểm\n- Thẻ bảo hiểm y tế Nhà nước (BHYT): áp dụng với các Cơ sở y tế chấp nhận song song BHYT và BHTN\n- CMND/CCCD/Hộ chiếu/App VNeID (bản gốc) hoặc Giấy khai sinh/App VNeID (bản gốc) (đối với trẻ em)\nBước 2: Người được bảo hiểm đợi Cơ sở y tế (Hệ thống nhà thuốc Pharmacity và Bệnh viện/Phòng khám) kiểm tra thông tin Người được bảo hiểm (NĐBH), thông báo với các bên liên quan để xử lý yêu cầu bồi thường, và thông tin tới NĐBH về kết quả bảo lãnh.\nBước 3: Người được bảo hiểm quay lại quầy Bảo hiểm tư nhân\n- Kiểm tra các chi phí y tế\n- Tiếp nhận thông tin về kết quả bảo lãnh\n- Thanh toán các chi phí chưa được bảo lãnh\nBảo lãnh viện phí KHÔNG áp dụng cho các trường hợp sau:\n- Không mang Thẻ BHTN hoặc Thẻ BHTN chưa trùng khớp thông tin trên hệ thống\n- Không mang giấy tờ tùy thân (CMNDCCCD/Passport hoặc giấy khai sinh đối với trẻ em)\n- Ngoài giờ làm việc của Quầy bảo hiểm tư nhân của Cơ sở y tế\n- Điều trị tai nạn\n- Các chi phí không thuộc phạm vi bảo hiểm; Các chi phí khám, xét nghiệm ... trước khi nhập viện, chi phí tái khám sau xuất viện, chi phí dưỡng nhi, chi phí theo yêu cầu và các khoản trợ cấp\n- Các quyền lợi chưa qua thời gian chờ được quy định cụ thể theo từng Hợp đồng bao hiểm bao gồm nhưng không giới hạn: Bệnh đặc biệt, bệnh có sẵn, Thai sản, Bệnh thông thường, Điều trị răng\nTrong trường hợp không được bảo lãnh Khách hàng vui lòng tự thanh toán trước, thu thập chứng từ y tế kèm hóa đơn và gửi hồ sơ yêu cầu bồi thường về Papaya để được xem xét chi trả sau.\nQuyền lợi ngoại trú:\nNgười được bảo hiểm sau khi khám trực tuyến trên ứng dụng WhiteCoat sẽ được tự động gửi toa thuốc đến hệ thống nhà thuốc Pharmacity và được giao thuốc tận nơi để nhận thuốc bảo lãnh.\nLưu ý thời gian bảo lãnh:\n- Bảo lãnh nội trú: 24 giờ\n- Bảo lãnh ngoại trú: 30 phút\n- Thời gian làm việc: 24/7 trừ Lễ/ Tết\n2. Luồng hoàn tiền sau (khách hàng tự thanh toán trước, yêu cầu hoàn tiền sau):\nChuẩn bị hồ sơ bồi thường (theo danh mục ở câu 14).\nGửi hồ sơ giấy hoặc bản scan đến Papaya.\n3 kênh tiếp nhận hồ sơ bồi thường:\nNhận hồ sơ bồi thường trực tiếp tại Văn phòng Papaya\nCÔNG TY TNHH XOÀI VIỆT NAM (PAPAYA): Lầu 2, Sun Village, số 31-33 Nguyễn Văn Đậu, Phường Bình Lợi Trung, Thành Phố Hồ Chí Minh (📞Bộ phận nhận thư : 0975600059)\nNhận hồ sơ bồi thường trực tuyến qua Email: healthcare@papaya.asia\nNhận hồ sơ bồi thường trực tuyến qua Ứng dụng di động Papaya Care",
+      "category": "Về quy trình bồi thường",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_024",
+      "canonical_question": "Bao lâu nhận được tiền bồi thường?",
+      "user_questions": [
+        "Bao lâu nhận được tiền bồi thường?",
+        "Cho tôi hỏi tôi sẽ nhận được tiền bồi thường trong bao lâu?",
+        "Hồ sơ duyệt xong mấy ngày có tiền?",
+        "Khi nào tiền bồi thường về tài khoản?",
+        "Mình muốn biết tôi sẽ nhận được tiền bồi thường trong bao lâu?",
+        "Thời gian chi trả bồi thường là bao lâu?",
+        "Tôi sẽ nhận được tiền bồi thường trong bao lâu như thế nào?",
+        "Tôi sẽ nhận được tiền bồi thường trong bao lâu?"
+      ],
+      "answer": "Thông thường 5–10 ngày làm việc sau khi hồ sơ hợp lệ được duyệt.",
+      "category": "Về quy trình bồi thường",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_025",
+      "canonical_question": "Cho tôi hỏi tôi có thể tra cứu tiến độ bồi thường ở đâu?",
+      "user_questions": [
+        "Cho tôi hỏi tôi có thể tra cứu tiến độ bồi thường ở đâu?",
+        "Kiểm tra trạng thái claim như thế nào?",
+        "Liên hệ đâu để hỏi tiến độ bồi thường?",
+        "Mình muốn biết tôi có thể tra cứu tiến độ bồi thường ở đâu?",
+        "Theo dõi hồ sơ bồi thường ở đâu?",
+        "Tôi có thể tra cứu tiến độ bồi thường ở đâu như thế nào?",
+        "Tôi có thể tra cứu tiến độ bồi thường ở đâu?",
+        "Xem tiến độ bồi thường trên app nào?"
+      ],
+      "answer": "Bạn có thể theo dõi tiến độ xử lý hồ sơ bồi thường qua ứng dụng Papaya Care (App Store hoặc Google Play) hoặc liên hệ hotline 1900252570 để được cập nhật.",
+      "category": "Về quy trình bồi thường",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_026",
+      "canonical_question": "Cho tôi hỏi dịch vụ Tư vấn sức khỏe từ xa (Telemed) là gì?",
+      "user_questions": [
+        "Cho tôi hỏi dịch vụ Tư vấn sức khỏe từ xa (Telemed) là gì?",
+        "Dịch vụ Tư vấn sức khỏe từ xa (Telemed) là gì như thế nào?",
+        "Dịch vụ Tư vấn sức khỏe từ xa (Telemed) là gì?",
+        "Dịch vụ tư vấn y khoa qua video là gì?",
+        "Khám online WhiteCoat là gì?",
+        "Khám từ xa trong gói Sức khỏe 24/7 hoạt động ra sao?",
+        "Mình muốn biết dịch vụ Tư vấn sức khỏe từ xa (Telemed) là gì?",
+        "Telemed là gì?"
+      ],
+      "answer": "Tư vấn sức khỏe từ xa (Telemed) là dịch vụ tư vấn y khoa qua video trực tuyến, giúp bạn gặp bác sĩ thật mà không cần đến bệnh viện. Dịch vụ được cung cấp bởi WhiteCoat Việt Nam, nằm trong quyền lợi của gói Sức khỏe 24/7.\nCách bắt đầu sử dụng\nBước 1: Tải ứng dụng: WhiteCoat trên App Store / Google Play\nBước 2: Đăng nhập: sử dụng mã hướng dẫn từ WhiteCoat (có thể lấy qua email / hotline)\nBước 3: Đặt lịch tư vấn từ xa:\nTại Trang chủ, chọn “Bác sỹ đa khoa”\nNhập triệu chứng, thực hiện theo hướng dẫn để kết nối bác sỹ (Tai Mũi Họng, Da liễu, Nội tiết, Tim mạch, Tiêu hóa...)\nNhập triệu chứng, chọn thời gian hẹn\nBước 4: Kết nối & nhận tư vấn: bác sĩ sẽ gọi video trực tiếp, có thể kê toa thuốc điện tử\nBước 5: Nhận thuốc: Pharmacity giao thuốc miễn phí tận nơi.\nLưu ý khi sử dụng\nDịch vụ hoạt động trong giờ hành chính (8h30–17h, Thứ 2–Thứ 7)\nKhông áp dụng cho trường hợp cấp cứu hoặc bệnh nghiêm trọng\nChuẩn bị sẵn CMND/CCCD (hoặc giấy khai sinh cho trẻ em) khi bắt đầu cuộc gọi\nNếu kết nối bị gián đoạn, bác sĩ sẽ gọi lại qua Hotline. +84 877606688\nCha mẹ / người giám hộ cần tham gia khi người được khám là trẻ dưới 18 tuổi",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_027",
+      "canonical_question": "Cho tôi hỏi tôi có thể khám bao nhiêu lần/năm?",
+      "user_questions": [
+        "Cho tôi hỏi tôi có thể khám bao nhiêu lần/năm?",
+        "Có thể đặt lịch tư vấn nhiều lần không?",
+        "Khám WhiteCoat có giới hạn lượt không?",
+        "Mình muốn biết tôi có thể khám bao nhiêu lần/năm?",
+        "Một năm được khám online mấy lần?",
+        "Telemed có giới hạn số lần khám không?",
+        "Tôi có thể khám bao nhiêu lần/năm như thế nào?",
+        "Tôi có thể khám bao nhiêu lần/năm?"
+      ],
+      "answer": "Không giới hạn số lần – bạn có thể đặt lịch bất cứ khi nào trong thời hạn bảo hiểm.",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_028",
+      "canonical_question": "Cho tôi hỏi có tốn phí khi đặt lịch không?",
+      "user_questions": [
+        "Cho tôi hỏi có tốn phí khi đặt lịch không?",
+        "Có tốn phí khi đặt lịch không như thế nào?",
+        "Có tốn phí khi đặt lịch không?",
+        "Dùng WhiteCoat có phải trả tiền không?",
+        "Gói bảo hiểm đã bao gồm phí khám online chưa?",
+        "Khám Telemed có miễn phí không?",
+        "Mình muốn biết có tốn phí khi đặt lịch không?",
+        "Đặt lịch khám từ xa có mất phí không?"
+      ],
+      "answer": "Không. Dịch vụ khám sức khỏe từ xa qua ứng dụng WhiteCoat đã nằm trong gói bảo hiểm Sức khỏe 24/7.",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_029",
+      "canonical_question": "Cho tôi hỏi tôi có được chọn bác sĩ không?",
+      "user_questions": [
+        "Cho tôi hỏi tôi có được chọn bác sĩ không?",
+        "Có chọn chuyên khoa được không?",
+        "Có thể chọn bác sĩ theo giờ rảnh không?",
+        "Mình muốn biết tôi có được chọn bác sĩ không?",
+        "Tôi có được chọn bác sĩ không như thế nào?",
+        "Tôi có được chọn bác sĩ không?",
+        "Tôi có được chọn bác sĩ trên app không?",
+        "WhiteCoat có danh sách bác sĩ để chọn không?"
+      ],
+      "answer": "Có thể lựa chọn bác sĩ theo chuyên khoa, thời gian rảnh hoặc theo danh sách đề xuất trên ứng dụng.",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_030",
+      "canonical_question": "Bác sĩ Telemed kê thuốc như thế nào?",
+      "user_questions": [
+        "Bác sĩ Telemed kê thuốc như thế nào?",
+        "Bác sĩ có thể kê thuốc không như thế nào?",
+        "Bác sĩ có thể kê thuốc không?",
+        "Bác sĩ online có kê đơn thuốc được không?",
+        "Cho tôi hỏi bác sĩ có thể kê thuốc không?",
+        "Khám từ xa có toa thuốc điện tử không?",
+        "Mình muốn biết bác sĩ có thể kê thuốc không?",
+        "Đơn thuốc WhiteCoat dùng nhận thuốc Pharmacity được không?"
+      ],
+      "answer": "Có – đơn thuốc được phát hành điện tử và liên kết trực tiếp với hệ thống Pharmacity để bạn nhận thuốc bảo lãnh tại nhà",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_031",
+      "canonical_question": "Cho tôi hỏi tôi có thể xem lại kết quả khám ở đâu?",
+      "user_questions": [
+        "Cho tôi hỏi tôi có thể xem lại kết quả khám ở đâu?",
+        "Lịch sử khám từ xa nằm ở mục nào?",
+        "Mình muốn biết tôi có thể xem lại kết quả khám ở đâu?",
+        "Sau khi khám online xem lại ở đâu?",
+        "Tôi có thể xem lại kết quả khám ở đâu như thế nào?",
+        "Tôi có thể xem lại kết quả khám ở đâu?",
+        "Xem lại kết quả khám WhiteCoat như thế nào?",
+        "Xem lịch sử tư vấn ở đâu?"
+      ],
+      "answer": "Trên ứng dụng WhiteCoat",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_032",
+      "canonical_question": "Cho tôi hỏi cách bắt đầu sử dụng?",
+      "user_questions": [
+        "Cho tôi hỏi cách bắt đầu sử dụng?",
+        "Các bước khám online là gì?",
+        "Cách bắt đầu sử dụng",
+        "Cách bắt đầu sử dụng như thế nào?",
+        "Cách đặt lịch khám từ xa ra sao?",
+        "Hướng dẫn dùng WhiteCoat như thế nào?",
+        "Hướng dẫn đặt lịch khám WhiteCoat?",
+        "Làm sao để bắt đầu dùng Telemed?",
+        "Mình muốn biết cách bắt đầu sử dụng?",
+        "Tải app rồi đặt lịch tư vấn ra sao?"
+      ],
+      "answer": "Bước 1: Tải ứng dụng: WhiteCoat trên App Store / Google Play\nBước 2: Đăng nhập: sử dụng mã hướng dẫn từ WhiteCoat (có thể lấy qua email / hotline)\nBước 3: Đặt lịch tư vấn từ xa:\nTại Trang chủ, chọn “Bác sỹ đa khoa”\nNhập triệu chứng, thực hiện theo hướng dẫn để kết nối bác sỹ (Tai Mũi Họng, Da liễu, Nội tiết, Tim mạch, Tiêu hóa...)\nNhập triệu chứng, chọn thời gian hẹn\nBước 4: Kết nối & nhận tư vấn: bác sĩ sẽ gọi video trực tiếp, có thể kê toa thuốc điện tử\nBước 5: Nhận thuốc: Pharmacity giao thuốc miễn phí tận nơi.",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_033",
+      "canonical_question": "Cho tôi hỏi lưu ý khi sử dụng?",
+      "user_questions": [
+        "Cho tôi hỏi lưu ý khi sử dụng?",
+        "Dùng Telemed cần lưu ý gì?",
+        "Giờ hoạt động của dịch vụ tư vấn sức khỏe từ xa là khi nào?",
+        "Giờ làm việc của WhiteCoat là khi nào?",
+        "Lưu ý khi sử dụng",
+        "Lưu ý khi sử dụng như thế nào?",
+        "Mình muốn biết lưu ý khi sử dụng?",
+        "Telemed có dùng cho cấp cứu không?",
+        "Telemed có áp dụng cho cấp cứu không?",
+        "Trẻ em khám online cần người giám hộ không?"
+      ],
+      "answer": "Dịch vụ hoạt động trong giờ hành chính (8h30–17h, Thứ 2–Thứ 7)\nKhông áp dụng cho trường hợp cấp cứu hoặc bệnh nghiêm trọng\nChuẩn bị sẵn CMND/CCCD (hoặc giấy khai sinh cho trẻ em) khi bắt đầu cuộc gọi\nNếu kết nối bị gián đoạn, bác sĩ sẽ gọi lại qua Hotline. +84 877606688\nCha mẹ / người giám hộ cần tham gia khi người được khám là trẻ dưới 18 tuổi\nTôi có thể khám bao nhiêu lần/năm?\nKhông giới hạn số lần – bạn có thể đặt lịch bất cứ khi nào trong thời hạn bảo hiểm.\nCó tốn phí khi đặt lịch không?\nKhông. Dịch vụ khám sức khỏe từ xa qua ứng dụng WhiteCoat đã nằm trong gói bảo hiểm Sức khỏe 24/7.\nTôi có được chọn bác sĩ không?\nCó thể lựa chọn bác sĩ theo chuyên khoa, thời gian rảnh hoặc theo danh sách đề xuất trên ứng dụng.\nBác sĩ có thể kê thuốc không?\nCó – đơn thuốc được phát hành điện tử và liên kết trực tiếp với hệ thống Pharmacity để bạn nhận thuốc bảo lãnh tại nhà\nTôi có thể xem lại kết quả khám ở đâu?\nTrên ứng dụng WhiteCoat",
+      "category": "Giới thiệu & Hướng dẫn dịch vụ Tư vấn sức khỏe từ xa (Telemed)",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_034",
+      "canonical_question": "Cho tôi hỏi quy trình mua thuốc 0đ?",
+      "user_questions": [
+        "Cho tôi hỏi quy trình mua thuốc 0đ?",
+        "Chưa có đơn thuốc thì mua thuốc 0đ ra sao?",
+        "Chưa có đơn thuốc thì nhận thuốc bảo lãnh ra sao?",
+        "Có toa thuốc rồi nhận tiền thuốc thế nào?",
+        "Có toa thuốc rồi thì mua thuốc 0đ thế nào?",
+        "Làm sao để mua thuốc 0đ?",
+        "Mình muốn biết quy trình mua thuốc 0đ?",
+        "Quy trình mua thuốc 0đ",
+        "Quy trình mua thuốc 0đ như thế nào?",
+        "Quy trình nhận thuốc Pharmacity miễn phí như thế nào?"
+      ],
+      "answer": "Khi bạn đã có sẵn toa thuốc\nDành cho trường hợp đã đi khám bệnh viện/phòng khám và có toa thuốc giấy (*).\nB1: Mua thuốc theo đơn tại hệ thống Pharmacity.\nB2: Lấy hóa đơn (**)\nB3: Gửi yêu cầu bồi hoàn qua ứng dụng Papaya Care để nhận lại tiền.\n2) Khi bạn chưa có đơn thuốc\nDành cho trường hợp muốn bác sĩ tư vấn ngay và giao thuốc tận nhà.\nB1: Khám online với bác sĩ qua ứng dụng WhiteCoat.\nB2: Bác sĩ kê đơn trực tiếp trên hệ thống.\nB3: Thuốc được giao tận nơi\n(*) Toa thuốc/ Sổ khám/ Phiếu kết quả khám/ Giấy chứng nhận bệnh lý:\nCó chẩn đoán bệnh và hướng điều trị rõ ràng (kê toa thuốc/chỉ định điều trị phẫu thuật…)\nCó Chữ ký sống và Họ tên bác sĩ điều trị\nĐóng dấu vuông/ tròn của CSYT\nToa thuốc cần được mua trong vòng 05 ngày từ ngày kê toa.\n(**) Hóa đơn bao gồm hóa đơn mua hàng và hóa đơn VAT. Trong trường hợp Hóa đơn mua thuốc xuất sau 05 ngày, vui lòng cung cấp Phiếu thu/Hóa đơn mua thể hiện ngày mua thuốc thực tế.\nchữ i trong flow chưa có đơn thuốc\nDịch vụ hoạt động trong giờ hành chính (8h30–17h, Thứ 2–Thứ 7). Sau giờ hành chính, có thể liên hệ hotline đến đội ngũ Chăm Sóc Khách Hàng để đặt lịch, bác sĩ sẽ liên hệ vào thời gian đã hẹn.\nKhông áp dụng cho trường hợp cấp cứu hoặc bệnh nghiêm trọng\nChuẩn bị sẵn CMND/CCCD (hoặc giấy khai sinh cho trẻ em) khi bắt đầu cuộc gọi\nNếu kết nối bị gián đoạn, bác sĩ sẽ gọi lại qua Hotline. +84 877606688\nCha mẹ / người giám hộ cần tham gia khi người được khám là trẻ dưới 18 tuổi\nXem điều kiện áp dụng\nÁp dụng cho:\n• Đơn thuốc được cơ sở y tế kê toa\nCó chẩn đoán bệnh và hướng điều trị rõ ràng (kê toa thuốc/chỉ định điều trị phẫu thuật…)\nCó Chữ ký sống và Họ tên bác sĩ điều trị\nĐóng dấu vuông/ tròn của CSYT\nToa thuốc cần được mua trong vòng 05 ngày từ ngày kê toa và mua trực tiếp tại Pharmacity. Xem hệ thống cửa hàng\nĐơn thuốc được giao sau khi khám trực tuyến tại ứng dụng bảo hiểm WhiteCoat. Tải app\nĐiều trị nằm viện bao gồm:\n• Xét nghiệm, chẩn đoán hình ảnh • Vật tư y tế, thuốc men nội trú • Chi phí cấp cứu • Chi phí phẫu thuật • Phòng bệnh & Suất ăn\nXem chi tiết",
+      "category": "KHU VỰC HƯỚNG DẪN",
+      "tags": [
+        "sức khỏe",
+        "msig"
+      ],
+      "related_faq_ids": [],
+      "source": "migrated",
+      "priority": 5
+    },
+    {
+      "id": "msig_health_247_faq_035",
+      "canonical_question": "Tổng đài MSIG là số nào?",
+      "user_questions": [
+        "Tổng đài MSIG là số nào?",
+        "Hotline MSIG là gì?",
+        "Số điện thoại liên hệ MSIG?",
+        "Liên hệ MSIG qua số nào?",
+        "Gọi MSIG số mấy?",
+        "MSIG hotline bao nhiêu?",
+        "Cho tôi số điện thoại MSIG",
+        "Muốn gọi MSIG thì gọi số nào?",
+        "Số tổng đài của MSIG Việt Nam?",
+        "Liên hệ bảo hiểm MSIG số điện thoại nào?",
+        "MSIG customer service số mấy?",
+        "Cần liên hệ MSIG gọi số nào?"
+      ],
+      "answer": "Tổng đài MSIG Việt Nam: 0888 176 198\n\nQuý khách có thể liên hệ trực tiếp với MSIG để được tư vấn và hỗ trợ về các vấn đề liên quan đến bảo hiểm Sức khỏe 24/7.",
+      "category": "Liên hệ & Hỗ trợ",
+      "tags": [
+        "msig",
+        "liên hệ",
+        "hotline",
+        "tổng đài"
+      ],
+      "related_faq_ids": [
+        "msig_health_247_faq_017",
+        "msig_health_247_faq_021"
+      ],
+      "source": "manual",
+      "priority": 8
+    }
+  ]
+}

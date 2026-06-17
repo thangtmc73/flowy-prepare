@@ -21,12 +21,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY main.py .
 COPY services/ ./services/
-COPY knowledge/ ./knowledge/
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY start.sh .
-RUN chmod +x start.sh && mkdir -p data/sessions data/history
+RUN chmod +x start.sh && mkdir -p data/sessions data/jobs
 
 COPY --from=frontend-builder /app/frontend/dist /var/www/html
+
+VOLUME ["/app/data"]
 
 EXPOSE 8080
 CMD ["./start.sh"]

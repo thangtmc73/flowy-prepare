@@ -71,79 +71,57 @@ export async function updateSessionFaqs(sessionId, faqs) {
   })
 }
 
-export async function compareSession(sessionId) {
-  return request(`/api/sessions/${sessionId}/compare`)
-}
-
-export async function submitSession(sessionId, mode = 'merge') {
-  return request(`/api/sessions/${sessionId}/submit`, {
-    method: 'POST',
-    body: JSON.stringify({ mode }),
-  })
-}
-
 export async function regenerateSession(sessionId) {
   return request(`/api/sessions/${sessionId}/regenerate`, { method: 'POST' })
 }
 
-export async function listProducts() {
-  return request('/api/products')
+export async function finishSession(sessionId) {
+  return request(`/api/sessions/${sessionId}/done`, { method: 'POST' })
 }
 
-export async function getCrossProduct(fileId) {
-  return request(`/api/cross-products/${fileId}`)
+export async function downloadProductJson(sessionId, partnerId, productId) {
+  const res = await fetch(`${BASE}/api/sessions/${sessionId}/export`)
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.detail || `HTTP ${res.status}`)
+  }
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `${partnerId}_${productId}.json`
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
-export async function updateCrossProductFaqs(fileId, faqs) {
-  return request(`/api/cross-products/${fileId}/faqs`, {
-    method: 'PUT',
-    body: JSON.stringify({ faqs }),
-  })
+export async function downloadSharedKnowledgeZip(sessionId) {
+  const res = await fetch(`${BASE}/api/sessions/${sessionId}/shared-knowledge/zip`)
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.detail || `HTTP ${res.status}`)
+  }
+  const blob = await res.blob()
+  const disposition = res.headers.get('Content-Disposition') || ''
+  const match = disposition.match(/filename="([^"]+)"/)
+  const filename = match?.[1] || 'knowledge_shared.zip'
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
-export async function listCrossProductHistory(fileId) {
-  return request(`/api/cross-products/${fileId}/history`)
+export function downloadJsonText(text, filename) {
+  const blob = new Blob([text], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
-export async function restoreCrossProductHistory(fileId, filename) {
-  return request(`/api/cross-products/${fileId}/history/${filename}/restore`, {
-    method: 'POST',
-  })
-}
-
-export async function getProduct(partnerId, productId) {
-  return request(`/api/products/${partnerId}/${productId}`)
-}
-
-export async function updateProductFaqs(partnerId, productId, faqs) {
-  return request(`/api/products/${partnerId}/${productId}/faqs`, {
-    method: 'PUT',
-    body: JSON.stringify({ faqs }),
-  })
-}
-
-export async function deleteProduct(partnerId, productId) {
-  return request(`/api/products/${partnerId}/${productId}`, { method: 'DELETE' })
-}
-
-export async function listHistory(partnerId, productId) {
-  return request(`/api/products/${partnerId}/${productId}/history`)
-}
-
-export async function restoreHistory(partnerId, productId, filename) {
-  return request(`/api/products/${partnerId}/${productId}/history/${filename}/restore`, {
-    method: 'POST',
-  })
-}
-
-export async function listSessions(status) {
-  const q = status ? `?status=${status}` : ''
-  return request(`/api/sessions${q}`)
-}
-
-export async function searchKnowledge(query, filters = {}) {
-  return request('/api/knowledge/search', {
-    method: 'POST',
-    body: JSON.stringify({ query, ...filters }),
-  })
+export async function copyToClipboard(text) {
+  await navigator.clipboard.writeText(text)
 }

@@ -3,7 +3,6 @@ name: CI/CD Pipeline
 on:
   pull_request:
     paths:
-      - "knowledge/**"
       - "main.py"
       - "services/**"
       - "frontend/**"
@@ -11,14 +10,12 @@ on:
       - "requirements.txt"
       - "nginx.conf"
       - "start.sh"
-      - "scripts/**"
       - "agentbase.config.example.json"
       - ".github/workflows/deploy.yml"
   push:
     branches:
       - master
     paths:
-      - "knowledge/**"
       - "main.py"
       - "services/**"
       - "frontend/**"
@@ -26,7 +23,6 @@ on:
       - "requirements.txt"
       - "nginx.conf"
       - "start.sh"
-      - "scripts/**"
       - "agentbase.config.example.json"
       - ".github/workflows/deploy.yml"
 
@@ -50,9 +46,6 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: "24"
-
-      - name: Validate Knowledge Base
-        run: python3 scripts/validate_knowledge.py
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
@@ -88,9 +81,9 @@ jobs:
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           EXTRACTION_MAX_CHARS: ${{ secrets.EXTRACTION_MAX_CHARS }}
-          KNOWLEDGE_DIR: knowledge
+          DATA_DIR: data
           DRAFTS_DIR: data/sessions
-          HISTORY_DIR: data/history
+          JOBS_DIR: data/jobs
         run: |
           test -n "$LLM_BASE_URL" || (echo "Missing secret: LLM_BASE_URL" && exit 1)
           test -n "$LLM_MODEL" || (echo "Missing secret: LLM_MODEL" && exit 1)
@@ -100,9 +93,9 @@ jobs:
             echo "LLM_BASE_URL=${LLM_BASE_URL}"
             echo "LLM_MODEL=${LLM_MODEL}"
             echo "LLM_API_KEY=${LLM_API_KEY}"
-            echo "KNOWLEDGE_DIR=${KNOWLEDGE_DIR:-knowledge}"
+            echo "DATA_DIR=${DATA_DIR:-data}"
             echo "DRAFTS_DIR=${DRAFTS_DIR:-data/sessions}"
-            echo "HISTORY_DIR=${HISTORY_DIR:-data/history}"
+            echo "JOBS_DIR=${JOBS_DIR:-data/jobs}"
           } > .env.deploy
 
           if [ -n "${EXTRACTION_MAX_CHARS:-}" ]; then

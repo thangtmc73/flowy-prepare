@@ -1,39 +1,44 @@
-"""Flowy Pre — PDF/DOCX knowledge ingestion agent with review workflow."""
+"""Flowy Pre — PDF/DOCX FAQ generator with shared knowledge export."""
 
 from __future__ import annotations
 
+import io
 import logging
 import os
 import uuid
+import zipfile
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any
 
 from dotenv import load_dotenv
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from fastapi.responses import JSONResponse, Response
+from pydantic import BaseModel
 
 from services.document_parser import extract_text_from_upload
 from services.faq_generator import assign_faq_ids, generate_faqs_from_text
 from services.job_store import JobStore
-from services.knowledge_store import KnowledgeStore
+from services.knowledge_remote import fetch_raw, list_products_from_index, product_exists
 from services.metadata_suggester import normalize_slug, suggest_metadata_from_text
 from services.progress import make_progress
+from services.session_store import SessionStore
+from services.shared_knowledge_generator import generate_shared_knowledge
 
 load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("flowy_pre")
 
-KNOWLEDGE_DIR = Path(os.environ.get("KNOWLEDGE_DIR", "knowledge"))
-DRAFTS_DIR = Path(os.environ.get("DRAFTS_DIR", "data/sessions"))
-HISTORY_DIR = Path(os.environ.get("HISTORY_DIR", "data/history"))
-JOBS_DIR = Path(os.environ.get("JOBS_DIR", "data/jobs"))
+DATA_DIR = Path(os.environ.get("DATA_DIR", "data"))
+DRAFTS_DIR = Path(os.environ.get("DRAFTS_DIR", str(DATA_DIR / "sessions")))
+JOBS_DIR = Path(os.environ.get("JOBS_DIR", str(DATA_DIR / "jobs")))
 
-store = KnowledgeStore(KNOWLEDGE_DIR, DRAFTS_DIR, HISTORY_DIR)
+store = SessionStore(DRAFTS_DIR)
 jobs = JobStore(JOBS_DIR)
 
-app = FastAPI(title="Flowy Pre Knowledge Agent", version="1.0.0")
+app = FastAPI(title="Flowy Pre FAQ Generator", version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -59,14 +64,8 @@ class UploadRequest(BaseModel):
     category: str = "health"
 
 
-def _parse_upload_file(filename: str, file_base64: str) -> str:
-    ext = Path(filename).suffix.lower()
-    if ext not in {".pdf", ".docx"}:
-        raise HTTPException(status_code=400, detail="Only .pdf and .docx are supported.")
-    try:
-        return extract_text_from_upload(file_base64, filename)
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+class FaqsUpdateRequest(BaseModel):
+    faqs: list[dict[str, Any]]
 
 
 def _normalize_upload_metadata(body: UploadRequest) -> dict[str, str]:
@@ -77,18 +76,6 @@ def _normalize_upload_metadata(body: UploadRequest) -> dict[str, str]:
         "product_name": body.product_name.strip(),
         "category": body.category.strip().lower(),
     }
-
-
-class FaqsUpdateRequest(BaseModel):
-    faqs: list[dict[str, Any]]
-
-
-class SubmitRequest(BaseModel):
-    mode: Literal["append", "merge", "replace"] = "merge"
-
-
-class ProductFaqsUpdateRequest(BaseModel):
-    faqs: list[dict[str, Any]]
 
 
 def _run_generation(session_id: str, source_text: str) -> None:
@@ -161,7 +148,17 @@ def _run_analyze_job(job_id: str, filename: str, file_base64: str) -> None:
             ),
         )
         source_text = extract_text_from_upload(file_base64, filename)
-        existing_products = store.list_products()
+
+        jobs.update_progress(
+            job_id,
+            make_progress(
+                phase="fetching_catalog",
+                percent=35,
+                message="Đang tải catalog từ GitHub...",
+            ),
+        )
+        index = fetch_raw("_index.json")
+        existing_products = list_products_from_index(index)
 
         jobs.update_progress(
             job_id,
@@ -176,14 +173,16 @@ def _run_analyze_job(job_id: str, filename: str, file_base64: str) -> None:
             filename=filename,
             existing_products=existing_products,
         )
-        existing_product = store.load_product(metadata["partner_id"], metadata["product_id"])
+        is_existing = product_exists(
+            index, metadata["partner_id"], metadata["product_id"]
+        )
         jobs.complete(
             job_id,
             {
                 "source_text_length": len(source_text),
                 "metadata": metadata,
-                "existing_product": existing_product,
-                "categories": store.load_index().get("categories", []),
+                "is_existing_product": is_existing,
+                "categories": index.get("categories", []),
             },
         )
     except Exception as exc:
@@ -233,100 +232,47 @@ def _run_upload_pipeline(session_id: str) -> None:
         store.delete_upload_payload(session_id)
 
 
+def _run_shared_knowledge(session_id: str) -> None:
+    session = store.get_session(session_id)
+    if not session:
+        return
+
+    def on_progress(progress: dict[str, Any]) -> None:
+        store.update_session_progress(session_id, progress)
+
+    try:
+        session["status"] = "generating_shared"
+        session.pop("shared_knowledge_error", None)
+        store.save_session(session)
+
+        shared = generate_shared_knowledge(session, on_progress=on_progress)
+        session = store.get_session(session_id) or session
+        session["shared_knowledge"] = shared
+        session["status"] = "done"
+        session["progress"] = make_progress(
+            phase="done",
+            percent=100,
+            message="Hoàn tất generate shared knowledge",
+        )
+        store.save_session(session)
+        logger.info("Shared knowledge generated for session %s", session_id)
+    except Exception as exc:
+        logger.exception("Shared knowledge generation failed for session %s", session_id)
+        session = store.get_session(session_id)
+        if session:
+            session["status"] = "review"
+            session["shared_knowledge_error"] = str(exc)
+            session["progress"] = make_progress(
+                phase="error",
+                percent=0,
+                message=str(exc),
+            )
+            store.save_session(session)
+
+
 @app.get("/health")
-def health() -> dict[str, str]:
+def health() -> dict[str, Any]:
     return {"status": "healthy", "service": "flowy-pre"}
-
-
-@app.get("/api/products")
-def list_products() -> dict[str, Any]:
-    return {
-        "products": store.list_products(),
-        "cross_products": store.list_cross_products(),
-    }
-
-
-@app.get("/api/cross-products/{file_id}")
-def get_cross_product(file_id: str) -> dict[str, Any]:
-    item = store.load_cross_product(file_id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Cross-product file not found")
-    return item
-
-
-@app.put("/api/cross-products/{file_id}/faqs")
-def update_cross_product_faqs(
-    file_id: str, body: ProductFaqsUpdateRequest
-) -> dict[str, Any]:
-    try:
-        result = store.update_cross_product_faqs(file_id, body.faqs)
-        return {"status": "ok", **result}
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
-
-
-@app.get("/api/cross-products/{file_id}/history")
-def list_cross_product_history(file_id: str) -> dict[str, Any]:
-    if not store.is_cross_product_id(file_id):
-        raise HTTPException(status_code=404, detail="Cross-product file not found")
-    return {"history": store.list_cross_product_history(file_id)}
-
-
-@app.post("/api/cross-products/{file_id}/history/{filename}/restore")
-def restore_cross_product_history(
-    file_id: str, filename: str
-) -> dict[str, Any]:
-    try:
-        result = store.restore_cross_product_history(file_id, filename)
-        return {"status": "ok", **result}
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
-
-
-@app.get("/api/products/{partner_id}/{product_id}")
-def get_product(partner_id: str, product_id: str) -> dict[str, Any]:
-    product = store.load_product(partner_id, product_id)
-    if not product:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return product
-
-
-@app.put("/api/products/{partner_id}/{product_id}/faqs")
-def update_product_faqs(
-    partner_id: str, product_id: str, body: ProductFaqsUpdateRequest
-) -> dict[str, Any]:
-    try:
-        result = store.update_product_faqs(partner_id, product_id, body.faqs)
-        return {"status": "ok", **result}
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
-
-
-@app.delete("/api/products/{partner_id}/{product_id}")
-def delete_product(partner_id: str, product_id: str) -> dict[str, Any]:
-    try:
-        result = store.delete_product(partner_id, product_id)
-        return {"status": "deleted", **result}
-    except ValueError as exc:
-        raise HTTPException(status_code=403, detail=str(exc)) from exc
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
-
-
-@app.get("/api/products/{partner_id}/{product_id}/history")
-def list_product_history(partner_id: str, product_id: str) -> dict[str, Any]:
-    return {"history": store.list_history(partner_id, product_id)}
-
-
-@app.post("/api/products/{partner_id}/{product_id}/history/{filename}/restore")
-def restore_product_history(
-    partner_id: str, product_id: str, filename: str
-) -> dict[str, Any]:
-    try:
-        result = store.restore_history(partner_id, product_id, filename)
-        return {"status": "ok", **result}
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/sessions")
@@ -339,7 +285,7 @@ def get_session(session_id: str) -> dict[str, Any]:
     session = store.get_session(session_id)
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    return store.enrich_session(session)
+    return session
 
 
 @app.get("/api/jobs/{job_id}")
@@ -352,7 +298,6 @@ def get_job(job_id: str) -> dict[str, Any]:
 
 @app.post("/api/analyze")
 def analyze_document(body: AnalyzeRequest, background_tasks: BackgroundTasks) -> dict[str, Any]:
-    """Parse file and suggest partner/product metadata via LLM (async job)."""
     ext = Path(body.filename).suffix.lower()
     if ext not in {".pdf", ".docx"}:
         raise HTTPException(status_code=400, detail="Only .pdf and .docx are supported.")
@@ -402,6 +347,8 @@ def regenerate_session(session_id: str, background_tasks: BackgroundTasks) -> di
     session["status"] = "generating"
     session["faqs"] = []
     session.pop("error", None)
+    session.pop("shared_knowledge", None)
+    session.pop("shared_knowledge_error", None)
     session["progress"] = make_progress(
         phase="queued",
         percent=0,
@@ -421,106 +368,65 @@ def update_session_faqs(session_id: str, body: FaqsUpdateRequest) -> dict[str, A
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
-@app.get("/api/sessions/{session_id}/compare")
-def compare_session(session_id: str) -> dict[str, Any]:
-    try:
-        return store.compare_session(session_id)
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+@app.get("/api/sessions/{session_id}/export")
+def export_product_json(session_id: str) -> JSONResponse:
+    session = store.get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    if not session.get("faqs"):
+        raise HTTPException(status_code=400, detail="No FAQs to export.")
+
+    product_json = store.build_product_json(session)
+    filename = f"{session['partner_id']}_{session['product_id']}.json"
+    return JSONResponse(
+        content=product_json,
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
-@app.post("/api/sessions/{session_id}/submit")
-def submit_session(session_id: str, body: SubmitRequest) -> dict[str, Any]:
-    try:
-        result = store.submit_session(session_id, mode=body.mode)
-        return {"status": "submitted", **result}
-    except FileNotFoundError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+@app.post("/api/sessions/{session_id}/done")
+def finish_session(session_id: str, background_tasks: BackgroundTasks) -> dict[str, Any]:
+    session = store.get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    if not session.get("faqs"):
+        raise HTTPException(status_code=400, detail="No FAQs to process.")
+
+    background_tasks.add_task(_run_shared_knowledge, session_id)
+    return {
+        "session_id": session_id,
+        "status": "generating_shared",
+        "message": "Generating shared knowledge files from GitHub baseline.",
+    }
 
 
-# AgentBase-compatible search endpoint for other agents (Direction 2)
-class SearchRequest(BaseModel):
-    query: str
-    partner_id: str | None = None
-    product_id: str | None = None
-    top_k: int = Field(default=3, ge=1, le=10)
+@app.get("/api/sessions/{session_id}/shared-knowledge/zip")
+def download_shared_knowledge_zip(session_id: str) -> Response:
+    session = store.get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
 
+    shared = session.get("shared_knowledge")
+    if not shared or not shared.get("files"):
+        raise HTTPException(status_code=400, detail="Shared knowledge not generated yet.")
 
-@app.post("/api/knowledge/search")
-def search_knowledge(body: SearchRequest) -> dict[str, Any]:
-    from services.faq_search import FAQ_SEARCH_THRESHOLD, faq_match_score
+    stamp = datetime.now().strftime("%d%m%Y_%H%M")
+    zip_filename = f"knowledge_shared_{stamp}.zip"
 
-    query = body.query.strip()
-    if not query:
-        raise HTTPException(status_code=400, detail="Query is required.")
-
-    q_lower = query.lower()
-    products = store.list_products()
-    results: list[dict[str, Any]] = []
-
-    def append_result(
-        *,
-        score: float,
-        matched_tags: list[str],
-        partner_id: str,
-        product_id: str,
-        faq: dict[str, Any],
-    ) -> None:
-        if score < FAQ_SEARCH_THRESHOLD:
-            return
-        results.append(
-            {
-                "score": round(score, 3),
-                "partner_id": partner_id,
-                "product_id": product_id,
-                "faq_id": faq.get("id"),
-                "canonical_question": faq.get("canonical_question", ""),
-                "answer": faq.get("answer"),
-                "category": faq.get("category"),
-                "tags": faq.get("tags") or [],
-                "matched_tags": matched_tags,
-            }
-        )
-
-    for item in products:
-        if body.partner_id and item["partner_id"] != body.partner_id:
-            continue
-        if body.product_id and item["product_id"] != body.product_id:
-            continue
-        product = store.load_product(item["partner_id"], item["product_id"])
-        if not product:
-            continue
-        for faq in product.get("faqs", []):
-            score, matched_tags = faq_match_score(q_lower, faq)
-            append_result(
-                score=score,
-                matched_tags=matched_tags,
-                partner_id=item["partner_id"],
-                product_id=item["product_id"],
-                faq=faq,
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+        for file_entry in shared["files"]:
+            zf.writestr(
+                file_entry["zip_path"],
+                file_entry["json_text"],
             )
+    buffer.seek(0)
 
-    for cross in store.list_cross_products():
-        file_id = cross["file_id"]
-        if body.partner_id or body.product_id:
-            continue
-        data = store.load_cross_product(file_id)
-        if not data:
-            continue
-        for faq in data.get("faqs", []):
-            score, matched_tags = faq_match_score(q_lower, faq)
-            append_result(
-                score=score,
-                matched_tags=matched_tags,
-                partner_id="cross_product",
-                product_id=file_id,
-                faq=faq,
-            )
-
-    results.sort(key=lambda x: x["score"], reverse=True)
-    return {"query": body.query, "results": results[: body.top_k]}
+    return Response(
+        content=buffer.getvalue(),
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="{zip_filename}"'},
+    )
 
 
 if __name__ == "__main__":

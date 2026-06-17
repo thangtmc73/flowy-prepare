@@ -1,0 +1,280 @@
+{
+  "product_id": "credit_topup",
+  "partner_id": "gic",
+  "product_name": "Credit Topup Insurance",
+  "partner_name": "GIC Insurance",
+  "version": "1.0",
+  "last_updated": "2026-06-14",
+  "faqs": [
+    {
+      "id": "gic_credit_topup_001",
+      "canonical_question": "Bảo hiểm Sống tự tin là gì?",
+      "user_questions": [
+        "Bảo hiểm Sống tự tin là gì?",
+        "Giải thích về bảo hiểm Sống tự tin",
+        "Sống tự tin là sản phẩm bảo hiểm nào",
+        "GIC Bảo hiểm Sống tự tin là gì?",
+        "Bảo hiểm GIC Sống tự tin là gì?",
+        "Bảo hiểm Credit Topup là gì?",
+        "Bảo hiểm GIC Credit Topup là gì?"
+      ],
+      "answer": "Bảo hiểm Sống tự tin được cung cấp bởi Tổng Công Ty Cổ Phần Bảo Hiểm Toàn Cầu (GIC), thông qua Đại lý bảo hiểm Fuse. Bảo vệ Khách hàng trước rủi ro tai nạn trong cuộc sống và chi trả trợ cấp thất nghiệp cho Khách hàng nếu doanh nghiệp phá sản/cắt giảm nhân sự diện rộng.",
+      "category": "Giới thiệu",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_002",
+      "canonical_question": "Bảo hiểm Sống tự tin có mức phí là bao nhiêu?",
+      "user_questions": [
+        "Bảo hiểm Sống tự tin có mức phí là bao nhiêu?",
+        "Phí bảo hiểm Sống tự tin là bao nhiêu?",
+        "Giá gói bảo hiểm Sống tự tin",
+        "GIC Bảo hiểm Sống tự tin có mức phí là bao nhiêu?",
+        "Bảo hiểm GIC Sống tự tin có mức phí là bao nhiêu?",
+        "Bảo hiểm Credit Topup có mức phí là bao nhiêu?",
+        "Bảo hiểm GIC Credit Topup có mức phí là bao nhiêu?",
+        "Phí bảo hiểm GIC là bao nhiêu?",
+        "Chi phí GIC Credit Topup?"
+      ],
+      "answer": "Tùy theo gói bảo hiểm mà Khách hàng lựa chọn sẽ có mức phí tương ứng: \n\nGói cơ bản: 4,000 VNĐ/ tháng (Đã bao gồm VAT)\nGói phổ thông: 8,000 VNĐ/ tháng (Đã bao gồm VAT)\nGói nâng cao: 15,000 VNĐ/ tháng (Đã bao gồm VAT)",
+      "category": "Chi phí",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_003",
+      "canonical_question": "Điều kiện tham gia bảo hiểm Sống tự tin là gì?",
+      "user_questions": [
+        "Điều kiện tham gia bảo hiểm Sống tự tin là gì?",
+        "Ai được tham gia bảo hiểm Sống tự tin?",
+        "Yêu cầu để mua bảo hiểm Sống tự tin",
+        "GIC Điều kiện tham gia bảo hiểm Sống tự tin là gì?",
+        "Điều kiện tham gia bảo hiểm GIC Sống tự tin là gì?",
+        "Điều kiện tham gia bảo hiểm Credit Topup là gì?",
+        "Điều kiện tham gia bảo hiểm GIC Credit Topup là gì?",
+        "Điều kiện tham gia GIC?",
+        "Ai mua được bảo hiểm GIC?"
+      ],
+      "answer": "Người dùng hoàn tất đóng phí Bảo hiểm Sống tự tin trên Zalopay\nMọi công dân Việt Nam và người nước ngoài đang sinh sống, làm việc tại Việt Nam từ 18 tuổi đến 65 tuổi (sau đây gọi là Người được bảo hiểm). Không nhận bảo hiểm cho các đối tượng:\nNhững người bị bệnh tâm thần\nNhững người bị tàn phế hoặc thương tật vĩnh viễn từ 50% trở lên;\nKhông đang trong quá trình điều trị thương tật.\nLà Người lao động tại các Doanh nghiệp có thực hiện việc trả lương thông qua tài khoản tại Ngân hàng",
+      "category": "Điều kiện",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_004",
+      "canonical_question": "Bảo hiểm Sống tự tin có thời hạn trong bao lâu?",
+      "user_questions": [
+        "Bảo hiểm Sống tự tin có thời hạn trong bao lâu?",
+        "Thời hạn bảo hiểm Sống tự tin là bao nhiêu ngày?",
+        "Bảo hiểm Sống tự tin có hiệu lực trong bao lâu?",
+        "GIC Bảo hiểm Sống tự tin có thời hạn trong bao lâu?",
+        "Bảo hiểm GIC Sống tự tin có thời hạn trong bao lâu?",
+        "Bảo hiểm Credit Topup có thời hạn trong bao lâu?",
+        "Bảo hiểm GIC Credit Topup có thời hạn trong bao lâu?"
+      ],
+      "answer": "Thời hạn bảo hiểm của sản phẩm này là 1 tháng (30 ngày).",
+      "category": "Thời hạn",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_005",
+      "canonical_question": "Gói bảo hiểm Sống tự tin có tự động gia hạn không?",
+      "user_questions": [
+        "Gói bảo hiểm Sống tự tin có tự động gia hạn không?",
+        "Bảo hiểm Sống tự tin có tự động gia hạn?",
+        "Hết hạn có tự gia hạn không?",
+        "GIC Gói bảo hiểm Sống tự tin có tự động gia hạn không?",
+        "Gói bảo hiểm GIC Sống tự tin có tự động gia hạn không?",
+        "Gói bảo hiểm Credit Topup có tự động gia hạn không?",
+        "Gói bảo hiểm GIC Credit Topup có tự động gia hạn không?"
+      ],
+      "answer": "Bảo hiểm Sống tự tin sẽ không tự động gia hạn bảo hiểm. Khách hàng có thể mua đơn bảo hiểm mới vào đợt thanh toán tiếp theo trên ứng dụng Zalopay.",
+      "category": "Quy trình mua",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_006",
+      "canonical_question": "Bảo hiểm Sống tự tin được kích hoạt khi nào?",
+      "user_questions": [
+        "Bảo hiểm Sống tự tin được kích hoạt khi nào?",
+        "Khi nào bảo hiểm Sống tự tin có hiệu lực?",
+        "Thời điểm kích hoạt bảo hiểm Sống tự tin",
+        "GIC Bảo hiểm Sống tự tin được kích hoạt khi nào?",
+        "Bảo hiểm GIC Sống tự tin được kích hoạt khi nào?",
+        "Bảo hiểm Credit Topup được kích hoạt khi nào?",
+        "Bảo hiểm GIC Credit Topup được kích hoạt khi nào?"
+      ],
+      "answer": "Bảo hiểm Sống tự tin sẽ được kích hoạt khi Khách hàng thực hiện thanh toán thành công qua ứng dụng Zalopay.\nBảo hiểm Sống tự tin có hiệu lực từ thời điểm Khách hàng thanh toán thành công phí bảo hiểm.",
+      "category": "Thời hạn",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_007",
+      "canonical_question": "Tôi có thể hủy Gói bảo hiểm Sống tự tin này và được hoàn phí không?",
+      "user_questions": [
+        "Tôi có thể hủy Gói bảo hiểm Sống tự tin này và được hoàn phí không?",
+        "Có được hoàn tiền bảo hiểm Sống tự tin không?",
+        "Hủy bảo hiểm Sống tự tin có hoàn phí không?",
+        "GIC Tôi có thể hủy Gói bảo hiểm Sống tự tin này và được hoàn phí không?",
+        "Tôi có thể hủy Gói bảo hiểm GIC Sống tự tin này và được hoàn phí không?",
+        "Tôi có thể hủy Gói bảo hiểm Credit Topup này và được hoàn phí không?",
+        "Tôi có thể hủy Gói bảo hiểm GIC Credit Topup này và được hoàn phí không?"
+      ],
+      "answer": "Có. Khách hàng hoàn toàn có thể yêu cầu hủy đơn và hoàn phí bảo hiểm trong trường hợp: Đơn bảo hiểm phải được yêu cầu hủy và yêu cầu hoàn phí được thực hiện trong vòng 3 ngày tính từ thời điểm thanh toán đơn bảo hiểm thành công và chưa nhận tiền bồi thường bảo hiểm từ GIC.\nQuý khách có thể kiểm tra thời điểm thanh toán đơn bảo hiểm thành công ở mục Lịch sử giao dịch trên ứng dụng Zalopay.",
+      "category": "Quy trình mua",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_008",
+      "canonical_question": "Phí bảo hiểm sẽ được hoàn qua hình thức nào?",
+      "user_questions": [
+        "Phí bảo hiểm sẽ được hoàn qua hình thức nào?",
+        "Tiền hoàn phí về đâu?",
+        "Hình thức hoàn tiền bảo hiểm Sống tự tin",
+        "GIC Phí bảo hiểm sẽ được hoàn qua hình thức nào?",
+        "Phí bảo hiểm GIC sẽ được hoàn qua hình thức nào?"
+      ],
+      "answer": "Phí bảo hiểm sẽ được hoàn trực tiếp về tài khoản Zalopay của Khách hàng.",
+      "category": "Quy trình mua",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_009",
+      "canonical_question": "Khi nào và qua đâu tôi nhận được Giấy chứng nhận bảo hiểm?",
+      "user_questions": [
+        "Khi nào thì tôi nhận được Giấy chứng nhận bảo hiểm?",
+        "Giấy chứng nhận bảo hiểm gửi khi nào?",
+        "Giấy chứng nhận bảo hiểm sẽ được gửi tới tôi qua đâu?",
+        "GIC Khi nào và qua đâu tôi nhận được Giấy chứng nhận bảo hiểm?",
+        "Khi nào và qua đâu tôi nhận được Giấy chứng nhận bảo hiểm?",
+        "Khi nào và qua đâu tôi nhận được Giấy chứng nhận bảo hiểm GIC?"
+      ],
+      "answer": "Khách hàng sẽ nhận được Giấy chứng nhận bảo hiểm ngay sau khi đã thanh toán thành công phí bảo hiểm.\nThông báo",
+      "category": "Quy trình mua",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_010",
+      "canonical_question": "Quy trình yêu cầu bồi thường bảo hiểm Sống tự tin như thế nào?",
+      "user_questions": [
+        "Quy trình yêu cầu bồi thường bảo hiểm Sống tự tin như thế nào?",
+        "Làm sao để yêu cầu bồi thường bảo hiểm?",
+        "Hướng dẫn làm thủ tục bồi thường Sống tự tin",
+        "GIC Quy trình yêu cầu bồi thường bảo hiểm Sống tự tin như thế nào?",
+        "Quy trình yêu cầu bồi thường bảo hiểm GIC Sống tự tin như thế nào?",
+        "Quy trình yêu cầu bồi thường bảo hiểm Credit Topup như thế nào?",
+        "Quy trình yêu cầu bồi thường bảo hiểm GIC Credit Topup như thế nào?",
+        "Bồi thường GIC như thế nào?",
+        "Quy trình bồi thường GIC"
+      ],
+      "answer": "1. Tổng đài dịch vụ hỗ trợ dịch vụ:\nHotline của Tổng đài hỗ trợ: +84 28 7300 8803\nZalo Official Account: Fuse Online Customer Service\nThời gian hỗ trợ Khách hàng: \n8h00 – 20h00 các ngày trong tuần,\n9h00 – 18h00 các ngày cuối tuần, trừ ngày lễ - tết\n2. Dịch vụ yêu cầu chi trả bồi thường \nBước 1: Truy cập vào Cổng bồi thường số qua đường link đính kèm trong Giấy chứng nhận bảo hiểm trên ứng dụng Zalopay \nBước 2: Đăng nhập với số điện thoại được liên kết với Tài khoản Zalopay của bạn\nBước 3: Điền đầy đủ các thông tin cá nhân, mô tả sự kiện bảo hiểm và tải lên các chứng từ liên quan. \nBước 4: Cập nhật các tài liệu theo yêu cầu. \nBước 5: Theo dõi tiến độ xử lý bồi thường tại Cổng bồi thường số",
+      "category": "Bồi thường",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_011",
+      "canonical_question": "Hồ sơ yêu cầu bồi thường bảo hiểm Sống tự tin gồm những gì?",
+      "user_questions": [
+        "Hồ sơ yêu cầu bồi thường bảo hiểm Sống tự tin gồm những gì?",
+        "Cần giấy tờ gì để bồi thường bảo hiểm?",
+        "Danh sách tài liệu yêu cầu bồi thường Sống tự tin",
+        "GIC Hồ sơ yêu cầu bồi thường bảo hiểm Sống tự tin gồm những gì?",
+        "Hồ sơ yêu cầu bồi thường bảo hiểm GIC Sống tự tin gồm những gì?",
+        "Hồ sơ yêu cầu bồi thường bảo hiểm Credit Topup gồm những gì?",
+        "Hồ sơ yêu cầu bồi thường bảo hiểm GIC Credit Topup gồm những gì?"
+      ],
+      "answer": "Đối với Quyền lợi liên quan đến Tai nạn: Quyền lợi (1), (2), (3):\nGiấy chứng nhận bảo hiểm hoặc hợp đồng bảo hiểm (bản mềm). \nBiên bản tường trình tai nạn có xác nhận của cơ quan chức năng có thẩm quyền (nếu có), trường hợp tai nạn giao thông có công an tham gia phải có kết luận điều tra của công an (trường hợp tai nạn sinh hoạt vui lòng cung cấp thông tin người làm chứng kèm số điện thoại liên hệ). \nBản mềm các chứng từ y tế: giấy ra viện, phiếu điều trị, phiếu mổ (trường hợp phẫu thuật), đơn thuốc, biên lai, hóa đơn thu tiền theo quy định hiện hành của Bộ Tài Chính, kết quả X-quang,... do người có thẩm quyền của cơ sở y tế ký, đóng dấu. \nBản mềm Giấy chứng tử (trường hợp Người được bảo hiểm tử vong). \nTrường hợp người thụ hưởng là người thừa kế hợp pháp phải có bản mềm giấy xác nhận quyền thừa kế hợp pháp. Người được bảo hiểm ủy quyền cho người khác nhận tiền bảo hiểm, phải có bản mềm giấy ủy quyền hợp pháp. \nCác giấy tờ khác có liên quan đến việc giải quyết quyền lợi bảo hiểm (nếu có).\nĐối với quyền lợi Trợ cấp thất nghiệp: Quyền lợi (4):\nHợp đồng lao động của Người Được Bảo Hiểm (Sao y công chứng);\nQuyết định của Tòa án Nhân dân tuyên bố Doanh nghiệp Phá Sản (đối với trường hợp Phá Sản) (bản chụp);\nQuyết định của Doanh nghiệp cho Người Được Bảo Hiểm nghỉ việc (Sao y công chứng);\nVăn bản xác nhận/ Quyết định của Sở Lao động, thương binh xã hội về việc hưởng trợ cấp thất nghiệp của Người được bảo hiểm (Sao y công chứng).\nCác tài liệu, văn bản về quy mô đợt cắt giảm Người lao động của Doanh nghiệp (Bản chụp);\nVăn Bản Chấm Dứt Hợp Đồng Lao Động của Người sử dụng lao động (Sao y công chứng)\nCác giấy tờ khác có liên quan đến việc giải quyết quyền lợi bảo hiểm (nếu có).",
+      "category": "Bồi thường",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    },
+    {
+      "id": "gic_credit_topup_012",
+      "canonical_question": "Liên hệ hỗ trợ bảo hiểm Sống tự tin qua số điện thoại nào?",
+      "user_questions": [
+        "Liên hệ hỗ trợ bảo hiểm Sống tự tin qua số điện thoại nào?",
+        "Số hotline bảo hiểm Sống tự tin là gì?",
+        "Tổng đài hỗ trợ bảo hiểm Sống tự tin",
+        "GIC Liên hệ hỗ trợ bảo hiểm Sống tự tin qua số điện thoại nào?",
+        "Liên hệ hỗ trợ bảo hiểm GIC Sống tự tin qua số điện thoại nào?",
+        "Liên hệ hỗ trợ bảo hiểm Credit Topup qua số điện thoại nào?",
+        "Liên hệ hỗ trợ bảo hiểm GIC Credit Topup qua số điện thoại nào?",
+        "Hotline GIC",
+        "Số điện thoại GIC",
+        "Liên hệ GIC như thế nào?"
+      ],
+      "answer": "Hotline của Tổng đài hỗ trợ: +84 28 7300 8803\nZalo Official Account: Fuse Online Customer Service\nThời gian phục vụ Khách hàng: \n8h00 – 20h00 các ngày trong tuần và,\n9h00 – 18h00 các ngày cuối tuần, trừ ngày lễ - tết\nTrung tâm chăm sóc Khách hàng:\nCÔNG TY TNHH FUSE ONLINE\nĐịa chỉ (Address): 180 – 192 Nguyễn Công Trứ, Phường Nguyễn Thái Bình, Quận 1, TP HCM\nĐiện thoại (Telephone): +84 28 7300 8803\nEmail: cs@fuse.com.vn\nZalo Official Account: Fuse Online Customer Service",
+      "category": "Liên hệ",
+      "tags": [
+        "gic",
+        "imported"
+      ],
+      "related_faq_ids": [],
+      "source": "Update ver_TC Credit topup insurance_Zalopay - GIC 29.04.2025 (002).docx",
+      "priority": 5
+    }
+  ]
+}

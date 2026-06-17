@@ -1,10 +1,6 @@
 import { Link, useLocation } from 'wouter'
 import UploadPage from './pages/UploadPage'
 import ReviewPage from './pages/ReviewPage'
-import KnowledgeListPage from './pages/KnowledgeListPage'
-import ProductPage from './pages/ProductPage'
-import CrossProductPage from './pages/CrossProductPage'
-import UpdatePage from './pages/UpdatePage'
 
 function NavLink({ href, children }) {
   const [location] = useLocation()
@@ -30,11 +26,10 @@ function Layout({ children }) {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <div>
             <h1 className="text-lg font-semibold text-slate-900">Flowy Pre</h1>
-            <p className="text-xs text-slate-500">Knowledge Builder — PDF/DOCX → FAQ</p>
+            <p className="text-xs text-slate-500">PDF/DOCX → FAQ JSON Generator</p>
           </div>
           <nav className="flex flex-wrap gap-1">
             <NavLink href="/">Upload</NavLink>
-            <NavLink href="/knowledge">Knowledge</NavLink>
           </nav>
         </div>
       </header>
@@ -50,20 +45,6 @@ export default function App() {
   if (location.startsWith('/review/')) {
     const sessionId = location.replace('/review/', '')
     page = <ReviewPage sessionId={sessionId} />
-  } else if (location.startsWith('/update/')) {
-    const parts = location.replace('/update/', '').split('/')
-    page = <UpdatePage partnerId={parts[0]} productId={parts[1]} />
-  } else if (location.startsWith('/knowledge/')) {
-    const parts = location.replace('/knowledge/', '').split('/')
-    if (parts[0] === 'cross-product' && parts[1]) {
-      page = <CrossProductPage fileId={parts[1]} />
-    } else if (parts.length >= 2) {
-      page = <ProductPage partnerId={parts[0]} productId={parts[1]} />
-    } else {
-      page = <KnowledgeListPage />
-    }
-  } else if (location === '/knowledge') {
-    page = <KnowledgeListPage />
   }
 
   return <Layout>{page}</Layout>

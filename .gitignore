@@ -1,6 +1,7 @@
 data/sessions/
 data/history/
 data/jobs/
+data/knowledge/
 .env
 .env.*
 .env.deploy

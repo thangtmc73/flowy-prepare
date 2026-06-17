@@ -1,12 +1,119 @@
 {
   "version": "2.0",
   "last_updated": "2026-06-16",
-  "partners": [],
+  "partners": [
+    {
+      "partner_id": "msig",
+      "partner_name": "MSIG Việt Nam",
+      "active": true,
+      "products": [
+        {
+          "product_id": "health_247",
+          "product_name": "Bảo hiểm Sức khỏe 24/7",
+          "category": "health",
+          "file": "partners/msig/health_247.json",
+          "priority": 10,
+          "keywords": [
+            "sức khỏe",
+            "nội trú",
+            "ngoại trú",
+            "telemed",
+            "pharmacity",
+            "whitecoat"
+          ]
+        }
+      ]
+    },
+    {
+      "partner_id": "gic",
+      "partner_name": "GIC Insurance",
+      "active": true,
+      "products": [
+        {
+          "product_id": "credit_topup",
+          "product_name": "Credit Topup Insurance",
+          "category": "financial",
+          "file": "partners/gic/credit_topup.json",
+          "priority": 8,
+          "keywords": [
+            "gic",
+            "financial",
+            "imported"
+          ]
+        }
+      ]
+    },
+    {
+      "partner_id": "vbi",
+      "partner_name": "VBI Insurance",
+      "active": true,
+      "products": [
+        {
+          "product_id": "cyber",
+          "product_name": "Bảo hiểm Cyber",
+          "category": "cyber",
+          "file": "partners/vbi/cyber.json",
+          "priority": 8,
+          "keywords": [
+            "vbi",
+            "cyber",
+            "imported"
+          ]
+        }
+      ]
+    },
+    {
+      "partner_id": "baoviet",
+      "partner_name": "Bảo Việt Insurance",
+      "active": true,
+      "products": [
+        {
+          "product_id": "flight_delay_cancel",
+          "product_name": "Bảo hiểm trễ và hủy chuyến bay",
+          "category": "travel",
+          "file": "partners/baoviet/flight_delay_cancel.json",
+          "priority": 9,
+          "keywords": [
+            "baoviet",
+            "du lịch",
+            "chuyến bay",
+            "trễ chuyến",
+            "hủy chuyến",
+            "saladin",
+            "zalopay"
+          ]
+        }
+      ]
+    }
+  ],
   "categories": [
-    {"id": "health", "name": "Bảo hiểm sức khỏe"},
-    {"id": "car", "name": "Bảo hiểm xe cơ giới"},
-    {"id": "travel", "name": "Bảo hiểm du lịch"},
-    {"id": "financial", "name": "Bảo hiểm tài chính"},
-    {"id": "cyber", "name": "Bảo hiểm an ninh mạng"}
+    {
+      "id": "health",
+      "name": "Bảo hiểm sức khỏe"
+    },
+    {
+      "id": "car",
+      "name": "Bảo hiểm xe cơ giới"
+    },
+    {
+      "id": "travel",
+      "name": "Bảo hiểm du lịch"
+    },
+    {
+      "id": "home",
+      "name": "Bảo hiểm nhà ở"
+    },
+    {
+      "id": "life",
+      "name": "Bảo hiểm nhân thọ"
+    },
+    {
+      "id": "financial",
+      "name": "Bảo hiểm tài chính"
+    },
+    {
+      "id": "cyber",
+      "name": "Bảo hiểm an ninh mạng"
+    }
   ]
 }

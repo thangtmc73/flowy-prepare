@@ -1,0 +1,19 @@
+services:
+  flowy-pre:
+    build:
+      context: .
+      args:
+        VITE_SITE_URL: ${VITE_SITE_URL:-}
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      DRAFTS_DIR: data/sessions
+      JOBS_DIR: data/jobs
+      AGENT_PORT: "8081"
+    volumes:
+      - flowy-pre-data:/app/data
+
+volumes:
+  flowy-pre-data:
